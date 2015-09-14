@@ -55,9 +55,9 @@
 
 //---- Voltage Regulator Control Bytes ----//
 
-#define ctr_reg_3v3		P4.2	// pin for control of 3v3 regulator number 1
-#define ctr_reg_3v3_2	P4.4	// pin for control of 3v3 regulator number 2
-#define ctr_reg_5v		P4.6	// pin for control of 5v regulator
+#define ctr_reg_1		P4.2	// pin for control of 3v3 regulator number 1
+#define ctr_reg_2		P4.4	// pin for control of 3v3 regulator number 2
+#define ctr_reg_3		P4.6	// pin for control of 5v regulator
 
 //---- Status and Cyclic Redundancy Check Bytes ----//
 
