@@ -59,6 +59,16 @@
 #define ctr_reg_2		P4.4	// pin for control of 3v3 regulator number 2
 #define ctr_reg_3		P4.6	// pin for control of 5v regulator
 
+//---- MPPT Control Bytes ----//
+
+#define ctr_mppt_1	0x0	//
+#define ctr_mppt_2	0x0	//
+#define ctr_mppt_3	0x0	//
+#define ctr_mppt_4	0x0	//
+#define ctr_mppt_5	0x0	//
+#define ctr_mppt_6	0x0	//
+
+
 //---- Status and Cyclic Redundancy Check Bytes ----//
 
 #define mppt_st	0x0		// mppt status byte
