@@ -3,9 +3,8 @@
 
 */
 
-
 #include <msp430.h>
-#include "EPS_definitions.h"
+
 
 #define NUM_BYTES  1                        // How many bytes?
 //**** Please note this value needs to be the same as NUM_BYTES_RX in the
@@ -17,82 +16,8 @@ volatile unsigned char TXByteCtr, RXByteCtr, RX = 0;
 unsigned char *PTxData;                     // Pointer to TX data
 unsigned char *PRxData;                     // Pointer to RX data
 volatile unsigned char RxBuffer[8];       // Allocate 10 byte of RAM
-int SLV_Data[47] =
 
-	{
-		start_byte,							// '#' character
-
-		//----- ADC DATA -----//
-
-		header_start_byte,					// '%' character
-		0x41,								// 'A' character
-		0x44,								// 'D' character
-		0x43,								// 'C' character
-
-		adc0_msb,							// ADC channel 0 data
-		adc0_lsb,
-
-		adc1_msb,							// ADC channel 1 data
-		adc1_lsb,
-
-		adc2_msb,							// ADC channel 2 data
-		adc2_lsb,
-
-		adc3_msb,							// ADC channel 3 data
-		adc3_lsb,
-
-		adc4_msb,							// ADC channel 4 data
-		adc4_lsb,
-
-		adc5_msb,							// ADC channel 5 data
-		adc5_lsb,
-
-		adc6_msb,							// ADC channel 6 data
-		adc6_lsb,
-
-		adc7_msb,							// ADC channel 7 data
-		adc7_lsb,
-
-		//----- MSP TEMPERATURE SENSOR DATA -----//
-
-		msp_ts_msb,							// MSP internal temperature sensor data
-		msp_ts_lsb,
-
-		//----- BATTERY MONITOR DATA -----//
-
-		header_start_byte,					// '#' character
-		0x42,								// 'B' character
-		0x41,								// 'A' character
-		0x54,								// 'T' character
-
-		avc_msb, 							// average current data
-		avc_lsb,
-
-		tr_msb,								// temperature register data
-		tr_lsb,
-
-		vr_msb,								// voltage register data
-		vr_lsb,
-
-		cr_msb,								// current register data
-		cr_lsb,
-
-		acr_msb,							// accumulated current register data
-		acr_lsb,
-
-		//----- STATUS AMD CRC DATA ----//
-
-		fault,								// battery charger fault byte
-
-		mppt_st,							// mppt status byte
-
-		0,								// voltage regulators status byte
-
-		crc,								// cyclic redundancy check byte
-
-		end_byte							// '!' byte
-
-		};
+extern volatile int SLV_Data[47];
 
 
 
@@ -102,15 +27,12 @@ void USCI_SLAVE_SETUP(void);
 void Setup_RX(void);
 void Receive(void);
 
-int main(void)
+void I2C_main(void)
 {
   WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
   P4DIR = 0Xff;
 
-  while(1){
   USCI_SLAVE_SETUP();
-  P4OUT = RxBuffer[6];
-  }
 }
 
 //------------------------------------------------------------------------------

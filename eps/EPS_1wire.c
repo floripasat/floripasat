@@ -1,7 +1,23 @@
 #include <msp430.h>
+#include "EPS_1wire.h"
+
+
+volatile int msp_ts_msb=0x00;
+volatile int msp_ts_lsb=0x00;
+volatile int avc_msb=0x00;
+volatile int avc_lsb=0x00;
+volatile int vr_msb=0x00;
+volatile int vr_lsb=0x00;
+volatile int tr_msb=0x00;
+volatile int tr_lsb=0x00;
+volatile int cr_msb=0x00;
+volatile int cr_lsb=0x00;
+volatile int acr_msb=0x00;
+volatile int acr_lsb=0x00;
 
 
 //configuration functions
+void config_MSP430(void);
 void config_DS2784(void);
 
 //Measurement functions
@@ -23,28 +39,19 @@ int OWReadByte(void);
 #define P_1WireIN P1IN
 #define DIR_P_1Wire P1DIR
 
-volatile int msp_ts_msb=0x00;
-volatile int msp_ts_lsb=0x00;
-volatile int avc_msb=0x00;
-volatile int avc_lsb=0x00;
-volatile int vr_msb=0x00;
-volatile int vr_lsb=0x00;
-volatile int tr_msb=0x00;
-volatile int tr_lsb=0x00;
-volatile int cr_msb=0x00;
-volatile int cr_lsb=0x00;
-volatile int acr_msb=0x00;
-volatile int acr_lsb=0x00;
+
 
 
 
 volatile int cont= 0;
 
+
+
 /*************************************************************************/
 //                        main
 /************************************************************************/
 
-int main(void)
+void  ONE_wire_main(void)
 {
 	config_MSP430();
 
@@ -53,7 +60,6 @@ int main(void)
 	measurement_data_DS2784();
 
 
- __bis_SR_register(LPM0_bits + GIE);       // Enter LPM0 w/ interrupt
 }
 
 
@@ -135,7 +141,7 @@ void measurement_data_DS2784(void){
     volatile unsigned int reset=0x1;
 
 
-   // TEMPERATURE MEASUREMENT
+/*   // TEMPERATURE MEASUREMENT
 
     reset= OneWireReset();              // TEMPERATURE MEASUREMENT - LSB REGISTER
     OWWriteByte(0xCC);
@@ -200,6 +206,7 @@ void measurement_data_DS2784(void){
     OWWriteByte(0x0E);
     cr_msb=OWReadByte();
 
+    */
     //VOLTAGE MEASUREMENT
 
     reset= OneWireReset();           // VOLTAGE MEASUREMENT - LSB REGISTER
@@ -217,6 +224,8 @@ void measurement_data_DS2784(void){
     vr_msb=aux>>5;
     aux=aux<<3;
     vr_lsb|=aux & 0xF8;
+
+    CCTL0 = ~CCIE;
 
 
 

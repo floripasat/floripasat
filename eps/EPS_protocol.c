@@ -4,7 +4,10 @@ This file contains all functions related to the creation of the data package to 
 
 */
 
-#include "EPS_Definitions.h"
+
+#include "EPS_protocol.h"
+
+volatile int SLV_Data[47] = {0};
 
 
 void write_data_package (void){
@@ -25,8 +28,8 @@ void write_data_package (void){
 	SLV_Data[18] =  adc6_lsb;
 	SLV_Data[19] =  adc7_msb;
 	SLV_Data[20] =  adc7_lsb;
-	SLV_Data[21] =  msp_ts_msb;
-	SLV_Data[22] =  msp_ts_lsb;
+	//SLV_Data[21] =  msp_ts_msb;
+	//SLV_Data[22] =  msp_ts_lsb;
 	SLV_Data[27] =  avc_msb;
 	SLV_Data[28] =  avc_lsb;
 	SLV_Data[29] =  tr_msb;
@@ -37,10 +40,11 @@ void write_data_package (void){
 	SLV_Data[34] =  cr_lsb;
 	SLV_Data[35] =  acr_msb;
 	SLV_Data[36] =  acr_lsb;
-	SLV_Data[41] =  fault;
-	SLV_Data[42] =  mppt_st;
-	SLV_Data[43] =  reg_st;
-	SLV_Data[44] =  crc;
+	//SLV_Data[41] =  fault;
+	//SLV_Data[42] =  mppt_st;
+	//SLV_Data[43] =  reg_st;
+	
+	// SLV_Data[44] =  crc;
 
 }
 

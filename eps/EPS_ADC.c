@@ -1,11 +1,5 @@
 #include <msp430.h>
-
-
-//configuration function
-void config_MSP430(void);
-
-//Measurement function
-void measurement__adc(void);
+#include "EPS_ADC.h"
 
 volatile int adc0_msb=0x00;
 volatile int adc0_lsb=0x00;
@@ -24,14 +18,21 @@ volatile int adc6_lsb=0x00;
 volatile int adc7_msb=0x00;
 volatile int adc7_lsb=0x00;
 
-int main(void)
+
+//configuration function
+void config_MSP430_ADC(void);
+
+//Measurement function
+void measurement__adc(void);
+
+
+
+void ADC_main(void)
 {
-	config_MSP430();
+	config_MSP430_ADC();
 
 	measurement__adc();
 
-
- __bis_SR_register(LPM0_bits + GIE);       // Enter LPM0 w/ interrupt
 }
 
 
@@ -47,7 +48,7 @@ int main(void)
  ***********************************************************************/
 
 
-void config_MSP430(void){
+void config_MSP430_ADC(void){
 
 	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
