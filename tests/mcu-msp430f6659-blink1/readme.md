@@ -9,14 +9,17 @@
 
 #### Connected pins:
 
-MCU Pin 	  | Functionality 		|	Connected to
-------------- 	  | -------------		|       ------------- 
-11		  | AVCC1 (3v3)			|	Programmer 3v3 VCC_TOOL (Pin 2)	
-12		  | AVSS1 (GND)			|	Programmer GND (Pin 9)	
-91		  | TCK				|	Programmer TCK (Pin 7)	
-96		  | TDIO			|	Programmer TDIO (Pin 1), with a pullup	
-35		  | P1.1  (LED control) 	|	LED anode
+MCU Pin   		 |  Programmer Pin
+---------------  | -----------------
+63  DVSS2 (GND)  |  Programmer GND (Pin 9) 
+64  DVCC2 (VCC)  |  Programmer 3v3 VCC_TOOL (Pin 2) 
+91	TCK			 |  Programmer TCK (Pin 7)	
+96	TDIO		 |  Programmer TDIO (Pin 1), with a pullup	
+35	P1.1  (LED)  |  LED anode
 
+Opcional: (Analog Bus - not needed for blink test)
+11  AVCC1 (3v3)  |  Programmer 3v3 VCC_TOOL (Pin 2) 
+12  AVSS1 (GND)  |  Programmer GND (Pin 9)  
 
 Notes:
 - Led catode is connected to ground with a 470Ohm resistor.
