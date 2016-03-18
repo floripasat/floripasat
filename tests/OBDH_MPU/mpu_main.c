@@ -3,6 +3,7 @@
  * Adpatation from arduino to msp430 - http://playground.arduino.cc/Main/MPU-9150
  */
 #include <msp430.h>
+#include <stdio.h>
 
 #define MPU9150_SELF_TEST_X        0x0D   // R/W
 #define MPU9150_SELF_TEST_Y        0x0E   // R/W
@@ -112,6 +113,9 @@ char RXByteCtr;
 void write_i2c(volatile unsigned char reg_adrr, volatile unsigned char data);
 void setup_i2c(volatile unsigned char dev_adrr);
 char read_i2c(volatile unsigned char reg_adrr);
+void setup_uart(void);
+void uart_tx(char * tx_data);
+void float_send(float c);
 void MPU9150_setupCompass(void);
 int MPU9150_readSensor(int addrH, int addrL);
 void clear(void);
@@ -119,6 +123,9 @@ void clear(void);
 #define x  0
 #define y  1
 #define z  2
+
+char i = 'a';
+volatile unsigned char *PTxUart;
 
 int mag[3];
 int acc[3];
@@ -129,11 +136,12 @@ void main(void) {
 	WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
 	__bis_SR_register(GIE);
 	setup_i2c(0x68);
+	setup_uart();
 	write_i2c(MPU9150_PWR_MGMT_1, 0x00);
 	MPU9150_setupCompass();
 	while (1) {
 		temp = (float) MPU9150_readSensor(MPU9150_TEMP_OUT_H,
-				MPU9150_TEMP_OUT_L) / 340 + 35;
+		MPU9150_TEMP_OUT_L) / 340 + 35;
 
 		acc[x] = MPU9150_readSensor(MPU9150_ACCEL_XOUT_H, MPU9150_ACCEL_XOUT_L);
 		acc[y] = MPU9150_readSensor(MPU9150_ACCEL_YOUT_H, MPU9150_ACCEL_YOUT_L);
@@ -146,6 +154,14 @@ void main(void) {
 		mag[x] = MPU9150_readSensor(MPU9150_CMPS_XOUT_H, MPU9150_CMPS_XOUT_L);
 		mag[y] = MPU9150_readSensor(MPU9150_CMPS_YOUT_H, MPU9150_CMPS_YOUT_L);
 		mag[z] = MPU9150_readSensor(MPU9150_CMPS_ZOUT_H, MPU9150_CMPS_ZOUT_L);
+
+		 unsigned char string[30];
+
+		uart_tx("linha teste\r\n");
+		//uart_tx(acc[x]);
+		 sprintf(string, "%d \r\n", acc[x]);
+		 uart_tx(string);
+		 //tentar o type of para fazer um switch case e implementar apenas uma função
 	}
 }
 
@@ -191,6 +207,29 @@ __interrupt void USCI_B0_ISR(void) {
 		break;
 	}
 }
+
+#pragma vector=USCI_A0_VECTOR
+__interrupt void USCI_A0_ISR(void) {
+	switch (__even_in_range(UCA0IV, 4)) {
+	case 0:
+		break;                             // Vector 0 - no interrupt
+	case 2:
+		break;                             // Vector 2 - RXIFG
+	case 4:								   // Vector 4 - TXIFG
+		while (*PTxUart) // Increment through array, look for null pointer (0) at end of string
+			{
+				while ((UCA0STAT & UCBUSY));     // Wait if line TX/RX module is busy with data
+				UCA0TXBUF = *PTxUart++;          // Send out element i of tx_data array on UART bus
+			}
+		UCA0IFG &= ~UCTXIFG;
+		UCA0IE &= ~UCTXIE;
+		__bic_SR_register_on_exit(LPM0_bits); // Exit LPM0
+		break;
+	default:
+		break;
+	}
+}
+
 void write_i2c(volatile unsigned char reg_adrr, volatile unsigned char data) {
 	volatile unsigned char TxData[] = { reg_adrr, data };
 	PTxData = (volatile unsigned char *) TxData;
@@ -198,11 +237,10 @@ void write_i2c(volatile unsigned char reg_adrr, volatile unsigned char data) {
 	UCB0CTL1 |= UCTR + UCTXSTT;
 	UCB0IE |= UCTXIE;
 	__bis_SR_register(LPM0_bits);
-	while (UCB0CTL1 & UCTXSTP)
-		;
+	while (UCB0CTL1 & UCTXSTP);
 }
 void setup_i2c(volatile unsigned char dev_adrr) {
-	P3SEL |= 0x03;                            // Assign I2C pins to USCI_B0
+	P3SEL |= BIT0 + BIT1;                     // Assign I2C pins to USCI_B0
 	UCB0CTL1 |= UCSWRST;                      // Enable SW reset
 	UCB0CTL0 = UCMST + UCMODE_3 + UCSYNC;     // I2C Master, synchronous mode
 	UCB0CTL1 = UCSSEL_2 + UCSWRST;            // Use SMCLK, keep SW reset
@@ -219,8 +257,7 @@ char read_i2c(volatile unsigned char reg_adrr) {
 	UCB0CTL1 |= UCTR + UCTXSTT;
 	UCB0IE |= UCTXIE;
 	__bis_SR_register(LPM0_bits);
-	while (UCB0CTL1 & UCTXSTP)
-		;
+	while (UCB0CTL1 & UCTXSTP);
 	RXByteCtr = 1;
 	UCB0CTL1 &= ~UCTR;
 	UCB0CTL1 |= UCTXSTT;
@@ -265,4 +302,45 @@ int MPU9150_readSensor(int addrH, int addrL) {
 	clear();
 	L = read_i2c(addrL);
 	return (int) ((H << 8) + L);
+}
+
+void setup_uart(void) {
+	P3SEL |= BIT3 + BIT4;                      // P3.3,4 = USCI_A0 TXD/RXD
+	UCA0CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	UCA0CTL1 |= UCSSEL_1;                     // CLK = ACLK
+	UCA0BR0 = 0x03;                        // 32kHz/9600=3.41 (see User's Guide)
+	UCA0BR1 = 0x00;                           //
+	UCA0MCTL = UCBRS_3 + UCBRF_0;             // Modulation UCBRSx=3, UCBRFx=0
+	UCA0CTL1 &= ~UCSWRST;                   // **Initialize USCI state machine
+}
+void uart_tx(char *tx_data) // Define a function which accepts a character pointer to an array
+{
+	PTxUart = tx_data;
+	UCA0IE |= UCTXIE;                         // Enable USCI_A0 TX interrupt
+	__bis_SR_register(LPM0_bits);
+}
+
+void float_send(float c){
+
+    volatile long int d;
+	volatile  unsigned int hundreds, tens, units, tenths, hundredths, thousandths, tenthousandths,thousandth, ten_thousandths = 0;
+	volatile long int remainder;
+    unsigned char string[30];
+
+    c *= 10000;
+    d = (long int)c;
+    tens = d/100000;
+    remainder =d - tens*100000;
+    units = remainder/10000;
+    remainder = remainder - units*10000;
+	tenths = remainder/1000;
+    remainder = remainder - tenths*1000;
+    hundredths = remainder/100;
+    remainder = remainder - hundredths *100;
+    thousandth = remainder/10;
+	remainder = remainder -thousandth*10;
+	ten_thousandths=remainder;
+    sprintf(string, "%d%d.%d%d%d%d", tens, units, tenths, hundredths,thousandth,ten_thousandths);
+	uart_tx(string);
+
 }
