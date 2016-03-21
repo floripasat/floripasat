@@ -11,8 +11,6 @@
 #define y  1
 #define z  2
 
-unsigned char string[30];
-
 int mag[3];
 int acc[3];
 int gyr[3];
@@ -44,31 +42,31 @@ void main(void) {
 
 		uart_tx("temp: ");
 		float_send(temp);
-		uart_tx("       ");;
-
+		uart_tx("  ");;
+		uart_tx("  ");
 		uart_tx("acc: ");
 		int_send(acc[x]);
-		uart_tx("     ");
+		uart_tx(" ");
 		int_send(acc[y]);
-		uart_tx("     ");
+		uart_tx(" ");
 		int_send(acc[z]);
-		uart_tx("       ");
-
+		uart_tx("  ");
+		uart_tx("  ");
 		uart_tx("gyr: ");
 		int_send(gyr[x]);
-		uart_tx("     ");
+		uart_tx(" ");
 		int_send(gyr[y]);
-		uart_tx("     ");
+		uart_tx(" ");
 		int_send(gyr[z]);
-		uart_tx("       ");
-
+		uart_tx("  ");
+		uart_tx("  ");
 		uart_tx("mag: ");
 		int_send(mag[x]);
-		uart_tx("     ");
+		uart_tx(" ");
 		int_send(mag[y]);
-		uart_tx("     ");
+		uart_tx(" ");
 		int_send(mag[z]);
-		uart_tx("       ");
+		uart_tx("  ");
 		uart_tx("\r\n");
 
 		__delay_cycles(500000);

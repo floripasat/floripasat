@@ -23,7 +23,7 @@ void setup_uart(void) {
 }
 
 void uart_tx(char *tx_data) // Define a function which accepts a character pointer to an array
-		{
+{
 	PTxUart = tx_data;
 	UCA0IE |= UCTXIE;                         // Enable USCI_A0 TX interrupt
 	__bis_SR_register(LPM0_bits);
@@ -55,8 +55,31 @@ void float_send(float c) {
 }
 
 void int_send(int data){
-	unsigned char string[30];
+	int i,j,n;
+	unsigned char string[7];
+	n=1;
 	sprintf(string, "%d", data);
+
+	///////// >> string /////////
+
+	//discovering the index
+	for(i=0; i < sizeof string;i++){
+		if (string[i]==NULL){
+			j=i;
+			break;
+		}
+	}
+	//shifting to right
+	for(i=j;i>=0;i--){
+		string[sizeof string - n++]=string[i-1];
+	}
+
+	//filling up with blank spaces
+	for(i=sizeof string - j - 1;i>=0;i--){
+		string[i]=' ';
+	}
+	/////////(end) >> string /////////
+
 	uart_tx(string);
 }
 #endif /* MPU_UART_H_ */
