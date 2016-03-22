@@ -92,6 +92,7 @@ static void waitUs(uint16 uSec);
 //serial functions  (FloripaSat)
 void UART_TX(char * tx_data);
 void Radio_Text_RX(void);
+void Radio_Text_TX(void);
 void transmit_dataRx_serial(uint8  rxByter[30]);
 
 int main(void) {
@@ -101,11 +102,42 @@ int main(void) {
     registerConfig();									// Write radio registers
 
     Radio_Text_RX();											//Write to serial: configuration Radio
-    runRX();                                            //configurator Radio
+
+
+    __disable_interrupt();
+    P4IFG &= 0x00;   // limpiar flag
+    P4DIR |= BIT0;
+    P4IE |= BIT0 ;
+    __enable_interrupt();
+
+
+
+     runRX();                                            //configurator Radio
 
 }
 
 
+// Echo character
+#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+#pragma vector=PORT4_VECTOR
+__interrupt void PORT4_ISR (void)
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(PORT4_VECTOR))) PORT4_ISR (void)
+#else
+#error Compiler not supported!
+#endif
+{
+	P4IE |= BIT0 ;
+	Radio_Text_TX();
+	runTX();
+
+
+	// Flush RX FIFO
+	trxSpiCmdStrobe(CC112X_SFRX);
+	Radio_Text_RX();
+
+	P4IFG &= 0x00;   // limpiar flag
+}
 
 
 /*******************************************************************************
@@ -189,16 +221,16 @@ static void runTX(void) {
 
 
 	// Calibrate radio according to errata
-	manualCalibration();
+	//manualCalibration();
 
 	// Infinite loop
-	while(1){
+//	while(1){
 
 		// Wait for button push
-		if(1) {										// --------------->  Definir condição de entrada <----------------
+	//	if(1) {										// --------------->  Definir condição de entrada <----------------
 
 			// Continiously sent packets until button is pressed
-		    do {
+		   // do {
 		    	// Update packet counter
 		        packetCounter++;
 
@@ -221,24 +253,24 @@ static void runTX(void) {
 		        // Wait for interrupt that packet has been sent.
 		        // (Assumes the GPIO connected to the radioRxTxISR function is
 		        // set to GPIOx_CFG = 0x06)
-		        while(packetSemaphore != ISR_ACTION_REQUIRED);
+		       // while(packetSemaphore != ISR_ACTION_REQUIRED);
 
 		        // Clear semaphore flag
                packetSemaphore = ISR_IDLE;
 
 
                //Wait for a random amount of time between each packet
-		       waitMs(3*(rand()%10+3));				// ---------------> Função utilizada simplesmente para adicionar delay ente pacotes transmitidos
+		     //  waitMs(3*(rand()%10+3));				// ---------------> Função utilizada simplesmente para adicionar delay ente pacotes transmitidos
 
 		     //  cc112xSpiReadReg(CC112X_IOCFG2, &saveRegisterTest, 1); //Test
 
 		    //} while (!bspKeyPushed(BSP_KEY_ALL));
-		    } while (1);							// --------------->  Definir condição de saida <----------------
-		}
+		   // } while (1);							// --------------->  Definir condição de saida <----------------
+		//}
 
 
 
-	}
+	//}
 }
 
 /*******************************************************************************
@@ -634,6 +666,26 @@ void Radio_Text_RX(void){
 
 
 	}
+
+/************************************************************************/
+/*  - name: Radio_Text_TX
+ *  - Description: text message: Tx radio configuration
+ *  - input data:  --
+ *  - output data: --
+ ***********************************************************************/
+
+
+void Radio_Text_TX(void){
+
+ UART_TX("*************************\r\n");
+ UART_TX("* CC1125 Radio Transmit *\r\n");
+ UART_TX("*************************\r\n");
+
+
+
+}
+
+
 
 /************************************************************************/
 /*  - name: transmit_dataRx_serial
