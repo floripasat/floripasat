@@ -40,10 +40,6 @@ void main(void) {
 		mag[y] = MPU9150_readSensor(MPU9150_CMPS_YOUT_H, MPU9150_CMPS_YOUT_L);
 		mag[z] = MPU9150_readSensor(MPU9150_CMPS_ZOUT_H, MPU9150_CMPS_ZOUT_L);
 
-		uart_tx("temp: ");
-		float_send(temp);
-		uart_tx("  ");;
-		uart_tx("  ");
 		uart_tx("acc: ");
 		int_send(acc[x]);
 		uart_tx(" ");
@@ -67,6 +63,8 @@ void main(void) {
 		uart_tx(" ");
 		int_send(mag[z]);
 		uart_tx("  ");
+		uart_tx("temp: ");
+		float_send(temp);
 		uart_tx("\r\n");
 
 		__delay_cycles(500000);
