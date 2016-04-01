@@ -58,3 +58,17 @@ void measurement_ADC(void)
 
 
 }
+
+void config_MSP430_ADC(void)
+{
+	ADC12CTL0 = ADC12ON+MSC+SHT0_2 + REFON + REF2_5V;  		// Turn on ADC12, set sampling time, 16 ADC12CLK cycles, Vref=2.5V
+	ADC12CTL1 = SHP + CONSEQ_1;								// sampling signal source is sampling timer, conversion mode is sequence of channels
+	ADC12MCTL0 = INCH_0+SREF_1;                   			// ref+=VREF+, channel = A0
+	ADC12MCTL1 = INCH_1+SREF_1;                   			// ref+=VREF+, channel = A1
+	ADC12MCTL2 = INCH_2+SREF_1;                   			// ref+=VREF+, channel = A2
+	ADC12MCTL3 = INCH_3+SREF_1;                   			// ref+=VREF+, channel = A3
+	ADC12MCTL4 = INCH_4+SREF_1;                   			// ref+=VREF+, channel = A4
+	ADC12MCTL5 = INCH_5+SREF_1;              				// ref+=VREF+, channel = A5
+	ADC12MCTL6 = INCH_10+SREF_1+EOS;                		// ref+=VREF+, channel = temperature diode, end of sequence
+	ADC12CTL0 |= ENC;                       				// Enable conversions
+}
