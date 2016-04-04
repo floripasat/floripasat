@@ -11,17 +11,22 @@ int main(void)
   {
     while(1);                               // do not load, trap CPU!!
   }
-  BCSCTL1 = CALBC1_8MHZ;                    // Set DCO
-  DCOCTL = CALDCO_8MHZ;
-  P3SEL = 0x30;                             // P3.4,5 = USCI_A0 TXD/RXD
-  UCA0CTL1 |= UCSSEL_2;                     // SMCLK
-  UCA0BR0 = 65;                            // 1MHz 9600; (104)decimal = 0x068h
-  UCA0BR1 = 3;                              // 1MHz 9600
-  UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
-  UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+
   while(1){
   uart_tx("foradilma");
   }
+}
+
+void config_MSP430_UART(void)
+{
+	 BCSCTL1 = CALBC1_8MHZ;                    // Set DCO
+	  DCOCTL = CALDCO_8MHZ;
+	  P3SEL = 0x30;                             // P3.4,5 = USCI_A0 TXD/RXD
+	  UCA0CTL1 |= UCSSEL_2;                     // SMCLK
+	  UCA0BR0 = 65;                            // 1MHz 9600; (104)decimal = 0x068h
+	  UCA0BR1 = 3;                              // 1MHz 9600
+	  UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
+	  UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
 }
 
 void uart_tx(char *tx_data)              // Define a function which accepts a character pointer to an array
