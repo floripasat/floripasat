@@ -1,21 +1,7 @@
+#include <eps_serial_test.h>
 #include <msp430.h>
 
-void uart_tx(char *tx_data);
-void config_MSP430_UART(void);
 
-int main(void)
-{
-  WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
-  config_MSP430_UART();
-  if (CALBC1_1MHZ==0xFF)					// If calibration constant erased
-  {
-    while(1);                               // do not load, trap CPU!!
-  }
-
-  while(1){
-  uart_tx("testABC");
-  }
-}
 
 void config_MSP430_UART(void)
 {
