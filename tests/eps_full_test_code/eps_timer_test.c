@@ -6,6 +6,7 @@
  */
 #include <eps_timer_test.h>
 #include <eps_serial_test.h>
+#include <eps_ADC_test.h>
 #include <msp430.h>
 
 
@@ -19,7 +20,8 @@ __interrupt void Timer_A (void)
 {
  if(cont==3){								// period = CCR0 * 2 * cont / clock => 50m = 50000*2*cont/(8*10^6) => cont = 3 (starts at 0)
 //	 P2OUT ^= 0x01;							// toggle P2.0 to determine frequency of timer output
-	 uart_tx("test");						// sends string "test" via UART
+	 measurement_ADC();						// calls ADC measurement function
+	 text();
 	 cont = 0;								// reset cont
   }else{
 	    cont ++;							// increments cont to achieve desired output period
