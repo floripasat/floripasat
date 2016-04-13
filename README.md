@@ -151,9 +151,66 @@ If a critical failure leads to a state that prevents the the cubesat to perform 
 This mode is mandatory due ITU regulation, in which an external entity (with proper approval / justification) must be able to shutdown the satellite if, for instance, it starts do interfere or polute the RF spectrum in a non planned/approved way (ie. due internal failure). 
 
 
-### 4 - Complete shutdown
+### 3.2 - Complete shutdown
 No eletronic element is powered up and batteries are completely discharged. 
 Antenna may be open or closed. 
+
+
+## 4 - Data format
+
+Considerations:
+- Since the maximum packet length transmitted by the radio consists of 150 bytes, this length was used as upper cap to avoid packet fragmentation in the lower communication layer. 
+
+```
+
+
+          OSI MODEL                 DESCRIPTION                                                 PACKET STRUCTURE 
+       EQUIVALENT LAYER                                                                                          
+      .--------------.  |  .----------------------------. |  .----------------.-------------.--------.-------------.-----------.--------------.
+      |    OSI 7     |  |  | Floripasat Dataframe (FDF) | |  | Start Of Frame | Destination | Source |   Content   | Signature | End Of Frame |
+      |              |  |  |----------------------------| |  |----------------|-------------|--------|-------------|-----------|--------------|
+      |              |  |  | Short name                 | |  | SOF            | TO          | FROM   | DATA        | CRC       | EOF          |
+      | Application  |  |  | Size (Bytes)               | |  | 1 Byte         | 1 Byte      | 1 Byte | 1 to 90     | 1 Byte    | 1 Byte       |
+      |              |  |  | Numeric Value (if static)  | |  | 0x7B           |             |        | Bytes       |           | 0x7D         |
+      |              |  |  | ASCII Representation       | |  | {              |             |        |             |           | }            |
+      '--------------'  |  '----------------------------' |  '----------------'-------------'--------'-------------'-----------'--------------'
+                        |                                 |
+      ---------------------------------------------------------------------------------------------------------|------------------------------>
+                        |                                 |                                                    v
+      .--------------.  |  .---------------------------.  |  .------.-------------.---------.------------.-------------.-------------.------.
+      |   OSI 3-6    |  |  |       AX.25 (v2.0)        |  |  | Flag | Destination | Source  |  Protocol  | Information | Frame-check | Flag |
+      |              |  |  |---------------------------|  |  |      |   Address   | Address | Identifier |    Field    |  Sequence   |      |
+      | Network      |  |  | Size (Bytes)              |  |  |------|-------------|---------|------------|-------------|-------------|------|
+      | Transport    |  |  |                           |  |  | 1 B  | 7 B         | 7 B     | 1 B        | 6 to 95 B   | 2 B         | 1 B  |
+      | Session      |  |  |                           |  |  |      |             |         |            |             |             |      |
+      | Presentation |  |  |                           |  |  |      |             |         |            |             |             |      |
+      '--------------'  |  '---------------------------'  |  '------'-------------'---------'------------'-------------'-------------'------'
+                        |                                 |
+      ------------------------------------------------------------------------------------------------------------------|--------------------->
+                        |                                 |                                                             v
+      .--------------.  |  .---------------------------.  |   .------------.------------.------------.---------.---------------.------------.
+      |    OSI 2     |  |  |       CC1125 packet       |  |   |  Preamble  |   Sync     |   Length   | Address |     Data      |   CRC16    |
+      |              |  |  |---------------------------|  |   |            |    word    |   Field    |  field  |     Field     |            |
+      | Data Link    |  |  | Userguide pg 45           |  |   |------------|------------|------------|---------|---------------|------------|
+      |              |  |  |                           |  |   | n x 1B     | max 4 B    | 1 B        | 1 B     | 25 to 114 B   | 2 B        |
+      |              |  |  |                           |  |   |            |            |            |         |               |            |
+      |              |  |  |                           |  |   |            |            |            |         |               |            |
+      '--------------'  |  '---------------------------'  |   '------------'------------'------------'---------'---------------'------------'
+                        |                                 |
+      ---------------------------------------------------------------------------------------------------------------------------------------->
+                        |                                 |
+      .--------------.  |  .---------------------------.  |   .-----------------------------------------------------------------------------.
+      |    OSI 1     |  |  | Frequency: 437.5 Mhz      |  |   |                                                                             |
+      |              |  |  | Modulation: 2GFSK         |  |   |                                                                             |
+      | Physical     |  |  |                           |  |   |                                RF Spectrum                                  |
+      |              |  |  |                           |  |   |                                                                             |
+      |              |  |  |                           |  |   |                                                                             |
+      |              |  |  |                           |  |   |                                                                             |
+      '--------------'  |  '---------------------------'  |   '-----------------------------------------------------------------------------'
+                        |                                 |
+                        v                                 v
+
+```
 
 
 
