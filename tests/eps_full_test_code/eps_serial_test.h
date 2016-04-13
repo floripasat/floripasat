@@ -30,6 +30,20 @@ extern volatile int adc7_lsb;
 extern volatile int msp_ts_msb;
 extern volatile int msp_ts_lsb;
 
+/********** DS2784 VARIABLES **********/
+
+extern volatile int avc_msb;
+extern volatile int avc_lsb;
+extern volatile int vr_msb;
+extern volatile int vr_lsb;
+extern volatile int tr_msb;
+extern volatile int tr_lsb;
+extern volatile int cr_msb;
+extern volatile int cr_lsb;
+extern volatile int acr_msb;
+extern volatile int acr_lsb;
+
+volatile unsigned int RG_Protection;
 
 /********** UART functions **********/
 
