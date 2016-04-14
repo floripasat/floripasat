@@ -30,6 +30,11 @@ extern volatile int adc7_lsb;
 extern volatile int msp_ts_msb;
 extern volatile int msp_ts_lsb;
 
+extern volatile float mean_voltage;
+extern volatile float mean_current;
+
+extern volatile int LCA;
+
 /********** DS2784 VARIABLES **********/
 
 extern volatile int avc_msb;

@@ -35,26 +35,36 @@ void text(void)
 	volatile float c;
 	volatile int signal = 0;
 
+
+	switch(LCA){
+		case 0: uart_tx("Decrease");
+		break;
+
+		case 1: uart_tx("Increase");
+		break;
+
+		case 2: uart_tx("-Eclipse");
+		break;
+
+		case 3: uart_tx("-TurnOff");
+		break;
+
+		default: uart_tx("NULLNULL");
+	}
+
+	     uart_tx(",");
+
+
 	//ADC4
-	a=adc4_lsb;								// take adc1 LSB
-	b=adc4_msb;								// take adc1 MSB
-	b=b<<8;									// shift MSB 8 bits to the left
-	a=a+b;									// add LSB and shifted MSB to have a full 16bit number
-	c=a*0.00061035;    						// multiply by ADC resolution 2.5/(2^12)
 	// uart_tx(" ADC4= ");					// used for better visual purposes, not used in tests
-	float_send(c);							// call function to send float value via UART
+	float_send(mean_voltage);				// call function to send float value via UART
 	// uart_tx("V");						// used for better viasual purposes, not used in tests
 	uart_tx(",");							// send comma via UART (easer data separation in tests)
 
 	//ADC5
-	a=adc5_lsb;								// take adc1 LSB
-	b=adc5_msb;								// take adc1 MSB
-	b=b<<8;									// shift MSB 8 bits to the left
-	a=a+b;									// add LSB and shifted MSB to have a full 16bit number
-	c=a*0.00061035;    						// multiply by ADC resolution 2.5/(2^12)
 	// uart_tx(" ADC5= ");					// used for better visual purposes, not used in tests
-	float_send(c);							// call function to send float value via UART
-	// uart_tx("V");						// used for better viasual purposes, not used in tests
+	float_send(mean_current);				// call function to send float value via UART
+	// uart_tx("A");						// used for better viasual purposes, not used in tests
 	uart_tx(",");							// send comma via UART (easer data separation in tests)
 
 	//Average Current
