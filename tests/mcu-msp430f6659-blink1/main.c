@@ -4,20 +4,19 @@
  * main.c
  */
 int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-	
-    // LED connected to P1.1 (pin 35)
-    P1DIR |= 0x02; // set as output
+    WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
+    
+    // LED connected to P5.4 (p 32) - OBDH SYSTEM LED
+    P5DIR |= 0x10; // set as output
 
     for (;;) {
 
-    	P1OUT ^= 0x02; //toggle port state
+        P5OUT ^= 0x10; //toggle port state
 
-    	int i = 0;
-    	for(i=0; i< 40000; i++); //delay
+        int i = 0;
+        __delay_cycles(100001);
 
     }
     // should never reach this point
-	return 0;
+    return 0;
 }
-
