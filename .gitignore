@@ -26,3 +26,10 @@
 *.exe
 *.out
 *.app
+
+
+#OBDH output files
+obdh/Debug/*
+obdh/.settings/org.eclipse.core.resources.prefs
+
+
