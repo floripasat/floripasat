@@ -1,22 +1,40 @@
 #include <msp430.h> 
+#include "HAL_obdh.h"
+
+
+void boot_setup(void);
+
+
 
 /*
  * main.c
  */
 int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+
+	boot_setup();
 	
-    // LED connected to P5.4 (p 32) - OBDH SYSTEM LED
-    P5DIR |= 0x10; // set as output
 
     for (;;) {
 
-    	P5OUT ^= 0x10; //toggle port state
-
-    	int i = 0;
+    	sysled_toggle();
     	__delay_cycles(100001);
-
     }
+
+
     // should never reach this point
 	return 0;
 }
+
+
+
+
+
+void boot_setup(void) {
+
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+
+	sysled_enable();
+
+}
+
+
