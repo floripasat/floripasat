@@ -31,12 +31,12 @@ int main(void) {
 			_ReadId(IdBuffer, sizeof IdBuffer);
 		while(IdBuffer[0] != 0x20 && IdBuffer[1] != 0xBA && IdBuffer[2] != 0x21);
 		_WriteExtendedAddressRegister(0x01);
-		//_SectorErase(memory_adress);
+		_SectorErase(memory_adress);
 
-		//_PageProgram(memory_adress, testFrame, sizeof testFrame);	//writing data
+		_PageProgram(memory_adress, testFrame, sizeof testFrame);	//writing data
 		//status = _ReadStatusRegister();
 		//__delay_cycles(5000);
 		//memory_adress += sizeof FloripaSatTXFrame;	  //updating adress
-		//_Read(memory_adress, RDFrame, sizeof RDFrame);	//reading data
+		_Read(memory_adress, RDFrame, sizeof RDFrame);	//reading data
 	}
 }
