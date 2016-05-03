@@ -12,13 +12,12 @@
 
 #define HIGH	true			//state high for slave select
 #define LOW		false			//state low for slave select
+#define DummyByte		0x00
 
-unsigned char *DPTR;       		//data pointer
-unsigned int num_bytes;			//number of bytes
 
 void _setup_USCIA1_SPI(void);
 void _SS(bool state);
-void _SPI_TX(unsigned char TXframe[], int sizeTX);
-void _SPI_RX(unsigned char TXframe[], int sizeTX, unsigned char RXBuffer[], int bytesToRead);
+void _SPI_TX(unsigned char byte);
+unsigned char _SPI_RX();
 
 #endif /* _MEMORY_SPI_H_ */

@@ -10,7 +10,6 @@
 
 //auxiliar defines
 
-#define FloripaSatFrameSize 26								//frame size
 
 //COMMANDS OF THE MEMORY
 
@@ -48,6 +47,7 @@
 
 // register operation
 #define ReadStatusRegister 							0x05
+#define WriteinProgress								0x01
 #define WriteStatusRegister 						0x01
 #define ReadLockRegister 							0xE8
 #define WriteLockRegister 							0xE5
@@ -94,7 +94,7 @@ unsigned long memory_adress;								//memory adress
 void _ResetEnable(void);
 void _ResetMemory(void);
 // identification operations
-void _ReadId(void);
+void _ReadId(unsigned char *Buffer, int bytes);
 void _MultipleIOReadId(void);
 void _ReadSerialFlashDiscoveryParameter(void);
 // read operations
@@ -119,7 +119,7 @@ void _4ByteQuadInputOutputFastRead(void);
 void _WriteEnable(void);
 void _WriteDisable(void);
 // register operation
-void _ReadStatusRegister(void);
+unsigned char _ReadStatusRegister(void);
 void _WriteStatusRegister(void);
 void _ReadLockRegister(void);
 void _WriteLockRegister(void);
@@ -132,16 +132,16 @@ void _WriteVolatileConfigurationRegister(void);
 void _ReadEnhancedVolatileConfigurationRegister(void);
 void _WriteEnhancedVolatileConfigurationRegister(void);
 void _ReadExtendedAddressRegister(void);
-void _WriteExtendedAddressRegister(void);
+void _WriteExtendedAddressRegister(unsigned char byte);
 // program operations
-void _PageProgram(unsigned long startAdress, unsigned char *Data);
+void _PageProgram(unsigned long startAdress, unsigned char *Data, int bytes);
 void _DualInputFastProgram(void);
 void _ExtendedDualInputFastProgram(void);
 void _QuadInputFastProgram(void);
 void _ExtendedQuadInputFastProgram(void);
 // erase operations
 void _SubsectorErase(void);
-void _SectorErase(void);
+void _SectorErase(unsigned long startAdress);
 void _DieErase(void);
 void _ProgramEraseResume(void);
 void _ProgramEraseSuspend(void);
