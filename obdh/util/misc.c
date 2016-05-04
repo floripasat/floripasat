@@ -6,7 +6,7 @@
  */
 
 #include "misc.h"
-#include "HAL_obdh.h"
+#include "../hal/obdh_engmodel1.h"
 
 
 void sysled_enable(){
