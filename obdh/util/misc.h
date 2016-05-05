@@ -8,6 +8,8 @@
 #ifndef MISC_H_
 #define MISC_H_
 
+#define TRUE 1
+#define FALSE 0
 
 void sysled_enable(void);
 void sysled_toggle(void);
