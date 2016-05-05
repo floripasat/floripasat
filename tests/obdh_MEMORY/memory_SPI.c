@@ -11,21 +11,21 @@
 
 
 void _setup_USCIA1_SPI(void) {
-	P8SEL |= BIT1 + BIT2 + BIT3;            				// clk,mosi,miso
-	P8DIR |= BIT4;												// ss
-	P8OUT |= BIT4;												// ss activate in low
+	P8SEL |= BIT1 + BIT2 + BIT3;            						// clk,mosi,miso
+	P8DIR |= BIT4;													// ss
+	P8OUT |= BIT4;													// ss activate in low
 
-	UCA1CTL1 |= UCSWRST;                      					// **Put state machine in reset**
-	UCA1CTL0 |= UCMODE_0 | UCMST | UCSYNC | UCMSB | UCCKPH; 				// 4pin, 8-bit SPI master, Clock polarity high, clock phase, MSB
-	UCA1CTL1 |= UCSSEL_2;                     					// SMCLK
-	UCA1BR0 = 0x02;                           					// /2
-	UCA1BR1 = 0;                              					//
-	UCA1MCTL = 0;                             					// No modulation
+	UCA1CTL1 |= UCSWRST;                      						// **Put state machine in reset**
+	UCA1CTL0 |= UCMODE_0 | UCMST | UCSYNC | UCMSB | UCCKPH;// 4pin, 8-bit SPI master, Clock polarity high, clock phase, MSB
+	UCA1CTL1 |= UCSSEL_2;                     						// SMCLK
+	UCA1BR0 = 0x02;                           						// /2
+	UCA1BR1 = 0;                              						//
+	UCA1MCTL = 0;                             						// No modulation
 	UCA1IE |= UCRXIE | UCTXIE;
-	UCA1CTL1 &= ~UCSWRST;                   					// **Initialize USCI state machine**
+	UCA1CTL1 &= ~UCSWRST;                   						// **Initialize USCI state machine**
 }
 
-void _SS(bool state) {											// setting and clearing SS pin
+void _SS(bool state) {												// setting and clearing SS pin
 	switch (state) {
 	case LOW:
 		P8OUT &= ~BIT4;

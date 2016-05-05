@@ -33,6 +33,7 @@ void _WriteDisable(void) {
 }
 
 void _PageProgram(unsigned long startAdress, unsigned char Data[], int bytes){
+	_WriteEnable();
 	unsigned int i;
 	_SS(LOW);													//start of the communication
 	_SPI_TX(PageProgram);										//sends first the comand

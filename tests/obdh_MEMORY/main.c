@@ -27,9 +27,10 @@ int main(void) {
 
 	while (1)
 	{
-		do
+		//do{
 			_ReadId(IdBuffer, sizeof IdBuffer);
-		while(IdBuffer[0] != 0x20 && IdBuffer[1] != 0xBA && IdBuffer[2] != 0x21);
+		//}while(IdBuffer[0] != 0x20 && IdBuffer[1] != 0xBA && IdBuffer[2] != 0x21);
+/*
 		_WriteExtendedAddressRegister(0x01);
 		_SectorErase(memory_adress);
 
@@ -38,5 +39,6 @@ int main(void) {
 		//__delay_cycles(5000);
 		//memory_adress += sizeof FloripaSatTXFrame;	  //updating adress
 		_Read(memory_adress, RDFrame, sizeof RDFrame);	//reading data
+*/
 	}
 }
