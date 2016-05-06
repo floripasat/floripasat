@@ -11,6 +11,7 @@
 
 void sysled_enable(void){
 	SYSLED_PORT_DIR |= SYSLED_PIN; // set as output
+	SYSLED_PORT_OUT &= ~SYSLED_PIN;
 }
 
 
