@@ -17,7 +17,7 @@ void i2c_setup(unsigned int device){
 		UCB0BR1 = 0;
 		UCB0I2CSA = EPS_I2C_ADRESS;                         // Slave Address
 		UCB0CTL1 &= ~UCSWRST;                    // Clear SW reset, resume operation
-		UCB0IE |= UCRXIE;                         // Enable RX interrupt
+		UCB0IE |= UCRXIE + UCNACKIFG;                         // Enable RX interrupt
 
 		break;
 
@@ -28,7 +28,7 @@ void i2c_setup(unsigned int device){
 		UCB1CTL1 |= UCSWRST;                      // Enable SW reset
 		UCB1CTL0 = UCMST | UCMODE_3 | UCSYNC;     // I2C Master, synchronous mode
 		UCB1CTL1 = UCSSEL_2 | UCSWRST;            // Use SMCLK, keep SW reset
-		UCB1BR0 = 12;                             // fSCL = SMCLK/12 = ~100kHz
+		UCB1BR0 = 24;                             // fSCL = SMCLK/12 = ~100kHz
 		UCB1BR1 = 0;
 		UCB1I2CSA = MPU_I2C_ADRESS;                         // Slave Address
 		UCB1CTL1 &= ~UCSWRST;                    // Clear SW reset, resume operation
@@ -39,12 +39,15 @@ void i2c_setup(unsigned int device){
 }
 
 void i2c_read_epsFrame(unsigned char *Buffer, unsigned int bytes){
+	while (stillReading == 1);             // Ensure stop condition got sent
 	PRxData = Buffer;
 	RXByteCtr = bytes;
 	UCB0CTL1 &= ~UCTR;
-	UCB0IFG |= UCRXIFG;
+	stillReading = 1;
 	UCB0CTL1 |= UCTXSTT;
 }
+
+
 
 void Port_Mapping_UCB0(void) {
 	// Disable Interrupts before altering Port Mapping registers
@@ -75,28 +78,29 @@ void Port_Mapping_UCB0(void) {
 __interrupt void USCI_B0_ISR(void) {
 	switch (__even_in_range(UCB0IV, 12)) {
 	case 0:
-		break;                           			// Vector  0: No interrupts
+		break;                           // Vector  0: No interrupts
 	case 2:
-		break;                           			// Vector  2: ALIFG
-	case 4:
-		break;                           			// Vector  4: NACKIFG
+		break;                           // Vector  2: ALIFG
+	case 4:                           // Vector  4: NACKIFG
+		stillReading = 0;
+		break;
 	case 6:
-		break;                           			// Vector  6: STTIFG
+		break;                           // Vector  6: STTIFG
 	case 8:
-		break;                           			// Vector  8: STPIFG
-	case 10:                           				// Vector 10: RXIFG
-		RXByteCtr--;                           		// Decrement RX byte counter
+		break;                           // Vector  8: STPIFG
+	case 10:                                  // Vector 10: RXIFG
+		RXByteCtr--;                            // Decrement RX byte counter
 		if (RXByteCtr > 0) {
-			*PRxData++ = UCB0RXBUF;           		// Move RX data to address PRxData
+			*PRxData++ = UCB0RXBUF;           // Move RX data to address PRxData
+			if (RXByteCtr == 1)                   // Only one byte left?
+				UCB0CTL1 |= UCTXSTP;              // Generate I2C stop condition
 		} else {
-			*PRxData = UCB0RXBUF;               	// Move final RX data to PRxData
-			UCB0CTL1 |= UCTXSTP;					// Generate I2C stop condition
-			while (UCB0CTL1 & UCTXSTP);
-			UCB0IFG &= ~UCRXIFG;
+			*PRxData = UCB0RXBUF;               // Move final RX data to PRxData
+			stillReading = 0;
 		}
 		break;
 	case 12:
-		break;                           			// Vector 12: TXIFG
+		break;                           // Vector 12: TXIFG
 	default:
 		break;
 	}
