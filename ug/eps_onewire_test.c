@@ -24,13 +24,16 @@
 #define current_LSB_register 0x0F
 #define voltage_MSB1_register 0x0C
 #define voltage_LSB1_register 0x0D
-
+#define voltage_MSB2_register 0x1C
+#define voltage_LSB2_register 0x1D
 
 
 volatile int avc_msb=0x00;
 volatile int avc_lsb=0x00;
-volatile int vr_msb=0x00;
-volatile int vr_lsb=0x00;
+volatile int vr_msb1=0x00;
+volatile int vr_lsb1=0x00;
+volatile int vr_msb2=0x00;
+volatile int vr_lsb2=0x00;
 volatile int tr_msb=0x00;
 volatile int tr_lsb=0x00;
 volatile int cr_msb=0x00;
@@ -44,13 +47,6 @@ unsigned char protection_register_msb = 0x00;
 unsigned char protection_register_lsb = 0x00;
 
 volatile unsigned int count = 0;
-
-
-void config_MSP430_ONE_WIRE(void){
-    P4SEL |= 0x20;
-    P4OUT |= 0X20;
-
-}
 
 
 /************************************************************************/
@@ -83,10 +79,10 @@ void outp(int bit){
 int inp(void){
 	unsigned int result=0;
 
-	 DIR_P_Wire &= ~BitWire;          //sets P5.5 as input
-	 result= P_WireIN & BitWire;         //prepares the bit on P1.0 to be returned
+	 DIR_P_Wire &= ~BitWire;          //sets pin as input
+	 result= P_WireIN & BitWire;         //prepares the bit on pin to be returned
 
-	 return result;		        //returns the bit on P1.0
+	 return result;		        //returns the bit on pin
 
 	}
 
@@ -102,9 +98,9 @@ int OneWireReset(void){
 
 	int result=0;
 
-	  outp(1);				        //drives P1.0 high
+	  outp(1);				        //drives pin to high
 	__delay_cycles(0);			    // delay of 0
-	  outp(0);				        //drives P1.0 low
+	  outp(0);				        //drives pin low
 	__delay_cycles(3812);			//delay of 480us, 8,12MHz* 480us=3897
 
 	  outp(1);						//releases the bus
@@ -130,7 +126,7 @@ void OneWireWrite(int bit){
 
 
 		if(bit == 1){
-			outp(0);				//drives P1.0 low
+			outp(0);				//drives pin low
 		__delay_cycles(40);		    //delay of 6us, 8,12 MHz*6us= 44
 
 			outp(1);				//releases the bus
@@ -138,7 +134,7 @@ void OneWireWrite(int bit){
 
 		}else{
 	       // Write '0' bit
-			outp(0);				//drives P1.0 low
+			outp(0);				//drives pin low
 		__delay_cycles(470);		//delay of 60us, 8,12MHz*60us=487
 			outp(1);				//releases the bus
 		__delay_cycles(60);			// delay of 10us, 8MHz*10us=80
@@ -157,7 +153,7 @@ void OneWireWrite(int bit){
 int OneWireReadBit(void){
 
 	int result;
-	outp(0);						//drives P1.0 low
+	outp(0);						//drives pin low
 	__delay_cycles(44);		        //delay of 6us, 8,12 MHz*6us= 44
 
 	outp(1);						//releases the bus
@@ -355,21 +351,38 @@ void measurement_data_DS2784(void){
 
     //VOLTAGE MEASUREMENT
 
-    reset= OneWireReset();           	// VOLTAGE MEASUREMENT - LSB REGISTER
+    reset= OneWireReset();           	// VOLTAGE 1 MEASUREMENT - LSB REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);					// read operation
     OWWriteByte(voltage_LSB1_register);  // register address
     aux=OWReadByte();
-    vr_lsb=aux>>5;
+    vr_lsb1=aux>>5;
 
-    reset= OneWireReset();              // VOLTAGE MEASUREMENT - MSB REGISTER
+    reset= OneWireReset();              // VOLTAGE 1 MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);					// read operation
     OWWriteByte(voltage_MSB1_register);	// register address
     aux=OWReadByte();
-    vr_msb=aux>>5;
+    vr_msb1=aux>>5;
     aux=aux<<3;
-    vr_lsb|=aux & 0xF8;
+    vr_lsb1|=aux & 0xF8;
+
+    reset= OneWireReset();           	// VOLTAGE 2 MEASUREMENT - LSB REGISTER
+    OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
+    OWWriteByte(0x69);					// read operation
+    OWWriteByte(voltage_LSB2_register);  // register address
+    aux=OWReadByte();
+    vr_lsb2=aux>>5;
+
+    reset= OneWireReset();              // VOLTAGE 2 MEASUREMENT - MSB REGISTER
+    OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
+    OWWriteByte(0x69);					// read operation
+    OWWriteByte(voltage_MSB2_register);	// register address
+    aux=OWReadByte();
+    vr_msb2=aux>>5;
+    aux=aux<<3;
+    vr_lsb2|=aux & 0xF8;
+
 
     reset= OneWireReset();				// PROTECTION REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)

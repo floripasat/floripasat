@@ -6,7 +6,6 @@
  */
 
 #ifndef EPS_ONEWIRE_TEST_H_
-void config_MSP430_ONE_WIRE(void);
 void config_DS2784(void);
 
 void measurement_data_DS2784(void);
