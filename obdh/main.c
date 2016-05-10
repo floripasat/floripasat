@@ -1,3 +1,41 @@
+/*************************************************************************************
+****************************OBDH main for the uG mission******************************
+**************************************************************************************
+		Taks:
+
+/////////////////////SETUP/////////////////////
+
+				***waiting for hw/sw boot***----->TBD
+				*watchdog
+				*clock setup
+					-master clock
+					-submaster clock
+				*Timers setup-------------------->TBD
+				*serial communication setup
+					-uart Zboard
+					-i2c eps
+					-i2c mpu
+					-spi beacon
+					-spi memory
+				*enable interrupts
+
+/////////////////////MAIN LOOP////////////////////
+
+				*Read 18 bytes from EPS
+				*Read 5 bytes from beacon
+				*Read 12 bytes from IMU
+				*CRC
+				*Concatenate the frame
+				*Write the frame on memory
+				*Send the frame to uZed via uart
+
+////////////////////frame///////////////////////////
+
+[START BYTE][EPS DATA][BEACON DATA][IMU DATA][CRC][END BYTE]
+
+
+
+*************************************************************************************/
 #include <msp430.h> 
 #include "hal/obdh_engmodel1.h"
 #include "util/uart.h"
