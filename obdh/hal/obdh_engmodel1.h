@@ -10,14 +10,23 @@
 
 #include <msp430.h>
 
+#define LED_ON				1
+#define LED_OFF				0
 
 #define SYSLED_PIN          BIT4		// LED connected to P5.4 (p 32) - OBDH SYSTEM LED
 #define SYSLED_PORT_DIR 	P5DIR
 #define SYSLED_PORT_OUT    	P5OUT
 
+#define UART_DEBUG_RX		1
+#define UART_DEBUG_TX		0
 
-#define LED_ON				1
-#define LED_OFF				0
+#define SECOND_IN_CYCLES	    400
+#define MILISECOND_IN_CYCLES	400
+
+#define  EPS_DATA_LENGTH 	18
+#define  OBDH_DATA_LENGTH 	12
+
+
 
 
 

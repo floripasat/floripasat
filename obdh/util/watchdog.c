@@ -5,9 +5,10 @@
  *      Author: mario
  */
 
+#include "watchdog.h"
 
-void watchdog_setup() {
+void watchdog_setup(void) {
 
-
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
 }

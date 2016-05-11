@@ -52,6 +52,16 @@ unsigned char hex_to_char(unsigned char byte){
 	return character;
 }
 
+
+char* int2char(int value){
+	//up to MSP +- MAX_INT: +- 32767
+	char buffer[10];
+	sprintf(buffer, "%d", value);
+	return buffer;
+}
+
+
+//deprecated. To be removed after team review
 void int_to_char(int data, unsigned char string[], int size){
 	int i,j,n;
 	n=1;

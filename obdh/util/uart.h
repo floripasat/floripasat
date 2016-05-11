@@ -6,10 +6,11 @@
 #include <stdio.h>
 
 
-void uart_setup(unsigned long baud_rate);
-void uart_tx(unsigned char *tx_data);
-unsigned char uart_rx(void);
+void uart_debug_setup(unsigned long baud_rate);
+void uart_debug_tx(char *tx_data);
+char uart_debug_rx(void);
 void uart_tx_hello(void);
-void set_baud_rate(unsigned long baud_rate);
+void uart_tx_newline(void);
+void uart_set_baudrate(unsigned long baud_rate);
 
 #endif
