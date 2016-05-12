@@ -24,7 +24,8 @@
 #define MILISECOND_IN_CYCLES	400
 
 #define  EPS_DATA_LENGTH 	18
-#define  OBDH_DATA_LENGTH 	12
+#define  MPU_DATA_LENGTH 	12
+#define  BEACON_DATA_LENGTH 12
 
 
 

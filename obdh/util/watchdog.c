@@ -12,3 +12,9 @@ void watchdog_setup(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
 }
+
+void setup_clocks(void) {
+	//TODO implementation
+}
+
+

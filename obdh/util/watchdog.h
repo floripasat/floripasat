@@ -11,6 +11,7 @@
 #include <msp430.h>
 
 void watchdog_setup(void);
+void setup_clocks(void);
 
 
 #endif /* UTIL_WATCHDOG_H_ */

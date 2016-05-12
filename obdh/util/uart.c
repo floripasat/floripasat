@@ -46,13 +46,6 @@ void uart_debug_tx_newline(void){
 	uart_debug_tx("\n\r");
 }
 
-
-char uart_debug_rx(void){
-	while ((UCA2STAT & UCBUSY) == TRUE);         	// Wait if line TX/RX module is busy with data
-	return UCA2RXBUF;
-}
-
-
 /*
  * Interrupt Vector
  */

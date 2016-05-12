@@ -33,6 +33,9 @@
 
 [START BYTE][EPS DATA][BEACON DATA][IMU DATA][CRC][END BYTE]
 
+/////////////frame to save into flash///////////////
+
+
 
 
 *************************************************************************************/
@@ -43,47 +46,67 @@
 #include "util/i2c.h"
 #include "util/watchdog.h"
 
-
-
-
-
-
-unsigned char EPSData[18];         // Allocate 18 byte of RAM
-unsigned char FormatedEPSData[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};
-unsigned char time_string[4];
-unsigned int  time;
 unsigned int  cycle_counter = 0;
-char * strbuffer[100];
+unsigned char EPS_data_buffer[EPS_DATA_LENGTH];
+unsigned char MPU_data_buffer[MPU_DATA_LENGTH];
+unsigned char BEACON_data_buffer[BEACON_DATA_LENGTH];
 
-char EPS_data_buffer[EPS_DATA_LENGTH];
+unsigned char String_EPS_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//DEBUG
+unsigned char String_MPU_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//DEBUG
+unsigned char String_BEACON_Data[] = {"0x00,0x00,0x00,0x00,0x00"};//DEBUG
 
+unsigned char * strbuffer[100]; //DEBUG
 
 void main_setup(void);
 
 void main(void) {
 
 	main_setup();
-	time = 1;
 
     while(1) {
 
 
     	cycle_counter++;
     	sysled_toggle();
-    	uart_debug_tx("\n\r----------------------------------------------\n\r");
-    	uart_debug_tx("[FSAT] Cycle: "); uart_debug_tx( int2char(cycle_counter) ); uart_debug_tx_newline();
+    	uart_debug_tx("\n\r----------------------------------------------\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Cycle: "); uart_debug_tx( int2char(cycle_counter) ); uart_debug_tx_newline(); //DEBUG
 
 
-    	uart_debug_tx("[FSAT] Reading EPS...\n\r");
-    	i2c_read_epsFrame(EPSData,sizeof EPSData);
-    	__delay_cycles(10 * 2001);
-    	int_to_char(time,time_string,sizeof time_string);
-    	frame_to_string(EPSData,FormatedEPSData, sizeof FormatedEPSData);
-    	uart_debug_tx(time_string);
-    	uart_debug_tx(" , ");
-    	uart_debug_tx(FormatedEPSData);
-    	uart_debug_tx("\r\n");
-    	uart_debug_tx("[FSAT] Reading EPS DONE.\n\r");
+    	uart_debug_tx("[FSAT] Reading EPS...\n\r"); //DEBUG
+    	i2c_read_epsFrame(EPS_data_buffer,EPS_DATA_LENGTH);
+    	__delay_cycles(1000000);
+    	frame_to_string(EPS_data_buffer,String_EPS_Data, sizeof String_EPS_Data); //DEBUG
+    	uart_debug_tx(String_EPS_Data); //DEBUG
+    	uart_debug_tx_newline(); //DEBUG
+    	uart_debug_tx("[FSAT] Reading EPS DONE.\n\r"); //DEBUG
+
+/*
+    	uart_debug_tx("[FSAT] Reading MPU...\n\r"); //DEBUG
+
+    	frame_to_string(MPU_data_buffer,String_MPU_Data, sizeof String_MPU_Data); //DEBUG
+    	uart_debug_tx(String_MPU_Data); //DEBUG
+    	uart_debug_tx_newline(); //DEBUG
+    	uart_debug_tx("[FSAT] Reading MPU DONE.\n\r"); //DEBUG
+
+    	uart_debug_tx("[FSAT] Reading BEACON...\n\r"); //DEBUG
+
+    	frame_to_string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //DEBUG
+    	uart_debug_tx(String_BEACON_Data); //DEBUG
+    	uart_debug_tx_newline(); //DEBUG
+    	uart_debug_tx("[FSAT] Reading BEACON DONE.\n\r"); //DEBUG
+
+    	uart_debug_tx("[FSAT] CRC...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] CRC DONE.\n\r"); //DEBUG
+
+    	uart_debug_tx("[FSAT] Writing TO FLASH...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Writing DONE.\n\r"); //DEBUG
+
+    	uart_debug_tx("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] SENT.\n\r"); //DEBUG
+*/
+
+
+    	__delay_cycles(1000001);
 
 
     }
@@ -94,12 +117,13 @@ void main(void) {
 void main_setup(void){
 
 	watchdog_setup();
+//	setup_clocks();
 	uart_debug_setup(9600);
-	uart_debug_tx("\n\n\r[FSAT] MAIN booting...\n\r");
+	uart_debug_tx("\n\n\r[FSAT] MAIN booting...\n\r"); //DEBUG
 	sysled_enable();
 	i2c_setup(EPS);
 	i2c_setup(MPU);
 	__enable_interrupt();
-	uart_debug_tx("[FSAT] MAIN boot completed.\n\r");
+	uart_debug_tx("[FSAT] MAIN boot completed.\n\r"); //DEBUG
 }
 
