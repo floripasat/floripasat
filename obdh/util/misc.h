@@ -13,10 +13,13 @@
 #define TRUE 1
 #define FALSE 0
 
+#define intStringSize 10
+
 void sysled_enable(void);
 void sysled_toggle(void);
 void frame_to_string(unsigned char frame[], unsigned char string[], int size);
-void int_to_char(int data, unsigned char string[], int size);
+unsigned char* aligned_right(unsigned char* data);
+unsigned char* int_to_char(int value);
 unsigned char hex_to_char(unsigned char byte);
 
 

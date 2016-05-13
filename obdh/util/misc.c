@@ -19,6 +19,13 @@ void sysled_toggle(void){
 	SYSLED_PORT_OUT ^= SYSLED_PIN; //toggle port state
 }
 
+
+/*
+ *
+ * DEBUGGING FUNCTIONS
+ *
+*/
+
 void frame_to_string(unsigned char frame[],unsigned char frame_string[], int size){
 	int i;
 	int j = 0;
@@ -53,36 +60,37 @@ unsigned char hex_to_char(unsigned char byte){
 }
 
 
-char* int2char(int value){
+unsigned char* int_to_char(int value){
 	//up to MSP +- MAX_INT: +- 32767
-	char buffer[10];
+	unsigned char buffer[intStringSize];
 	sprintf(buffer, "%d", value);
 	return buffer;
 }
 
+unsigned char* aligned_right(unsigned char* data){
+	int i,j;
+	int n = 1;
+	unsigned char string[intStringSize];
 
-//deprecated. To be removed after team review
-void int_to_char(int data, unsigned char string[], int size){
-	int i,j,n;
-	n=1;
-	sprintf(string, "%d", data);
-	///////// >> string /////////
+	//copping data to string
+	for(i=0; i < intStringSize;i++)
+		string[i]= data[i];
 
 	//discovering the index
-	for(i=0; i < size;i++){
+	for(i=0; i < intStringSize;i++){
 		if (string[i]==NULL){
 			j=i;
 			break;
 		}
 	}
 	//shifting to right
-	for(i=j;i>=0;i--){
-		string[size - n++]=string[i-1];
-	}
+	for(i=j;i>=0;i--)
+		string[intStringSize - n++]=string[i-1];
+
 
 	//filling up with blank spaces
-	for(i=size - j - 1;i>=0;i--){
+	for(i=intStringSize - j - 1;i>=0;i--)
 		string[i]=' ';
-	}
-	/////////(end) >> string /////////
+
+	return string;
 }

@@ -25,7 +25,13 @@
 
 #define  EPS_DATA_LENGTH 	18
 #define  MPU_DATA_LENGTH 	12
-#define  BEACON_DATA_LENGTH 12
+#define  BEACON_DATA_LENGTH 5
+#define  FSAT_FRAME_LENGTH	38
+
+#define  START_BYTE 0xAC
+#define  END_BYTE	0xFF
+#define  CRC_BYTE 	0x55
+
 
 
 

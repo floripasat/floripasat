@@ -3,7 +3,7 @@
 #include "misc.h"
 
 
-void uart_debug_setup(unsigned long baudrate){
+void uart_setup(unsigned long baudrate){
 	P9SEL |= BIT2 + BIT3;							//P9.2,3 = USCI_A2 TXD/RXD
 	UCA2CTL1 |= UCSWRST;							//**Put state machine in reset**
 	UCA2CTL1 |= UCSSEL_1;							//Use ACLK (Auxilliary Clock)
@@ -29,11 +29,18 @@ void uart_set_baudrate(unsigned long baudrate){
 	}
 }
 
+void uart_tx(char *tx_data){			//Define a function that accepts a character pointer to an array
+	while (*tx_data != 0) { 					// Increment through array, look for null pointer (0)  at end of string
+		while ((UCA2STAT & UCBUSY) == TRUE);         // Wait if line TX/RX module is busy with data
+		UCA2TXBUF = *tx_data; 					// Send out element i of tx_data array on UART bus
+		tx_data++;
+	}
 
+}
 
 // Can be used directly for debug messages:
 // uart_tx("hello");
-void uart_debug_tx(char *tx_data){			//Define a function that accepts a character pointer to an array
+void uart_debug_tx(unsigned char *tx_data){			//Define a function that accepts a character pointer to an array
 	while (*tx_data != 0) { 					// Increment through array, look for null pointer (0)  at end of string
 		while ((UCA2STAT & UCBUSY) == TRUE);         // Wait if line TX/RX module is busy with data
 		UCA2TXBUF = *tx_data; 					// Send out element i of tx_data array on UART bus

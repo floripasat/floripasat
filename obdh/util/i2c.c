@@ -38,7 +38,7 @@ void i2c_setup(unsigned int device){
 	}
 }
 
-void i2c_read_epsFrame(unsigned char *Buffer, unsigned int bytes){
+void i2c_read_epsFrame(char *Buffer, unsigned int bytes){
 //	while (stillReading == 1);             // Ensure stop condition got sent  TODO: REMOVE
 	PRxData = Buffer;
 	RXByteCtr = bytes;
@@ -132,6 +132,16 @@ __interrupt void USCI_B1_ISR(void) {
 			UCB1CTL1 |= UCTXSTP;                  	// I2C stop condition
 			while (UCB1CTL1 & UCTXSTP);
 			UCB1IFG &= ~UCRXIFG;                  	// Clear USCI_B0 TX int flag
+		}
+		break;
+
+		RXByteCtr--;                            // Decrement RX byte counter
+		if (RXByteCtr > 0) {
+			*PRxData++ = UCB0RXBUF;           // Move RX data to address PRxData
+			if (RXByteCtr == 1)                   // Only one byte left?
+				UCB0CTL1 |= UCTXSTP;              // Generate I2C stop condition
+		} else {
+			*PRxData = UCB0RXBUF;               // Move final RX data to PRxData
 		}
 		break;
 	case 12:                                  		// Vector 12: TXIFG
