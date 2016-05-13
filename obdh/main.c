@@ -46,7 +46,10 @@
 #include "util/i2c.h"
 #include "util/watchdog.h"
 
+
+
 unsigned int cycle_counter = 0;
+char strbuff[100];
 char EPS_data_buffer[EPS_DATA_LENGTH];
 char MPU_data_buffer[MPU_DATA_LENGTH];
 char BEACON_data_buffer[BEACON_DATA_LENGTH];
@@ -70,54 +73,52 @@ void main(void) {
 
     	cycle_counter++;
     	sysled_toggle();
-    	uart_tx("\n\r----------------------------------------------\n\r"); //TODO rm
-    	uart_tx("[FSAT] Cycle: ");
-    	uart_tx(aligned_right(int_to_char(cycle_counter)));
-    	uart_tx_newline(); //TODO rm
+    	debug("Main cycle init");
+    	debug("Cycle: "); debug_inline( int2char(strbuff, cycle_counter) );
 
 
-    	uart_tx("[FSAT] Reading EPS...\n\r"); //TODO rm
+
+    	debug("Reading EPS init");
     	i2c_read_epsFrame(EPS_data_buffer,EPS_DATA_LENGTH);
 //    	__delay_cycles(1000000);
     	frame_to_string(EPS_data_buffer,String_EPS_Data, sizeof String_EPS_Data); //TODO rm
-    	uart_tx(String_EPS_Data); //TODO rm
-    	uart_tx_newline(); //TODO rm
-    	uart_tx("[FSAT] Reading EPS DONE.\n\r"); //TODO rm
+    	debug(String_EPS_Data);
+    	debug("Reading EPS done");
 
 
-    	uart_tx("----------------------------------------------\n\r"); //TODO rm
 
-
-    	uart_tx("[FSAT] Reading MPU...\n\r"); //TODO rm
-
+    	debug("Reading MPU init");
     	frame_to_string(MPU_data_buffer,String_MPU_Data, sizeof String_MPU_Data); //TODO rm
-    	uart_tx(String_MPU_Data); //TODO rm
-    	uart_tx_newline(); //TODO rm
-    	uart_tx("[FSAT] Reading MPU DONE.\n\r"); //TODO rm
+    	debug(String_MPU_Data);
+    	debug("Reading MPU done");
 
-    	uart_tx("----------------------------------------------\n\r"); //TODO rm
-/*
-    	uart_tx("[FSAT] Reading BEACON...\n\r"); //TODO rm
 
-    	frame_to_string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //TODO rm
-    	uart_tx(String_BEACON_Data); //TODO rm
-    	uart_tx_newline(); //TODO rm
 
-    	uart_tx("[FSAT] Writing TO FLASH...\n\r"); //TODO rm
-    	uart_tx("[FSAT] Writing DONE.\n\r"); //TODO rm
-*/
+    	debug("Reading Beacon init");
+//    	frame_to_string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //TODO rm
+//    	uart_tx(String_BEACON_Data); //TODO rm
+//    	uart_tx_newline(); //TODO rm
+    	debug("Reading Beacon done");
+
+
+    	debug("Writing to flash init");
+    	debug("Writing to flash done");
+
+
+
+    	debug("Sending to uZED/uG init");
     	uart_tx("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //TODO rm
     	concatenate_frame();
 //    	uart_tx(FSAT_frame);
     	frame_to_string(FSAT_frame,String_FSAT_Frame, sizeof String_FSAT_Frame); //TODO rm
     	uart_tx(String_FSAT_Frame);
-    	uart_tx_newline(); //TODO rm
-    	uart_tx("[FSAT] SENT.\n\r"); //TODO rm
+    	debug("Sending to uZED/uG done");
 
 
 
     	__delay_cycles(1000001);
 
+    	debug("Main cycle done.");
 
     }
 }
