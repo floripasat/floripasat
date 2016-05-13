@@ -60,6 +60,7 @@ unsigned char String_BEACON_Data[] = {"0x00,0x00,0x00,0x00,0x00"};//DEBUG
 
 void main_setup(void);
 void concatenate_frame(void);
+unsigned char CRC8(unsigned char *Data, unsigned int n);
 
 void main(void) {
 
@@ -104,8 +105,8 @@ void main(void) {
     	uart_debug_tx_newline(); //DEBUG
     	uart_debug_tx("[FSAT] Reading BEACON DONE.\n\r"); //DEBUG
 
-    	uart_debug_tx("[FSAT] CRC...\n\r"); //DEBUG
-    	uart_debug_tx("[FSAT] CRC DONE.\n\r"); //DEBUG
+
+
 
     	uart_debug_tx("[FSAT] Writing TO FLASH...\n\r"); //DEBUG
     	uart_debug_tx("[FSAT] Writing DONE.\n\r"); //DEBUG
@@ -144,7 +145,6 @@ void main_setup(void){
 void concatenate_frame(void){
 	unsigned int i,j = 1;
 	FSAT_frame[0] = START_BYTE;
-	FSAT_frame[FSAT_FRAME_LENGTH - 2] = CRC_BYTE;
 	FSAT_frame[FSAT_FRAME_LENGTH - 1] = END_BYTE;
 	for(i = 0;i < EPS_DATA_LENGTH;i++)
 		FSAT_frame[j++] = EPS_data_buffer[i];
@@ -152,5 +152,24 @@ void concatenate_frame(void){
 		FSAT_frame[j++] = MPU_data_buffer[i];
 	for(i = 0;i < BEACON_DATA_LENGTH;i++)
 		FSAT_frame[j++] = BEACON_data_buffer[i];
+	uart_debug_tx("[FSAT] CRC...\n\r"); //DEBUG
+	FSAT_frame[FSAT_FRAME_LENGTH - 2] = CRC8(FSAT_frame, sizeof FSAT_frame);
+	uart_debug_tx("[FSAT] CRC DONE.\n\r"); //DEBUG
+}
 
+
+unsigned char CRC8(unsigned char *Data, unsigned int n) {
+	unsigned char CRC, inbyte, Mix;    // CRC, inbyte e Mix tem 8 bits
+	int i, j;
+	for (i = 1; i < n - 2 ; i++) {              // contagem dos bytes(de 1 a n-2 para o floripa sat)
+		inbyte = Data[i];
+		for (j = 0; j < 8; j++) { 			// contagem dos bits de cada byte
+			Mix = (CRC ^ inbyte) & 0x01;// Mix eh a divisao (xor) dos bytes da mensagem pelo polinomio crc
+			CRC >>= 1;// CRC comeca em 0 e eh shiftado para a direita a cada iteracao
+			if (Mix != 0)// se Mix for diferente de zero, o CRC vira o XOR dele mesmo com a mascara de bits 0x8C
+				CRC ^= 0x8C;
+			inbyte >>= 1;
+		}
+	}
+	return CRC;
 }
