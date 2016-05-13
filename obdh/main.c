@@ -53,14 +53,13 @@ char BEACON_data_buffer[BEACON_DATA_LENGTH];
 char FSAT_frame[FSAT_FRAME_LENGTH];
 
 unsigned char String_FSAT_Frame[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
-									 "0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//DEBUG
-unsigned char String_EPS_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//DEBUG
-unsigned char String_MPU_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//DEBUG
-unsigned char String_BEACON_Data[] = {"0x00,0x00,0x00,0x00,0x00"};//DEBUG
+									 "0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
+unsigned char String_EPS_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
+unsigned char String_MPU_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
+unsigned char String_BEACON_Data[] = {"0x00,0x00,0x00,0x00,0x00"};//TODO rm
 
 void main_setup(void);
 void concatenate_frame(void);
-unsigned char CRC8(unsigned char *Data, unsigned int n);
 
 void main(void) {
 
@@ -71,53 +70,49 @@ void main(void) {
 
     	cycle_counter++;
     	sysled_toggle();
-    	uart_debug_tx("\n\r----------------------------------------------\n\r"); //DEBUG
+    	uart_debug_tx("\n\r----------------------------------------------\n\r"); //TODO rm
     	uart_debug_tx("[FSAT] Cycle: ");
     	uart_debug_tx(aligned_right(int_to_char(cycle_counter)));
-    	uart_debug_tx_newline(); //DEBUG
+    	uart_debug_tx_newline(); //TODO rm
 
 
-    	uart_debug_tx("[FSAT] Reading EPS...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Reading EPS...\n\r"); //TODO rm
     	i2c_read_epsFrame(EPS_data_buffer,EPS_DATA_LENGTH);
 //    	__delay_cycles(1000000);
-    	frame_to_string(EPS_data_buffer,String_EPS_Data, sizeof String_EPS_Data); //DEBUG
-    	uart_debug_tx(String_EPS_Data); //DEBUG
-    	uart_debug_tx_newline(); //DEBUG
-    	uart_debug_tx("[FSAT] Reading EPS DONE.\n\r"); //DEBUG
+    	frame_to_string(EPS_data_buffer,String_EPS_Data, sizeof String_EPS_Data); //TODO rm
+    	uart_debug_tx(String_EPS_Data); //TODO rm
+    	uart_debug_tx_newline(); //TODO rm
+    	uart_debug_tx("[FSAT] Reading EPS DONE.\n\r"); //TODO rm
 
 
-    	uart_debug_tx("----------------------------------------------\n\r"); //DEBUG
+    	uart_debug_tx("----------------------------------------------\n\r"); //TODO rm
 
 
-    	uart_debug_tx("[FSAT] Reading MPU...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Reading MPU...\n\r"); //TODO rm
 
-    	frame_to_string(MPU_data_buffer,String_MPU_Data, sizeof String_MPU_Data); //DEBUG
-    	uart_debug_tx(String_MPU_Data); //DEBUG
-    	uart_debug_tx_newline(); //DEBUG
-    	uart_debug_tx("[FSAT] Reading MPU DONE.\n\r"); //DEBUG
+    	frame_to_string(MPU_data_buffer,String_MPU_Data, sizeof String_MPU_Data); //TODO rm
+    	uart_debug_tx(String_MPU_Data); //TODO rm
+    	uart_debug_tx_newline(); //TODO rm
+    	uart_debug_tx("[FSAT] Reading MPU DONE.\n\r"); //TODO rm
 
-    	uart_debug_tx("----------------------------------------------\n\r"); //DEBUG
+    	uart_debug_tx("----------------------------------------------\n\r"); //TODO rm
 /*
-    	uart_debug_tx("[FSAT] Reading BEACON...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Reading BEACON...\n\r"); //TODO rm
 
-    	frame_to_string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //DEBUG
-    	uart_debug_tx(String_BEACON_Data); //DEBUG
-    	uart_debug_tx_newline(); //DEBUG
-    	uart_debug_tx("[FSAT] Reading BEACON DONE.\n\r"); //DEBUG
+    	frame_to_string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //TODO rm
+    	uart_debug_tx(String_BEACON_Data); //TODO rm
+    	uart_debug_tx_newline(); //TODO rm
 
-
-
-
-    	uart_debug_tx("[FSAT] Writing TO FLASH...\n\r"); //DEBUG
-    	uart_debug_tx("[FSAT] Writing DONE.\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Writing TO FLASH...\n\r"); //TODO rm
+    	uart_debug_tx("[FSAT] Writing DONE.\n\r"); //TODO rm
 */
-    	uart_debug_tx("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //DEBUG
+    	uart_debug_tx("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //TODO rm
     	concatenate_frame();
 //    	uart_tx(FSAT_frame);
-    	frame_to_string(FSAT_frame,String_FSAT_Frame, sizeof String_FSAT_Frame); //DEBUG
+    	frame_to_string(FSAT_frame,String_FSAT_Frame, sizeof String_FSAT_Frame); //TODO rm
     	uart_debug_tx(String_FSAT_Frame);
-    	uart_debug_tx_newline(); //DEBUG
-    	uart_debug_tx("[FSAT] SENT.\n\r"); //DEBUG
+    	uart_debug_tx_newline(); //TODO rm
+    	uart_debug_tx("[FSAT] SENT.\n\r"); //TODO rm
 
 
 
@@ -134,12 +129,12 @@ void main_setup(void){
 	watchdog_setup();
 //	setup_clocks();
 	uart_setup(9600);
-	uart_debug_tx("\n\n\r[FSAT] MAIN booting...\n\r"); //DEBUG
+	uart_debug_tx("\n\n\r[FSAT] MAIN booting...\n\r"); //TODO rm
 	sysled_enable();
 	i2c_setup(EPS);
 	i2c_setup(MPU);
 	__enable_interrupt();
-	uart_debug_tx("[FSAT] MAIN boot completed.\n\r"); //DEBUG
+	uart_debug_tx("[FSAT] MAIN boot completed.\n\r"); //TODO rm
 }
 
 void concatenate_frame(void){
@@ -152,24 +147,9 @@ void concatenate_frame(void){
 		FSAT_frame[j++] = MPU_data_buffer[i];
 	for(i = 0;i < BEACON_DATA_LENGTH;i++)
 		FSAT_frame[j++] = BEACON_data_buffer[i];
-	uart_debug_tx("[FSAT] CRC...\n\r"); //DEBUG
+	uart_debug_tx("[FSAT] CRC...\n\r"); //TODO rm
 	FSAT_frame[FSAT_FRAME_LENGTH - 2] = CRC8(FSAT_frame, sizeof FSAT_frame);
-	uart_debug_tx("[FSAT] CRC DONE.\n\r"); //DEBUG
+	uart_debug_tx("[FSAT] CRC DONE.\n\r"); //TODO rm
 }
 
 
-unsigned char CRC8(unsigned char *Data, unsigned int n) {
-	unsigned char CRC, inbyte, Mix;    // CRC, inbyte e Mix tem 8 bits
-	int i, j;
-	for (i = 1; i < n - 2 ; i++) {              // contagem dos bytes(de 1 a n-2 para o floripa sat)
-		inbyte = Data[i];
-		for (j = 0; j < 8; j++) { 			// contagem dos bits de cada byte
-			Mix = (CRC ^ inbyte) & 0x01;// Mix eh a divisao (xor) dos bytes da mensagem pelo polinomio crc
-			CRC >>= 1;// CRC comeca em 0 e eh shiftado para a direita a cada iteracao
-			if (Mix != 0)// se Mix for diferente de zero, o CRC vira o XOR dele mesmo com a mascara de bits 0x8C
-				CRC ^= 0x8C;
-			inbyte >>= 1;
-		}
-	}
-	return CRC;
-}
