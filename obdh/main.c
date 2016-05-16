@@ -45,6 +45,8 @@
 #include "util/misc.h"
 #include "util/i2c.h"
 #include "util/watchdog.h"
+#include "util/flash.h"
+
 
 
 
@@ -102,13 +104,14 @@ void main(void) {
 
 
     	debug("Writing to flash init");
+    	concatenate_frame();
+    	flash_write(FSAT_frame,FSAT_FRAME_LENGTH);
     	debug("Writing to flash done");
 
 
 
     	debug("Sending to uZED/uG init");
     	debug("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //TODO rm
-    	concatenate_frame();
 //    	uart_tx(FSAT_frame);
     	frame2string(FSAT_frame,String_FSAT_Frame, sizeof String_FSAT_Frame); //TODO rm
     	debug(String_FSAT_Frame);
@@ -132,6 +135,7 @@ void main_setup(void){
 	uart_setup(9600);
 	debug("\n\n\r[FSAT] MAIN booting...\n\r"); //TODO rm
 	sysled_enable();
+	flash_setup(BANK1_ADDR);
 	i2c_setup(EPS);
 	i2c_setup(MPU);
 	__enable_interrupt();
@@ -151,6 +155,6 @@ void concatenate_frame(void){
 	debug("[FSAT] CRC...\n\r"); //TODO rm
 	FSAT_frame[FSAT_FRAME_LENGTH - 2] = CRC8(FSAT_frame, sizeof FSAT_frame);
 	debug("[FSAT] CRC DONE.\n\r"); //TODO rm
-	}
+}
 
 

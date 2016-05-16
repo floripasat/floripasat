@@ -27,9 +27,9 @@
 
 char *flash_ptr;                         // Initialize Flash pointer
 
-void write_flash(char* data, int bytes);
-void setup_flash(long long str_addr);
-void erase(long long region);
+void flash_write(char* data, int bytes);
+void flash_setup(long long str_addr);
+void flash_erase(long long region);
 
 
 #endif /* UTIL_FLASH_H_ */
