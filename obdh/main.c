@@ -81,22 +81,22 @@ void main(void) {
     	debug("Reading EPS init");
     	i2c_read_epsFrame(EPS_data_buffer,EPS_DATA_LENGTH);
 //    	__delay_cycles(1000000);
-    	frame_to_string(EPS_data_buffer,String_EPS_Data, sizeof String_EPS_Data); //TODO rm
+    	frame2string(EPS_data_buffer,String_EPS_Data, sizeof String_EPS_Data); //TODO rm
     	debug(String_EPS_Data);
     	debug("Reading EPS done");
 
 
 
     	debug("Reading MPU init");
-    	frame_to_string(MPU_data_buffer,String_MPU_Data, sizeof String_MPU_Data); //TODO rm
+    	frame2string(MPU_data_buffer,String_MPU_Data, sizeof String_MPU_Data); //TODO rm
     	debug(String_MPU_Data);
     	debug("Reading MPU done");
 
 
 
     	debug("Reading Beacon init");
-//    	frame_to_string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //TODO rm
-//    	uart_tx(String_BEACON_Data); //TODO rm
+//    	frame2string(BEACON_data_buffer,String_BEACON_Data, sizeof String_BEACON_Data); //TODO rm
+//    	debug(String_BEACON_Data); //TODO rm
 //    	uart_tx_newline(); //TODO rm
     	debug("Reading Beacon done");
 
@@ -107,11 +107,11 @@ void main(void) {
 
 
     	debug("Sending to uZED/uG init");
-    	uart_tx("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //TODO rm
+    	debug("[FSAT] Sending FSAT FRAME TO uZED...\n\r"); //TODO rm
     	concatenate_frame();
 //    	uart_tx(FSAT_frame);
-    	frame_to_string(FSAT_frame,String_FSAT_Frame, sizeof String_FSAT_Frame); //TODO rm
-    	uart_tx(String_FSAT_Frame);
+    	frame2string(FSAT_frame,String_FSAT_Frame, sizeof String_FSAT_Frame); //TODO rm
+    	debug(String_FSAT_Frame);
     	debug("Sending to uZED/uG done");
 
 
@@ -130,12 +130,12 @@ void main_setup(void){
 	watchdog_setup();
 //	setup_clocks();
 	uart_setup(9600);
-	uart_tx("\n\n\r[FSAT] MAIN booting...\n\r"); //TODO rm
+	debug("\n\n\r[FSAT] MAIN booting...\n\r"); //TODO rm
 	sysled_enable();
 	i2c_setup(EPS);
 	i2c_setup(MPU);
 	__enable_interrupt();
-	uart_tx("[FSAT] MAIN boot completed.\n\r"); //TODO rm
+	debug("[FSAT] MAIN boot completed.\n\r"); //TODO rm
 }
 
 void concatenate_frame(void){
@@ -148,9 +148,9 @@ void concatenate_frame(void){
 		FSAT_frame[j++] = MPU_data_buffer[i];
 	for(i = 0;i < BEACON_DATA_LENGTH;i++)
 		FSAT_frame[j++] = BEACON_data_buffer[i];
-	uart_tx("[FSAT] CRC...\n\r"); //TODO rm
+	debug("[FSAT] CRC...\n\r"); //TODO rm
 	FSAT_frame[FSAT_FRAME_LENGTH - 2] = CRC8(FSAT_frame, sizeof FSAT_frame);
-	uart_tx("[FSAT] CRC DONE.\n\r"); //TODO rm
+	debug("[FSAT] CRC DONE.\n\r"); //TODO rm
 	}
 
 

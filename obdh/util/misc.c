@@ -58,7 +58,7 @@ unsigned char CRC8(unsigned char *Data, unsigned int n) {
  *
 */
 
-void frame_to_string(unsigned char frame[],unsigned char frame_string[], int size){
+void frame2string(unsigned char frame[],unsigned char frame_string[], int size){
 	int i;
 	int j = 0;
 	for(i=2; i < size; i+=5){

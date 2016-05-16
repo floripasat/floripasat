@@ -23,7 +23,7 @@ unsigned char CRC8(unsigned char *Data, unsigned int n);
 void debug(char* strbuffer);
 void debug_inline(char* strbuffer);
 
-void frame_to_string(unsigned char frame[], unsigned char string[], int size);
+void frame2string(unsigned char frame[], unsigned char string[], int size);
 unsigned char* aligned_right(unsigned char* data);
 char* int2char(char* strbuff, int value);
 unsigned char hex2char(unsigned char byte);
