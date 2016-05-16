@@ -19,6 +19,21 @@ void sysled_toggle(void){
 	SYSLED_PORT_OUT ^= SYSLED_PIN; //toggle port state
 }
 
+void debug(char* strbuffer){
+	if (DEBUG_MODE){
+		uart_tx("[FSAT DEBUG] ");
+		uart_tx(strbuffer);
+		uart_tx("\n\r");
+	}
+}
+
+void debug_inline(char* strbuffer){
+	if (DEBUG_MODE) {
+		uart_tx(strbuffer);
+	}
+}
+
+
 unsigned char CRC8(unsigned char *Data, unsigned int n) {
 	unsigned char CRC, inbyte, Mix;    // CRC, inbyte e Mix tem 8 bits
 	int i, j;
@@ -47,13 +62,13 @@ void frame_to_string(unsigned char frame[],unsigned char frame_string[], int siz
 	int i;
 	int j = 0;
 	for(i=2; i < size; i+=5){
-		frame_string[i]   = hex_to_char(frame[j] >> 4);
-		frame_string[i+1] = hex_to_char(frame[j]);
+		frame_string[i]   = hex2char(frame[j] >> 4);
+		frame_string[i+1] = hex2char(frame[j]);
 		j++;
 	}
 }
 
-unsigned char hex_to_char(unsigned char byte){
+unsigned char hex2char(unsigned char byte){
 	char character;
 	switch(byte & 0x0f){
 		case 0x00: character = '0'; break;
@@ -77,11 +92,11 @@ unsigned char hex_to_char(unsigned char byte){
 }
 
 
-unsigned char* int_to_char(int value){
+char* int2char(char* strbuff, int value){
 	//up to MSP +- MAX_INT: +- 32767
-	unsigned char buffer[intStringSize];
-	sprintf(buffer, "%d", value);
-	return buffer;
+//	unsigned char buffer[intStringSize];
+	sprintf(strbuff, "%d", value);
+	return strbuff;
 }
 
 unsigned char* aligned_right(unsigned char* data){
