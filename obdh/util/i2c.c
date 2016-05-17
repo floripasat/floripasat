@@ -46,6 +46,20 @@ void i2c_read_epsFrame(char *Buffer, unsigned int bytes){
 	__delay_cycles(10 * 2001);
 }
 
+void i2c_read_MPU_FRAME(void){
+	//TODO implementation
+}
+
+void i2c_MPU_tx(unsigned char regAddr, unsigned char Data){
+	//TODO implementation
+}
+
+char i2c_MPU_read(unsigned char regAddr){
+	//TODO implementation
+}
+
+
+
 
 
 void Port_Mapping_UCB0(void) {
@@ -121,8 +135,17 @@ __interrupt void USCI_B1_ISR(void) {
 	case 8:
 		break;                           			// Vector  8: STPIFG
 	case 10:                            			// Vector 10: RXIFG
+		*PRxData = UCB1RXBUF;                     // Get RX data
 		break;
 	case 12:                                  		// Vector 12: TXIFG
+	    if (TXByteCtr) {                         	// Check TX byte counter
+	      UCB1TXBUF = *PTxData;                   	// Load TX buffer
+	      TXByteCtr--;                          	// Decrement TX byte counter
+	    }
+	    else{
+	      UCB1CTL1 |= UCTXSTP;                  	// I2C stop condition
+	      UCB1IFG &= ~UCTXIFG;                  	// Clear USCI_B0 TX int flag
+	    }
 		break;
 	default:
 		break;
