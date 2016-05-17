@@ -9,8 +9,6 @@
 #define MPU_I2C_ADRESS		0x68
 #define EPS_I2C_ADRESS		0x13
 
-//unsigned int stillReading; TODO rm
-
 unsigned char *PRxData;                     // Pointer to RX data
 unsigned char *PTxData;                     // Pointer to TX data
 unsigned char RXByteCtr;
