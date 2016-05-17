@@ -7,14 +7,27 @@
 
 #include "watchdog.h"
 
-void watchdog_setup(void) {
-
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-
+void watchdog_setup(char mode, char time2trigger) {
+	WDTCTL = WDTPW + mode + time2trigger;
+	if (INTERVAL)
+	    SFRIE1 |= WDTIE;            // Enable WDT interrupt
 }
 
-void setup_clocks(void) {
+void wdt_reset_counter(void){
+	WDTCTL = WDTPW + WDTCNTCL;
+}
+
+void wdt_hold_counter(void){
+	WDTCTL = WDTPW + WDTHOLD;
+}
+
+void wdt_release_counter(void){
 	//TODO implementation
 }
 
+// Watchdog Timer interrupt service routine
+#pragma vector = WDT_VECTOR
+__interrupt void WDT_ISR(void)
+{
+}
 

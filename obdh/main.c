@@ -76,7 +76,7 @@ void main(void) {
     	cycle_counter++;
     	sysled_toggle();
     	debug("Main cycle init");
-    	debug("Cycle: "); debug_inline( int2char(strbuff, cycle_counter) );
+    	debug("Cycle: "); debug(int2char(strbuff, cycle_counter) );
 
 
 
@@ -119,7 +119,7 @@ void main(void) {
 
 
 
-    	__delay_cycles(1000001);
+    	__delay_cycles(100001);
 
     	debug("Main cycle done.");
 
@@ -130,7 +130,7 @@ void main(void) {
 
 void main_setup(void){
 
-	watchdog_setup();
+	wdt_hold_counter();
 //	setup_clocks();
 	uart_setup(9600);
 	debug("\n\n\r[FSAT] MAIN booting...\n\r"); //TODO rm
