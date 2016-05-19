@@ -46,21 +46,26 @@ void i2c_read_epsFrame(char *Buffer, unsigned int bytes){
 	__delay_cycles(10 * 2001);
 }
 
-void i2c_read_MPU_FRAME(void){
-	//TODO implementation
+
+void i2c_IMU_write(unsigned char reg_adrr, unsigned char data) {
+	unsigned char TxData[] = { reg_adrr, data };
+	PTxData = (unsigned char *) TxData;
+	TXByteCtr = sizeof TxData;
+	UCB1CTL1 |= UCTR + UCTXSTT;
+	while (UCB1CTL1 & UCTXSTP);
 }
 
-void i2c_MPU_tx(unsigned char regAddr, unsigned char Data){
-	//TODO implementation
+void i2c_IMU_read(unsigned char reg_adrr, char buffer[],unsigned int bytes) {
+	PTxData = &reg_adrr;
+	TXByteCtr = 1;
+	UCB1CTL1 |= UCTR + UCTXSTT;
+	while (UCB1CTL1 & UCTXSTP);
+	RXByteCtr = bytes;
+	PRxData = buffer;
+	UCB1CTL1 &= ~UCTR;
+	UCB1CTL1 |= UCTXSTT;
+	while (UCB1CTL1 & UCTXSTP);
 }
-
-char i2c_MPU_read(unsigned char regAddr){
-	//TODO implementation
-}
-
-
-
-
 
 void Port_Mapping_UCB0(void) {
 	// Disable Interrupts before altering Port Mapping registers
@@ -125,29 +130,37 @@ __interrupt void USCI_B0_ISR(void) {
 __interrupt void USCI_B1_ISR(void) {
 	switch (__even_in_range(UCB1IV, 12)) {
 	case 0:
-		break;                           			// Vector  0: No interrupts
+		break;                           // Vector  0: No interrupts
 	case 2:
-		break;                           			// Vector  2: ALIFG
+		break;                           // Vector  2: ALIFG
 	case 4:
-		break;                           			// Vector  4: NACKIFG
+		break;                           // Vector  4: NACKIFG
 	case 6:
-		break;                           			// Vector  6: STTIFG
+		break;                           // Vector  6: STTIFG
 	case 8:
-		break;                           			// Vector  8: STPIFG
-	case 10:                            			// Vector 10: RXIFG
-		*PRxData = UCB1RXBUF;                     // Get RX data
+		break;                           // Vector  8: STPIFG
+	case 10:                            		// Vector 10: RXIFG
+		RXByteCtr--;                            // Decrement RX byte counter
+		if (RXByteCtr > 0) {
+			*PRxData++ = UCB1RXBUF;           // Move RX data to address PRxData
+			if (RXByteCtr == 1)                   // Only one byte left?
+				UCB1CTL1 |= UCTXSTP;              // Generate I2C stop condition
+		} else {
+			*PRxData = UCB1RXBUF;               // Move final RX data to PRxData
+			UCB1IFG &= ~UCRXIFG;                  // Clear USCI_B0 TX int flag
+		}
 		break;
-	case 12:                                  		// Vector 12: TXIFG
-	    if (TXByteCtr) {                         	// Check TX byte counter
-	      UCB1TXBUF = *PTxData;                   	// Load TX buffer
-	      TXByteCtr--;                          	// Decrement TX byte counter
-	    }
-	    else{
-	      UCB1CTL1 |= UCTXSTP;                  	// I2C stop condition
-	      UCB1IFG &= ~UCTXIFG;                  	// Clear USCI_B0 TX int flag
-	    }
+	case 12:                                  // Vector 12: TXIFG
+		if (TXByteCtr--)  {                        // Check TX byte counter
+			UCB1TXBUF = *PTxData++;               // Load TX buffer
+			__delay_cycles(100);
+		} else {
+			UCB1CTL1 |= UCTXSTP;                  // I2C stop condition
+			UCB1IFG &= ~UCTXIFG;                  // Clear USCI_B0 TX int flag
+		}
 		break;
 	default:
 		break;
 	}
 }
+

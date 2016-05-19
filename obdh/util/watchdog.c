@@ -9,20 +9,20 @@
 
 void watchdog_setup(char mode, char time2trigger) {
 	WDTCTL = WDTPW + mode + time2trigger;
-	if (INTERVAL)
+	if (mode == INTERVAL)
 	    SFRIE1 |= WDTIE;            // Enable WDT interrupt
 }
 
 void wdt_reset_counter(void){
-	WDTCTL = WDTPW + WDTCNTCL;
+	WDTCTL = (WDTCTL & 0x00FF) + WDTPW + WDTCNTCL;
 }
 
 void wdt_hold_counter(void){
-	WDTCTL = WDTPW + WDTHOLD;
+	WDTCTL = (WDTCTL & 0x00FF) + WDTPW + WDTHOLD;
 }
 
 void wdt_release_counter(void){
-	//TODO implementation
+	WDTCTL = ((WDTCTL & 0x00FF) + WDTPW) & ~WDTHOLD;
 }
 
 // Watchdog Timer interrupt service routine

@@ -24,16 +24,16 @@
 #define MILISECOND_IN_CYCLES	400
 
 #define  EPS_DATA_LENGTH 	18
-#define  MPU_DATA_LENGTH 	12
-#define  BEACON_DATA_LENGTH 5
+#define  MPU_DATA_LENGTH 	14
+#define  BEACON_DATA_LENGTH 3
 #define  FSAT_FRAME_LENGTH	38
+#define  MISC_INFO_LENGHT 	4
 
-#define  START_BYTE 0xAC
-#define  END_BYTE	0xFF
-#define  CRC_BYTE 	0x55
+#define  STT_BYTE 		0xAC
+#define  END_BYTE		0xFF
 
-
-
+#define INFO_STT_BYTE  	0x55
+#define INFO_END_BYTE	0xFF
 
 
 
