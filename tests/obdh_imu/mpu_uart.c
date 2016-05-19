@@ -1,32 +1,26 @@
-/*
- * mpu_uart.h
- *
- *  Created on: Mar 18, 2016
- *      Author: mfrata
- */
 
 #ifndef __MPU_UART_H_
 #define __MPU_UART_H_
 
+#include <msp430.h>
 #include <stdio.h>
-
-volatile unsigned char *PTxUart;
+#include "mpu_uart.h"
 
 void setup_uart(void) {
-	P3SEL |= BIT3 + BIT4;                      // P3.3,4 = USCI_A0 TXD/RXD
-	UCA0CTL1 |= UCSWRST;                      // **Put state machine in reset**
-	UCA0CTL1 |= UCSSEL_1;                     // CLK = ACLK
-	UCA0BR0 = 0x03;                        // 32kHz/9600=3.41 (see User's Guide)
-	UCA0BR1 = 0x00;                           //
-	UCA0MCTL = UCBRS_3 + UCBRF_0;             // Modulation UCBRSx=3, UCBRFx=0
-	UCA0CTL1 &= ~UCSWRST;                   // **Initialize USCI state machine
+	P9SEL |= BIT2 + BIT3;							//P9.2,3 = USCI_A2 TXD/RXD
+	UCA2CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	UCA2CTL1 |= UCSSEL_1;                     // CLK = ACLK
+	UCA2BR0 = 0x03;                        // 32kHz/9600=3.41 (see User's Guide)
+	UCA2BR1 = 0x00;                           //
+	UCA2MCTL = UCBRS_3 + UCBRF_0;             // Modulation UCBRSx=3, UCBRFx=0
+	UCA2CTL1 &= ~UCSWRST;                   // **Initialize USCI state machine
 }
 
 void uart_tx(char *tx_data) // Define a function which accepts a character pointer to an array
 {
 	PTxUart = tx_data;
-	UCA0IE |= UCTXIE;                         // Enable USCI_A0 TX interrupt
-	__bis_SR_register(LPM0_bits);
+	UCA2IE |= UCTXIE;                         // Enable USCI_A0 TX interrupt
+//	__bis_SR_register(LAM_bits);
 }
 
 void float_send(float c) {
@@ -82,4 +76,27 @@ void int_send(int data){
 
 	uart_tx(string);
 }
+
+#pragma vector=USCI_A2_VECTOR
+__interrupt void USCI_A2_ISR(void) {
+	switch (__even_in_range(UCA2IV, 4)) {
+	case 0:
+		break;                             // Vector 0 - no interrupt
+	case 2:
+		break;                             // Vector 2 - RXIFG
+	case 4:								   // Vector 4 - TXIFG
+		while (*PTxUart) // Increment through array, look for null pointer (0) at end of string
+		{
+			while ((UCA2STAT & UCBUSY));     // Wait if line TX/RX module is busy with data
+			UCA2TXBUF = *PTxUart++; // Send out element i of tx_data array on UART bus
+		}
+		UCA2IFG &= ~UCTXIFG;
+		UCA2IE &= ~UCTXIE;
+//		__bic_SR_register_on_exit(LPM0_bits); // Exit LPM0
+		break;
+	default:
+		break;
+	}
+}
+
 #endif /* MPU_UART_H_ */
