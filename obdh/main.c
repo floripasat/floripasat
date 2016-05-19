@@ -113,7 +113,7 @@ void main(void) {
 
 
 void main_setup(void){
-	watchdog_setup(WATCHDOG,_524_3_mSEC);
+	watchdog_setup(INTERVAL,_524_3_mSEC);
 	uart_setup(9600);
 	debug("\n\n\r MAIN booting...\n\r"); //TODO rm
 	sysled_enable();

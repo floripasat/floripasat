@@ -25,9 +25,13 @@ void wdt_release_counter(void){
 	WDTCTL = ((WDTCTL & 0x00FF) + WDTPW) & ~WDTHOLD;
 }
 
+void reboot(void){
+	WDTCTL = 0x00;
+}
+
 // Watchdog Timer interrupt service routine
 #pragma vector = WDT_VECTOR
-__interrupt void WDT_ISR(void)
-{
+__interrupt void WDT_ISR(void){
+	reboot();
 }
 
