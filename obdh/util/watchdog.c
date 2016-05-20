@@ -32,6 +32,8 @@ void reboot(void){
 // Watchdog Timer interrupt service routine
 #pragma vector = WDT_VECTOR
 __interrupt void WDT_ISR(void){
+	flash_save_ptr();
 	reboot();
+
 }
 

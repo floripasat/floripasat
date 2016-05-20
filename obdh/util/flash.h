@@ -24,12 +24,19 @@
 #define BSL2_ADDR		0x001200
 #define BSL3_ADDR		0x001000
 #define MASS_ERASE		0XFFFFFF
+//
+#define BOOT_ADDR		0x026000
+#define FLASH_PTR_ADDR  BANK3_ADDR
 
-char *flash_ptr;                         // Initialize Flash pointer
+char *flash_ptr;                         	// Initialize Flash pointer
+long *current_flash_ptr;					//place holder to save flash pointer to boot
 
 void flash_write(char* data, int bytes);
-void flash_setup(long long str_addr);
-void flash_erase(long long region);
+void flash_setup(long str_addr);
+void flash_erase(long region);
+void flash_write_single(char data, long *addr);
+void flash_write_long(long* data, long *addr);
+void flash_save_ptr(void);
 
 
 #endif /* UTIL_FLASH_H_ */

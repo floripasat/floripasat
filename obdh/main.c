@@ -91,12 +91,13 @@ void main(void) {
 
 	main_setup();
 
+
     while(1) {
 
     	debug("Main cycle init");
     	cycle_counter++;
     	sysled_toggle();
-    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2char(strbuff, cycle_counter));uart_tx("/r/n");
+    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2char(strbuff, cycle_counter));uart_tx("\r\n");
 
     	readEps();
     	readImu();
@@ -154,8 +155,10 @@ void write2Flash(void){
 	debug("Writing to flash init");
 	concatenate_frame();
 	flash_write(FSAT_frame,FSAT_FRAME_LENGTH);
+	flash_save_ptr();
 	concatenate_info_frame();
 	flash_write(misc_info_frame,MISC_INFO_LENGHT);
+	flash_save_ptr();
 	debug("Writing to flash done");
 	wdt_reset_counter();
 }
