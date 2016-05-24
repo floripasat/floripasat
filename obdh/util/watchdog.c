@@ -8,9 +8,11 @@
 #include "watchdog.h"
 
 void watchdog_setup(char mode, char time2trigger) {
-	WDTCTL = WDTPW + mode + time2trigger;
+	wdt_hold_counter();
+	WDTCTL = WDTPW + WDTHOLD + mode + time2trigger;
 	if (mode == INTERVAL)
 	    SFRIE1 |= WDTIE;            // Enable WDT interrupt
+	wdt_release_counter();
 }
 
 void wdt_reset_counter(void){
@@ -34,6 +36,5 @@ void reboot(void){
 __interrupt void WDT_ISR(void){
 	flash_save_ptr();
 	reboot();
-
 }
 

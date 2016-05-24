@@ -94,7 +94,7 @@ void main(void) {
 
     while(1) {
 
-    	debug("Main cycle init");
+    	debug("Main cycle init ");
     	cycle_counter++;
     	sysled_toggle();
     	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2char(strbuff, cycle_counter));uart_tx("\r\n");
@@ -107,14 +107,14 @@ void main(void) {
 
     	__delay_cycles(100001);
 
-    	debug("Main cycle done.");
+    	debug("Main cycle done. ");
     }
 }
 
 
 
 void main_setup(void){
-	watchdog_setup(INTERVAL,_524_3_mSEC);
+	watchdog_setup(WATCHDOG,_524_3_mSEC);
 	uart_setup(9600);
 	debug("\n\n\r MAIN booting...\n\r"); //TODO rm
 	sysled_enable();

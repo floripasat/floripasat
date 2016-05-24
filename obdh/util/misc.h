@@ -17,16 +17,16 @@
 
 void sysled_enable(void);
 void sysled_toggle(void);
-unsigned char CRC8(unsigned char *Data, unsigned int n);
+unsigned char CRC8(unsigned char *, unsigned int);
 
 #define DEBUG_MODE 		1
-void debug(char* strbuffer);
-void debug_inline(char* strbuffer);
+void debug(char*);
+void debug_inline(char*);
 
-void frame2string(unsigned char frame[], unsigned char string[], int size);
-unsigned char* aligned_right(unsigned char* data);
-char* int2char(char* strbuff, int value);
-unsigned char hex2char(unsigned char byte);
+void frame2string(unsigned char*, unsigned char*, int);
+unsigned char* aligned_right(unsigned char*);
+char* int2char(char*, int);
+unsigned char hex2char(unsigned char);
 
 
 #endif /* MISC_H_ */
