@@ -39,7 +39,8 @@
 
 
 *************************************************************************************/
-#include <msp430.h> 
+#include <msp430.h>
+#include <driverlib.h>
 #include "hal/obdh_engmodel1.h"
 #include "modules_interfaces/mpu.h"
 #include "util/uart.h"
@@ -91,13 +92,12 @@ void main(void) {
 
 	main_setup();
 
-
     while(1) {
 
     	debug("Main cycle init ");
     	cycle_counter++;
     	sysled_toggle();
-    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2char(strbuff, cycle_counter));uart_tx("\r\n");
+    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(strbuff, cycle_counter));uart_tx("\r\n");
 
     	readEps();
     	readImu();
@@ -105,9 +105,10 @@ void main(void) {
     	write2Flash();
     	send2uZed();
 
-    	__delay_cycles(100001);
+    	__delay_cycles(10000100000);
 
-    	debug("Main cycle done. ");
+    	debug("Main cycle done");
+
     }
 }
 

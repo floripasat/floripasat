@@ -29,4 +29,5 @@ char* int2char(char*, int);
 unsigned char hex2char(unsigned char);
 
 
+
 #endif /* MISC_H_ */

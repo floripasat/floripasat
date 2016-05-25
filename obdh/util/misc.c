@@ -19,10 +19,10 @@ void sysled_toggle(void){
 	SYSLED_PORT_OUT ^= SYSLED_PIN; //toggle port state
 }
 
-void debug(char* strbuffer){
+void debug(char* stringBuffer){
 	if (DEBUG_MODE){
 		uart_tx("[FSAT DEBUG] ");
-		uart_tx(strbuffer);
+		uart_tx(stringBuffer);
 		uart_tx("\n\r");
 	}
 }
@@ -92,7 +92,7 @@ unsigned char hex2char(unsigned char byte){
 }
 
 
-char* int2char(char* strbuff, int value){
+char* int2str(char* strbuff, int value){
 	//up to MSP +- MAX_INT: +- 32767
 //	unsigned char buffer[intStringSize];
 	sprintf(strbuff, "%d", value);
