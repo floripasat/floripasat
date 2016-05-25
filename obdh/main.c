@@ -40,7 +40,8 @@
 
 *************************************************************************************/
 #include <msp430.h>
-#include <driverlib.h>
+//#include <msp430f6659.h>
+#include "driverlib.h"
 #include "hal/obdh_engmodel1.h"
 #include "modules_interfaces/mpu.h"
 #include "util/uart.h"
@@ -92,6 +93,23 @@ void main(void) {
 
 	main_setup();
 
+
+    //Start timer in continuous mode sourced by SMCLK
+    Timer_A_initContinuousModeParam initContParam = {0};
+    initContParam.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
+    initContParam.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
+    initContParam.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+    initContParam.timerClear = TIMER_A_DO_CLEAR;
+    initContParam.startTimer = false;
+    Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParam);
+
+
+    Timer_A_startCounter(TIMER_A1_BASE, TIMER_A_CONTINUOUS_MODE );
+
+
+
+
+
     while(1) {
 
     	debug("Main cycle init ");
@@ -99,13 +117,15 @@ void main(void) {
     	sysled_toggle();
     	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(strbuff, cycle_counter));uart_tx("\r\n");
 
+
     	readEps();
+
     	readImu();
     	readBeacon();
     	write2Flash();
     	send2uZed();
 
-    	__delay_cycles(10000100000);
+    	__delay_cycles(10000100);
 
     	debug("Main cycle done");
 
@@ -115,7 +135,7 @@ void main(void) {
 
 
 void main_setup(void){
-	watchdog_setup(WATCHDOG,_524_3_mSEC);
+	watchdog_setup(WATCHDOG,_16_SEC);
 	uart_setup(9600);
 	debug("\n\n\r MAIN booting...\n\r"); //TODO rm
 	sysled_enable();

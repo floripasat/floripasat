@@ -21,7 +21,7 @@ void sysled_toggle(void){
 
 void debug(char* stringBuffer){
 	if (DEBUG_MODE){
-		uart_tx("[FSAT DEBUG] ");
+		uart_tx("[FSAT DEBUG DRIVERLIB] ");
 		uart_tx(stringBuffer);
 		uart_tx("\n\r");
 	}
