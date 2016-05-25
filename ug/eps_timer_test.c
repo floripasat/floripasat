@@ -7,9 +7,11 @@
 #include <eps_timer_test.h>
 #include <eps_onewire_test.h>
 #include <eps_i2c.h>
+#include <watchdog.h>
 #include <msp430.h>
 
 volatile unsigned int cont = 0;
+volatile unsigned int contb = 0;
 
 
 /********** INTERRUPTS **********/
@@ -17,15 +19,16 @@ volatile unsigned int cont = 0;
 #pragma vector=TIMERA0_VECTOR
 __interrupt void Timer_A (void)
 {
-
+//	__bis_SR_register(GIE);
 	if(cont==11){											// period = CCR0 * 2 * cont / clock => 50m = 50000*2*cont/(8*10^6) => cont = 3 (starts at 0)
-//	 P2OUT ^= 0x01;											// toggle P2.0 to determine frequency of timer output
-     measurement_data_DS2784();
-     make_frame();											//
-	 cont = 0;												// reset cont
+		cont = 0;												// reset cont
+		measurement_data_DS2784();
+	    wdt_reset_counter();
+		make_frame();
+	    wdt_reset_counter();
   }else{
 	    cont ++;											// increments cont to achieve desired output period
-
+	    wdt_reset_counter();
   }
 }
 
@@ -48,4 +51,23 @@ void make_frame(void)
 	EPSData[14] = 0;
 	EPSData[15] = 0;
 	EPSData[16] = 0;
+
 }
+
+// Timer B0 interrupt service routine
+
+#pragma vector=TIMERB0_VECTOR
+__interrupt void Timer_B (void)
+{
+//	reboot();
+	/*
+	if(contb >= 29){
+		contb = 0;
+		reboot();
+	}
+	else{
+		contb++;
+	}
+	*/
+}
+

@@ -77,7 +77,7 @@ void outp(int bit){
  ***********************************************************************/
 
 int inp(void){
-	unsigned int result=0;
+volatile unsigned int result=0;
 
 	 DIR_P_Wire &= ~BitWire;          //sets pin as input
 	 result= P_WireIN & BitWire;         //prepares the bit on pin to be returned
@@ -101,7 +101,7 @@ int OneWireReset(void){
 	  outp(1);				        //drives pin to high
 	__delay_cycles(0);			    // delay of 0
 	  outp(0);				        //drives pin low
-	__delay_cycles(3812);			//delay of 480us, 8,12MHz* 480us=3897
+	__delay_cycles(3897);			//delay of 480us, 8,12MHz* 480us=3897
 
 	  outp(1);						//releases the bus
 	  result = inp();			        //prepares the result of present detection to be returned
@@ -127,17 +127,17 @@ void OneWireWrite(int bit){
 
 		if(bit == 1){
 			outp(0);				//drives pin low
-		__delay_cycles(40);		    //delay of 6us, 8,12 MHz*6us= 44
+		__delay_cycles(44);		    //delay of 6us, 8,12 MHz*6us= 44
 
 			outp(1);				//releases the bus
-		__delay_cycles(500);		//delay of 64us, 8,12MHz*64us=517
+		__delay_cycles(517);		//delay of 64us, 8,12MHz*64us=517
 
 		}else{
 	       // Write '0' bit
 			outp(0);				//drives pin low
-		__delay_cycles(470);		//delay of 60us, 8,12MHz*60us=487
+		__delay_cycles(487);		//delay of 60us, 8,12MHz*60us=487
 			outp(1);				//releases the bus
-		__delay_cycles(60);			// delay of 10us, 8MHz*10us=80
+		__delay_cycles(80);			// delay of 10us, 8MHz*10us=80
 
 		}
 
@@ -157,10 +157,10 @@ int OneWireReadBit(void){
 	__delay_cycles(44);		        //delay of 6us, 8,12 MHz*6us= 44
 
 	outp(1);						//releases the bus
-	__delay_cycles(70);				//delay of 9us, 8,12MHz*9us=73
+	__delay_cycles(73);				//delay of 9us, 8,12MHz*9us=73
 
 	result = inp();					//sample the bit from slave
-	__delay_cycles(443);			//delay of 55us, 8,12MHz*55us=446
+	__delay_cycles(446);			//delay of 55us, 8,12MHz*55us=446
 
 	return result;
 
@@ -221,11 +221,13 @@ void config_DS2784(void){
 	OWWriteByte(protection_register);	// register address
 	OWWriteByte(0x03);					// value to be written
 
+
 	reset= OneWireReset();              			// PROTECTOR THRESHOLD REGISTER
 	OWWriteByte(0xCC);								// eeprom address (only one slave on bus, CC is used)
 	OWWriteByte(0x6C);								// write operation
 	OWWriteByte(protector_threshold_register);		// register address
-	OWWriteByte(0x5C);								// value to be written
+	OWWriteByte(0x61);								// value to be written
+
 
 	reset= OneWireReset();				// STATUS REGISTER
 	OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
@@ -234,23 +236,27 @@ void config_DS2784(void){
 	OWWriteByte(0x00);					// value to be written
 
 
+
 	reset= OneWireReset();				// CONTROL REGISTER
 	OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
 	OWWriteByte(0x6C);					// write operation
 	OWWriteByte(control_register);		// register address
 	OWWriteByte(0x0C);					// value to be written
 
+
 	reset= OneWireReset();								// ACCUMULATED CURRENT - MSB REGISTER
 	OWWriteByte(0xCC);									// eeprom address (only one slave on bus, CC is used)
 	OWWriteByte(0x6C);									// write operation
 	OWWriteByte(accumulated_current_MSB_register);		// register address
-	OWWriteByte(0x0A);									// value to be written
+	OWWriteByte(0x1C);									// value to be written
+
 
 	reset= OneWireReset();								// ACCUMULATED CURRENT - LSB REGISTER
 	OWWriteByte(0xCC);									// eeprom address (only one slave on bus, CC is used)
 	OWWriteByte(0x6C);									// write operation
 	OWWriteByte(accumulated_current_LSB_register);		// register address
-	OWWriteByte(0x50);									// value to be written
+	OWWriteByte(0x20);									// value to be written
+
 
 }
 
@@ -278,6 +284,7 @@ void measurement_data_DS2784(void){
     aux=OWReadByte();
     tr_lsb=aux>>5;
 
+//    	while(1);
     reset= OneWireReset();              		// TEMPERATURE MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);							// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);							// read operation
@@ -289,6 +296,7 @@ void measurement_data_DS2784(void){
 
 
 
+
     //AVERAGE CURRENT MEASUREMENT
 
     reset= OneWireReset();              			// AVERAGE CURRENT MEASUREMENT - LSB REGISTER
@@ -297,11 +305,13 @@ void measurement_data_DS2784(void){
     OWWriteByte(average_current_LSB_register);		// register address
     avc_lsb=OWReadByte();
 
+
     reset= OneWireReset();              			// AVERAGE CURRENT MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);								// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);								// read operation
     OWWriteByte(average_current_MSB_register);		// register address
     avc_msb=OWReadByte();
+
 
 
     //ACCUMULATED CURRENT MEASUREMENT
@@ -312,11 +322,13 @@ void measurement_data_DS2784(void){
     OWWriteByte(accumulated_current_LSB_register);		// register address
     acr_lsb=OWReadByte();
 
+
     reset= OneWireReset();              			// ACCUMULATED CURRENT MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);								// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);								// read operation
     OWWriteByte(accumulated_current_MSB_register);	// register address
     acr_msb=OWReadByte();
+
 
 
     //CURRENT GAIN CALIBRATION
@@ -327,11 +339,13 @@ void measurement_data_DS2784(void){
 	OWWriteByte(current_gain_LSB_register);		// register address
 	OWWriteByte(0x00);							// value to be written
 
+
 	reset= OneWireReset();              		// MSB CURRENT GAIN REGISTER
 	OWWriteByte(0xCC);							// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x6C);							// write operation
     OWWriteByte(current_gain_MSB_register);		// register address
 	OWWriteByte(0x04);							// value to be written
+
 
 
    //CURRENT MEASUREMENT
@@ -343,11 +357,13 @@ void measurement_data_DS2784(void){
     cr_lsb=OWReadByte();
 
 
+
     reset= OneWireReset();              // CURRENT MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);					// read operation
     OWWriteByte(current_MSB_register);	// register address
     cr_msb=OWReadByte();
+
 
     //VOLTAGE MEASUREMENT
 
@@ -357,6 +373,7 @@ void measurement_data_DS2784(void){
     OWWriteByte(voltage_LSB1_register);  // register address
     aux=OWReadByte();
     vr_lsb1=aux>>5;
+
 
     reset= OneWireReset();              // VOLTAGE 1 MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
@@ -374,6 +391,7 @@ void measurement_data_DS2784(void){
     aux=OWReadByte();
     vr_lsb2=aux>>5;
 
+
     reset= OneWireReset();              // VOLTAGE 2 MEASUREMENT - MSB REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);					// read operation
@@ -384,11 +402,13 @@ void measurement_data_DS2784(void){
     vr_lsb2|=aux & 0xF8;
 
 
+
     reset= OneWireReset();				// PROTECTION REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x69);					// read operation
     OWWriteByte(protection_register);	// register address
     RG_Protection=OWReadByte();
+
 
 
     reset= OneWireReset();				// PROTECTION REGISTER CLEAR
@@ -397,11 +417,14 @@ void measurement_data_DS2784(void){
     OWWriteByte(protection_register);	// register address
     OWWriteByte(0x03);					// value to be written
 
+
     reset= OneWireReset();				// CONTROL REGISTER
     OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
     OWWriteByte(0x6C);					// write operation
     OWWriteByte(control_register);		// register address
-    OWWriteByte(0x00);					// value to be written
+    OWWriteByte(0x0C);					// value to be written
+
+
 
 }
 
