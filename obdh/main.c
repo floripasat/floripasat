@@ -49,6 +49,7 @@
 #include "util/i2c.h"
 #include "util/watchdog.h"
 #include "util/flash.h"
+#include "util/sysclock.h"
 
 
 
@@ -94,25 +95,53 @@ void main(void) {
 	main_setup();
 
 
-    //Start timer in continuous mode sourced by SMCLK
-    Timer_A_initContinuousModeParam initContParam = {0};
-    initContParam.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
-    initContParam.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
-    initContParam.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
-    initContParam.timerClear = TIMER_A_DO_CLEAR;
-    initContParam.startTimer = false;
-    Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParam);
+	debug("timer config init");
+	sysclock_setup();
+	debug("timer config done");
+
+	debug("while(1) init");
+	while(1){
+		uart_tx( sysclock_read(strbuff) ); uart_tx("\n\r");
+    	__delay_cycles(1000);
+	};
 
 
-    Timer_A_startCounter(TIMER_A1_BASE, TIMER_A_CONTINUOUS_MODE );
-
-
+//    //Start timer in continuous mode sourced by SMCLK
+//    Timer_A_initContinuousModeParam initContParam = {0};
+//    initContParam.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
+//    initContParam.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
+//    initContParam.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+//    initContParam.timerClear = TIMER_A_DO_CLEAR;
+//    initContParam.startTimer = false;
+//    Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParam);
+//
+//
+//    Timer_A_startCounter(TIMER_A1_BASE, TIMER_A_CONTINUOUS_MODE );
+//
+//    uint16_t a = 0;
+//    a = Timer_A_getCounterValue(TIMER_A1_BASE);
+//    uart_tx("-------------------------\n\r");
+//    uart_tx( uint2str(strbuff, a) );uart_tx("\r\n");
+//    __delay_cycles(1000);
+//    a = Timer_A_getCounterValue(TIMER_A1_BASE);
+//	uart_tx( uint2str(strbuff, a) );uart_tx("\r\n");
+//    uart_tx("-------------------------\n\r");
+//
+//    uint16_t b = 0;
+//    while(1){
+//    	uart_tx( uint2str(strbuff, b) );uart_tx("\r\n");
+//    	b++;
+//    }
 
 
 
     while(1) {
-
+    	int i = 9;
+    	float f =  -3.14;
     	debug("Main cycle init ");
+    	uart_tx(float2str(strbuff, f)); uart_tx("\t\t"); uart_tx(int2str(strbuff, i));   uart_tx("\r\n");
+    	uart_tx(int2str(strbuff, i));   uart_tx("\t\t"); uart_tx(float2str(strbuff, f)); uart_tx("\r\n");
+
     	cycle_counter++;
     	sysled_toggle();
     	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(strbuff, cycle_counter));uart_tx("\r\n");
@@ -135,7 +164,7 @@ void main(void) {
 
 
 void main_setup(void){
-	watchdog_setup(WATCHDOG,_16_SEC);
+	watchdog_setup(WATCHDOG,_18_H_12_MIN_16_SEC);
 	uart_setup(9600);
 	debug("\n\n\r MAIN booting...\n\r"); //TODO rm
 	sysled_enable();

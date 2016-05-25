@@ -93,11 +93,20 @@ unsigned char hex2char(unsigned char byte){
 
 
 char* int2str(char* strbuff, int value){
-	//up to MSP +- MAX_INT: +- 32767
-//	unsigned char buffer[intStringSize];
 	sprintf(strbuff, "%d", value);
 	return strbuff;
 }
+
+char* uint2str(char* strbuff, unsigned int value){
+	sprintf(strbuff, "%u", value);
+	return strbuff;
+}
+
+char* float2str(char* strbuff, float value) {
+	sprintf(strbuff, "%f", value);
+	return strbuff;
+}
+
 
 unsigned char* aligned_right(unsigned char* data){
 	int i,j;

@@ -25,7 +25,11 @@ void debug_inline(char*);
 
 void frame2string(unsigned char*, unsigned char*, int);
 unsigned char* aligned_right(unsigned char*);
-char* int2char(char*, int);
+
+char*   int2str(char* strbuff,          int value);
+char*  uint2str(char* strbuff, unsigned int value);
+char* float2str(char* strbuff,        float value);
+
 unsigned char hex2char(unsigned char);
 
 
