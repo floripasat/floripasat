@@ -66,7 +66,7 @@ Main cycle counter
 
 
 EPS
-
+17 bytes
 
 
 RADIO

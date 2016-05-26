@@ -38,6 +38,7 @@ void sysled_off(void){
  *
 */
 
+//TODO: deprecate
 void frame2string(unsigned char frame[],unsigned char frame_string[], int size){
 	int i;
 	int j = 0;
@@ -48,6 +49,7 @@ void frame2string(unsigned char frame[],unsigned char frame_string[], int size){
 	}
 }
 
+//TODO: deprecate
 unsigned char hex2char(unsigned char byte){
 	char character;
 	switch(byte & 0x0f){
@@ -88,6 +90,8 @@ char* float2str(char* stringBuffer, float value) {
 }
 
 
+
+// TODO: deprecate
 unsigned char* aligned_right(unsigned char* data){
 	int i,j;
 	int n = 1;
