@@ -38,25 +38,3 @@ void uart_tx(char *tx_data){			//Define a function that accepts a character poin
 
 }
 
-
-void uart_tx_newline(void){
-	uart_tx("\n\r");
-}
-
-/*
- * Interrupt Vector
- */
-#pragma vector=USCI_A2_VECTOR
-__interrupt void USCI_A2_ISR(void) {
-  switch (__even_in_range(UCA2IV, 4)) {
-  case 0:							// Vector 0 - no interrupt
-      break;
-  case 2:							// Vector 2 - RXIFG
-      break;
-  case 4:                           // Vector 4 - TXIFG
-      break;
-  default:
-      break;
-  }
-}
-

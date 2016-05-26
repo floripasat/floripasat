@@ -55,7 +55,7 @@
 
 //main frames and variables
 unsigned int cycle_counter = 0;
-char strbuff[100];
+char stringBuffer[100];
 char EPS_data_buffer[EPS_DATA_LENGTH];
 char MPU_data_buffer[MPU_DATA_LENGTH];
 char BEACON_data_buffer[BEACON_DATA_LENGTH];
@@ -90,48 +90,30 @@ void send2uZed(void);
 void concatenate_frame(void);
 void concatenate_info_frame(void);
 
+float t =0;
+float f=0;
+
 void main(void) {
 
 	main_setup();
 
 
-	debug("timer config init");
-	sysclock_setup();
-	debug("timer config done");
+//	debug("timer config init");
+//	sysclock_setup();
+//	debug("timer config done");
+//
+//	debug("while(1) init");
+//
+//	while(1){
+////		debug_inline( sysclock_read(strbuff) );
+//		sysclock_tic();
+//    	__delay_cycles(1000000); //uS
+//    	t = sysclock_toc();
+//    	f = sysclock_read();
+//
+////    	debug( float2str(stringBuffer, t) );
+//	};
 
-	debug("while(1) init");
-	while(1){
-		uart_tx( sysclock_read(strbuff) ); uart_tx("\n\r");
-    	__delay_cycles(1000);
-	};
-
-
-//    //Start timer in continuous mode sourced by SMCLK
-//    Timer_A_initContinuousModeParam initContParam = {0};
-//    initContParam.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
-//    initContParam.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
-//    initContParam.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
-//    initContParam.timerClear = TIMER_A_DO_CLEAR;
-//    initContParam.startTimer = false;
-//    Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParam);
-//
-//
-//    Timer_A_startCounter(TIMER_A1_BASE, TIMER_A_CONTINUOUS_MODE );
-//
-//    uint16_t a = 0;
-//    a = Timer_A_getCounterValue(TIMER_A1_BASE);
-//    uart_tx("-------------------------\n\r");
-//    uart_tx( uint2str(strbuff, a) );uart_tx("\r\n");
-//    __delay_cycles(1000);
-//    a = Timer_A_getCounterValue(TIMER_A1_BASE);
-//	uart_tx( uint2str(strbuff, a) );uart_tx("\r\n");
-//    uart_tx("-------------------------\n\r");
-//
-//    uint16_t b = 0;
-//    while(1){
-//    	uart_tx( uint2str(strbuff, b) );uart_tx("\r\n");
-//    	b++;
-//    }
 
 
 
@@ -139,12 +121,12 @@ void main(void) {
     	int i = 9;
     	float f =  -3.14;
     	debug("Main cycle init ");
-    	uart_tx(float2str(strbuff, f)); uart_tx("\t\t"); uart_tx(int2str(strbuff, i));   uart_tx("\r\n");
-    	uart_tx(int2str(strbuff, i));   uart_tx("\t\t"); uart_tx(float2str(strbuff, f)); uart_tx("\r\n");
+    	uart_tx(float2str(stringBuffer, f)); uart_tx("\t\t"); uart_tx(int2str(stringBuffer, i));   uart_tx("\r\n");
+    	uart_tx(int2str(stringBuffer, i));   uart_tx("\t\t"); uart_tx(float2str(stringBuffer, f)); uart_tx("\r\n");
 
     	cycle_counter++;
     	sysled_toggle();
-    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(strbuff, cycle_counter));uart_tx("\r\n");
+    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(stringBuffer, cycle_counter));uart_tx("\r\n");
 
 
     	readEps();

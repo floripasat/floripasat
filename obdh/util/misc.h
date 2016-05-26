@@ -9,6 +9,9 @@
 #define MISC_H_
 
 #include <stdio.h>
+#include "../hal/obdh_engmodel1.h"
+#include "sysclock.h"
+#include "uart.h"
 
 #define TRUE  1
 #define FALSE 0
@@ -20,8 +23,9 @@ void sysled_toggle(void);
 unsigned char CRC8(unsigned char *, unsigned int);
 
 #define DEBUG_MODE 		1
-void debug(char*);
-void debug_inline(char*);
+char debugStringBuffer[100];
+void debug       (char* stringBuffer);
+void debug_inline(char* stringBuffer);
 
 void frame2string(unsigned char*, unsigned char*, int);
 unsigned char* aligned_right(unsigned char*);

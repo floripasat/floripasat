@@ -6,7 +6,7 @@
  */
 
 #include "misc.h"
-#include "../hal/obdh_engmodel1.h"
+
 
 
 void sysled_enable(void){
@@ -21,15 +21,18 @@ void sysled_toggle(void){
 
 void debug(char* stringBuffer){
 	if (DEBUG_MODE){
-		uart_tx("[FSAT DEBUG DRIVERLIB] ");
+		uart_tx("[\t");
+		uart_tx( float2str(debugStringBuffer, sysclock_read()) );
+		uart_tx(" ] ");
 		uart_tx(stringBuffer);
 		uart_tx("\n\r");
 	}
 }
 
 void debug_inline(char* strbuffer){
-	if (DEBUG_MODE) {
+	if (DEBUG_MODE){
 		uart_tx(strbuffer);
+		uart_tx("\n\r");
 	}
 }
 
@@ -92,19 +95,19 @@ unsigned char hex2char(unsigned char byte){
 }
 
 
-char* int2str(char* strbuff, int value){
-	sprintf(strbuff, "%d", value);
-	return strbuff;
+char* int2str(char* stringBuffer, int value){
+	sprintf(stringBuffer, "%d", value);
+	return stringBuffer;
 }
 
-char* uint2str(char* strbuff, unsigned int value){
-	sprintf(strbuff, "%u", value);
-	return strbuff;
+char* uint2str(char* stringBuffer, unsigned int value){
+	sprintf(stringBuffer, "%u", value);
+	return stringBuffer;
 }
 
-char* float2str(char* strbuff, float value) {
-	sprintf(strbuff, "%f", value);
-	return strbuff;
+char* float2str(char* stringBuffer, float value) {
+	sprintf(stringBuffer, "%f", value);
+	return stringBuffer;
 }
 
 

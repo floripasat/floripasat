@@ -8,11 +8,12 @@
 #include "sysclock.h"
 #include "misc.h"
 
-#define SYSCLOCK_INCREMENT 1000   // 1ms, since Timer clk source is internal 1Mhz
+#define SYSCLOCK_INCREMENT 970   // 1ms, since Timer clk source is internal 1Mhz
 
 uint16_t sysclock_s  = 0;
 uint16_t sysclock_ms = 0;
-
+uint16_t tic_s  = 0;
+uint16_t tic_ms = 0;
 
 void sysclock_setup(void){
 	  TBCCTL0 = CCIE;                           // TBCCR0 interrupt enabled
@@ -21,12 +22,24 @@ void sysclock_setup(void){
 }
 
 
-char* sysclock_read(char* strbuff){
-
-	sprintf(strbuff, "%u.%u", sysclock_s, sysclock_ms);
-	return strbuff;
-
+float sysclock_read(void){
+	float sysclockNow = 0;
+	sysclockNow = sysclock_s + (1.0/sysclock_ms);
+	return sysclockNow;
 }
+
+void sysclock_tic(void){
+	tic_s  = sysclock_s;
+	tic_ms = sysclock_ms;
+}
+
+float sysclock_toc(void){
+	float diff;
+	diff = (sysclock_s-tic_s) + 1.0/(sysclock_ms-tic_ms);
+	return diff;
+}
+
+
 
 
 

@@ -10,7 +10,10 @@
 
 #include "driverlib.h"
 
-char* sysclock_read(char* strbuff);
 void  sysclock_setup(void);
+float sysclock_read (void);
+void  sysclock_tic(void);
+float sysclock_toc(void);
+
 
 #endif /* UTIL_SYSCLOCK_H_ */
