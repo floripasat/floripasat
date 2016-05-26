@@ -12,6 +12,8 @@
 
 void  sysclock_setup(void);
 float sysclock_read (void);
+uint16_t sysclock_read_s  (void);
+uint16_t sysclock_read_ms (void);
 void  sysclock_tic(void);
 float sysclock_toc(void);
 

@@ -1,61 +1,32 @@
 /*************************************************************************************
 ****************************OBDH main for the uG mission******************************
 **************************************************************************************
-		Taks:
 
-/////////////////////SETUP/////////////////////
+	Please consult README.txt for detailed information.
 
-				***waiting for hw/sw boot***----->TBD
-				*watchdog
-				*clock setup
-					-master clock
-					-submaster clock
-				*Timers setup-------------------->TBD
-				*serial communication setup
-					-uart Zboard
-					-i2c eps
-					-i2c mpu
-					-spi beacon
-					-spi memory
-				*enable interrupts
-
-/////////////////////MAIN LOOP////////////////////
-
-				*Read 18 bytes from EPS
-				*Read 5 bytes from beacon
-				*Read 12 bytes from IMU
-				*CRC
-				*Concatenate the frame
-				*Write the frame on memory
-				*Send the frame to uZed via uart
-
-////////////////////frame///////////////////////////
-
-[START BYTE][EPS DATA][BEACON DATA][IMU DATA][CRC][END BYTE]
-
-/////////////frame to save into flash///////////////
-
-[RTC_TIME][EPS DATA][BEACON DATA][IMU DATA]
+	http://www.floripasat.ufsc.br/
 
 
 *************************************************************************************/
+
 #include <msp430.h>
-//#include <msp430f6659.h>
 #include "driverlib.h"
 #include "hal/obdh_engmodel1.h"
-#include "modules_interfaces/mpu.h"
+#include "interfaces/mpu.h"
 #include "util/uart.h"
 #include "util/misc.h"
 #include "util/i2c.h"
 #include "util/watchdog.h"
 #include "util/flash.h"
 #include "util/sysclock.h"
+#include "util/debug.h"
+#include "util/crc.h"
 
 
 
 //main frames and variables
-unsigned int cycle_counter = 0;
-char stringBuffer[100];
+uint16_t cycleCounter = 0;
+//char tmpStr[100];
 char EPS_data_buffer[EPS_DATA_LENGTH];
 char MPU_data_buffer[MPU_DATA_LENGTH];
 char BEACON_data_buffer[BEACON_DATA_LENGTH];
@@ -95,38 +66,17 @@ float f=0;
 
 void main(void) {
 
-	main_setup();
-
-
-//	debug("timer config init");
-//	sysclock_setup();
-//	debug("timer config done");
-//
-//	debug("while(1) init");
-//
-//	while(1){
-////		debug_inline( sysclock_read(strbuff) );
-//		sysclock_tic();
-//    	__delay_cycles(1000000); //uS
-//    	t = sysclock_toc();
-//    	f = sysclock_read();
-//
-////    	debug( float2str(stringBuffer, t) );
-//	};
-
-
+	main_setup();	//Task 1
 
 
     while(1) {
-    	int i = 9;
-    	float f =  -3.14;
-    	debug("Main cycle init ");
-    	uart_tx(float2str(stringBuffer, f)); uart_tx("\t\t"); uart_tx(int2str(stringBuffer, i));   uart_tx("\r\n");
-    	uart_tx(int2str(stringBuffer, i));   uart_tx("\t\t"); uart_tx(float2str(stringBuffer, f)); uart_tx("\r\n");
+    	debug("Main cycle init (Task 2)");
+    	cycleCounter++;
+//    	sysled_toggle();
+    	sysled_on();
 
-    	cycle_counter++;
-    	sysled_toggle();
-    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(stringBuffer, cycle_counter));uart_tx("\r\n");
+    	debug_uint( "Main Loop Cycle:",  cycleCounter);
+//    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(stringBuffer, cycle_counter));uart_tx("\r\n");
 
 
     	readEps();
@@ -136,9 +86,12 @@ void main(void) {
     	write2Flash();
     	send2uZed();
 
-    	__delay_cycles(10000100);
 
     	debug("Main cycle done");
+    	sysled_off();
+
+    	__delay_cycles(1000010);
+
 
     }
 }
@@ -147,6 +100,7 @@ void main(void) {
 
 void main_setup(void){
 	watchdog_setup(WATCHDOG,_18_H_12_MIN_16_SEC);
+	sysclock_setup();
 	uart_setup(9600);
 	debug("\n\n\r MAIN booting...\n\r"); //TODO rm
 	sysled_enable();
@@ -222,8 +176,8 @@ void concatenate_frame(void){
 
 void concatenate_info_frame(void){
 	misc_info_frame[0] = INFO_STT_BYTE;
-	misc_info_frame[1] = (char)(cycle_counter >> 8);
-	misc_info_frame[2] = (char)(cycle_counter);
+	misc_info_frame[1] = (char)(cycleCounter >> 8);
+	misc_info_frame[2] = (char)(cycleCounter);
 	misc_info_frame[MISC_INFO_LENGHT - 1] = INFO_END_BYTE;
 }
 

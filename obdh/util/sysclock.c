@@ -28,6 +28,14 @@ float sysclock_read(void){
 	return sysclockNow;
 }
 
+uint16_t sysclock_read_s(void){
+	return sysclock_s;
+}
+
+uint16_t sysclock_read_ms(void){
+	return sysclock_ms;
+}
+
 void sysclock_tic(void){
 	tic_s  = sysclock_s;
 	tic_ms = sysclock_ms;

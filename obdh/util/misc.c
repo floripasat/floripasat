@@ -19,39 +19,16 @@ void sysled_toggle(void){
 	SYSLED_PORT_OUT ^= SYSLED_PIN; //toggle port state
 }
 
-void debug(char* stringBuffer){
-	if (DEBUG_MODE){
-		uart_tx("[\t");
-		uart_tx( float2str(debugStringBuffer, sysclock_read()) );
-		uart_tx(" ] ");
-		uart_tx(stringBuffer);
-		uart_tx("\n\r");
-	}
+void sysled_on(void){
+	SYSLED_PORT_OUT |= SYSLED_PIN;
 }
 
-void debug_inline(char* strbuffer){
-	if (DEBUG_MODE){
-		uart_tx(strbuffer);
-		uart_tx("\n\r");
-	}
+void sysled_off(void){
+	SYSLED_PORT_OUT &= ~SYSLED_PIN;
 }
 
 
-unsigned char CRC8(unsigned char *Data, unsigned int n) {
-	unsigned char CRC, inbyte, Mix;    // CRC, inbyte e Mix tem 8 bits
-	int i, j;
-	for (i = 1; i < n - 2 ; i++) {              // contagem dos bytes(de 1 a n-2 para o floripa sat)
-		inbyte = Data[i];
-		for (j = 0; j < 8; j++) { 			// contagem dos bits de cada byte
-			Mix = (CRC ^ inbyte) & 0x01;// Mix eh a divisao (xor) dos bytes da mensagem pelo polinomio crc
-			CRC >>= 1;// CRC comeca em 0 e eh shiftado para a direita a cada iteracao
-			if (Mix != 0)// se Mix for diferente de zero, o CRC vira o XOR dele mesmo com a mascara de bits 0x8C
-				CRC ^= 0x8C;
-			inbyte >>= 1;
-		}
-	}
-	return CRC;
-}
+
 
 
 
@@ -95,12 +72,12 @@ unsigned char hex2char(unsigned char byte){
 }
 
 
-char* int2str(char* stringBuffer, int value){
+char* int2str(char* stringBuffer, int16_t value){
 	sprintf(stringBuffer, "%d", value);
 	return stringBuffer;
 }
 
-char* uint2str(char* stringBuffer, unsigned int value){
+char* uint2str(char* stringBuffer, uint16_t value){
 	sprintf(stringBuffer, "%u", value);
 	return stringBuffer;
 }

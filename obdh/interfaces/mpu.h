@@ -5,8 +5,8 @@
  *      Author: frata
  */
 
-#ifndef MODULES_INTERFACES_MPU_H_
-#define MODULES_INTERFACES_MPU_H_
+#ifndef INTERFACES_MPU_H_
+#define INTERFACES_MPU_H_
 
 #include <msp430.h>
 #include "../util/i2c.h"
@@ -115,4 +115,4 @@ void mpu_config(void);
 
 
 
-#endif /* MODULES_INTERFACES_MPU_H_ */
+#endif /* INTERFACES_MPU_H_ */
