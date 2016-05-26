@@ -58,6 +58,7 @@ void debug_uint(char* msg, uint16_t value){
 
 void debug_int(char* msg, int16_t value){
 	if (DEBUG_LOG_ENABLE){
+		uart_tx("[ ");
 		//TODO:
 		//should use the returned float from sysclock;
 		//but it may be causing syslock drift (due debug print itself of sysclock float math)

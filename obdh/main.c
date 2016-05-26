@@ -27,7 +27,6 @@
 
 #include "interfaces/eps.h"
 #include "interfaces/imu.h"
-#include "interfaces/mpu.h"
 #include "interfaces/radio.h"
 #include "interfaces/uG.h"
 
@@ -57,25 +56,34 @@ void main(void) {
 
 //	Can't debug log the init because UART, Timers, etc are not yet setup
 	main_setup();	//Task 1
-	debug("Main setup done");
+	debug("Main setup done \t\t(Task 1)");
 //	All tasks beyond this point MUST keep track/control of the watchdog (ONLY in the high level main loop).
 
 
     while(1) {		//Task 2
 
-    	debug("Main loop init (Task 2)");
+    	debug("Main loop init \t\t(Task 2)");
     	cycleCounter++;
     	sysled_on();
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
 
 
-    	debug("EPS read init (Task 2.1)");
+    	debug("  EPS read init \t\t(Task 2.1)");
     	//wdt init for eps
     	eps_read();
     	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
 //    								  necessario até a proxima atividade "rastreada" por ele,
 //									  não apenas reiniciado. Se não irá
-    	debug("EPS read done");
+    	debug("  EPS read done");
+
+
+
+    	debug("  IMU read init \t\t(Task 2.4)");
+    	//wdt init for imu
+    	imu_read();
+    	wdt_reset_counter();
+    	debug("  IMU read done");
+
 
 //    	readImu();
 //    	readBeacon();
@@ -87,7 +95,7 @@ void main(void) {
     	sysled_off();
 
 
-    	__delay_cycles(1000010);
+    	__delay_cycles(5000000);
 
     }
 }
@@ -104,7 +112,7 @@ void main_setup(void){
 	i2c_setup(EPS);
 	i2c_setup(MPU);
 	__enable_interrupt();
-	mpu_config();
+	imu_config();
 	debug("MAIN boot completed.\n\r"); //TODO rm
 	wdt_reset_counter();
 }
@@ -135,7 +143,7 @@ void concatenate_frame(void){
 	for(i = 0;i < EPS_DATA_LENGTH;i++)
 		FSAT_frame[j++] = EPS_data_buffer[i];
 	for(i = 0;i < MPU_DATA_LENGTH;i++)
-		FSAT_frame[j++] = MPU_data_buffer[i];
+		FSAT_frame[j++] = imuData[i];
 	for(i = 0;i < BEACON_DATA_LENGTH;i++)
 		FSAT_frame[j++] = BEACON_data_buffer[i];
 	debug("CRC...\n\r"); //TODO rm
