@@ -47,25 +47,7 @@ void i2c_read_epsFrame(char *Buffer, unsigned int bytes){
 }
 
 
-void i2c_IMU_write(unsigned char reg_adrr, unsigned char data) {
-	unsigned char TxData[] = { reg_adrr, data };
-	PTxData = (unsigned char *) TxData;
-	TXByteCtr = sizeof TxData;
-	UCB1CTL1 |= UCTR + UCTXSTT;
-	while (UCB1CTL1 & UCTXSTP);
-}
 
-void i2c_IMU_read(unsigned char reg_adrr, char buffer[],unsigned int bytes) {
-	PTxData = &reg_adrr;
-	TXByteCtr = 1;
-	UCB1CTL1 |= UCTR + UCTXSTT;
-	while (UCB1CTL1 & UCTXSTP);
-	RXByteCtr = bytes;
-	PRxData = buffer;
-	UCB1CTL1 &= ~UCTR;
-	UCB1CTL1 |= UCTXSTT;
-	while (UCB1CTL1 & UCTXSTP);
-}
 
 void Port_Mapping_UCB0(void) {
 	// Disable Interrupts before altering Port Mapping registers

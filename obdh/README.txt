@@ -28,21 +28,25 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 1.1.5										Internal Flash Setup					NOT_IMPLEMENTED	
 1.3										  Radio Setup								NOT_IMPLEMENTED	
 1.4										  IMU Setup									NOT_IMPLEMENTED
+1.5										  Proceed to Task 2							NOT_IMPLEMENTED
+
 
 2										Main Loop (continuous execution)			NOT_IMPLEMENTED
-										  Read OBDH internal data (? bytes)			NOT_IMPLEMENTED
-										  Read EPS data (18 bytes)					NOT_IMPLEMENTED
-										  Read Radio data (5 bytes)					NOT_IMPLEMENTED
-										  Read IMU data (12 bytes)					NOT_IMPLEMENTED
-										  Encode dataframe 							NOT_IMPLEMENTED
-										  Save dataframe to internal flash			NOT_IMPLEMENTED
-										  Send dataframe to UART (uG host downlink)	NOT_IMPLEMENTED
+2.1										  Read OBDH internal data (? bytes)			NOT_IMPLEMENTED
+2.2										  Read EPS data (18 bytes)					NOT_IMPLEMENTED
+2.3										  Read Radio data (5 bytes)					NOT_IMPLEMENTED
+2.4										  Read IMU data (12 bytes)					NOT_IMPLEMENTED
+2.5										  Encode dataframe 							NOT_IMPLEMENTED
+2.6										  Save dataframe to internal flash			NOT_IMPLEMENTED
+2.7										  Send dataframe to UART (uG host downlink)	NOT_IMPLEMENTED
+2.8										  Sleep for X ms							NOT_IMPLEMENTED		
+2.9										  Repeat Task 2 							NOT_IMPLEMENTED											  	
 										  	
 3										Error State (hibernation)					NOT_IMPLEMENTED
 3.1										  Log and transmit error messages			NOT_IMPLEMENTED	
 3.2										  Hibernate									NOT_IMPLEMENTED
-3.2.1									    Periodic wakeup							NOT_IMPLEMENTED
-
+3.3 									  Periodic wakeup 							NOT_IMPLEMENTED
+3.3.1									    Re-evaluate system conditions 			NOT_IMPLEMENTED
 ----------------------------------------------------------------------------------------------------------
 
 

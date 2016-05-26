@@ -1,4 +1,4 @@
-#include "../interfaces/mpu.h"
+#include "mpu.h"
 
 
 void mpu_config(void){

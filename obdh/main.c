@@ -1,97 +1,93 @@
 /*************************************************************************************
-****************************OBDH main for the uG mission******************************
-**************************************************************************************
+
+	OBDH main for the uG mission
 
 	Please consult README.txt for detailed information.
-
 	http://www.floripasat.ufsc.br/
-
+	VERSION: 0.7 - 2016-05-26
 
 *************************************************************************************/
 
+
+
 #include <msp430.h>
 #include "driverlib.h"
+
 #include "hal/obdh_engmodel1.h"
-#include "interfaces/mpu.h"
-#include "util/uart.h"
-#include "util/misc.h"
-#include "util/i2c.h"
-#include "util/watchdog.h"
-#include "util/flash.h"
-#include "util/sysclock.h"
-#include "util/debug.h"
+
+#include "util/codecs.h"
 #include "util/crc.h"
+#include "util/debug.h"
+#include "util/flash.h"
+#include "util/i2c.h"
+#include "util/misc.h"
+#include "util/sysclock.h"
+#include "util/uart.h"
+#include "util/watchdog.h"
+
+#include "interfaces/eps.h"
+#include "interfaces/imu.h"
+#include "interfaces/mpu.h"
+#include "interfaces/radio.h"
+#include "interfaces/uG.h"
 
 
-
-//main frames and variables
 uint16_t cycleCounter = 0;
 //char tmpStr[100];
-char EPS_data_buffer[EPS_DATA_LENGTH];
-char MPU_data_buffer[MPU_DATA_LENGTH];
-char BEACON_data_buffer[BEACON_DATA_LENGTH];
-char FSAT_frame[FSAT_FRAME_LENGTH];
-char misc_info_frame[MISC_INFO_LENGHT];
 
 
-//debuf frames
-unsigned char Debug_FSAT_Frame[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
-									"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
-									"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
-									"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
 
-unsigned char Debug_EPS_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
-								  "0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
 
-unsigned char Debug_MPU_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
-								  "0x00,0x00,0x00,0x00"};//TODO rm
-
-unsigned char Debug_BEACON_Data[] = {"0x00,0x00,0x00"};//TODO rm
 
 
 //main tasks
 void main_setup(void);
-void readEps(void);
-void readImu(void);
-void readBeacon(void);
+
+//TODO: move to appropriate file
 void write2Flash(void);
-void send2uZed(void);
 
 //frames manipulation
 void concatenate_frame(void);
 void concatenate_info_frame(void);
 
-float t =0;
-float f=0;
+
+
 
 void main(void) {
 
+//	Can't debug log the init because UART, Timers, etc are not yet setup
 	main_setup();	//Task 1
+	debug("Main setup done");
+//	All tasks beyond this point MUST keep track/control of the watchdog (ONLY in the high level main loop).
 
 
-    while(1) {
-    	debug("Main cycle init (Task 2)");
+    while(1) {		//Task 2
+
+    	debug("Main loop init (Task 2)");
     	cycleCounter++;
-//    	sysled_toggle();
     	sysled_on();
-
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
-//    	uart_tx("[FSAT DEBUG] Cycle: "); uart_tx(int2str(stringBuffer, cycle_counter));uart_tx("\r\n");
 
 
-    	readEps();
+    	debug("EPS read init (Task 2.1)");
+    	//wdt init for eps
+    	eps_read();
+    	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
+//    								  necessario até a proxima atividade "rastreada" por ele,
+//									  não apenas reiniciado. Se não irá
+    	debug("EPS read done");
 
-    	readImu();
-    	readBeacon();
-    	write2Flash();
-    	send2uZed();
+//    	readImu();
+//    	readBeacon();
+//    	write2Flash();
+//    	send2uZed();
 
 
-    	debug("Main cycle done");
+    	debug("Main loop done");
     	sysled_off();
 
-    	__delay_cycles(1000010);
 
+    	__delay_cycles(1000010);
 
     }
 }
@@ -113,30 +109,12 @@ void main_setup(void){
 	wdt_reset_counter();
 }
 
-void readEps(void){
-	debug("Reading EPS init");
-	i2c_read_epsFrame(EPS_data_buffer,EPS_DATA_LENGTH);
-	frame2string(EPS_data_buffer,Debug_EPS_Data, sizeof Debug_EPS_Data); //TODO rm
-	debug(Debug_EPS_Data);
-	debug("Reading EPS done");
-	wdt_reset_counter();
-}
 
-void readImu(void){
-	debug("Reading MPU init");
-	i2c_IMU_read(MPU9150_ACCEL_XOUT_H, MPU_data_buffer, sizeof MPU_data_buffer);
-	frame2string(MPU_data_buffer,Debug_MPU_Data, sizeof Debug_MPU_Data); //TODO rm
-	debug(Debug_MPU_Data);
-	debug("Reading MPU done");
-	wdt_reset_counter();
-}
 
-void readBeacon(void){
-//    	debug("Reading Beacon init");
-//    	debug("Reading Beacon done");
-//		wdt_reset_counter();
-}
 
+
+
+// TODO: move to appropriate file module
 void write2Flash(void){
 	debug("Writing to flash init");
 	concatenate_frame();
@@ -149,16 +127,8 @@ void write2Flash(void){
 	wdt_reset_counter();
 }
 
-void send2uZed(void){
-	debug("Sending to uZED/uG init");
-	debug("Sending FSAT FRAME TO uZED...\n\r"); //TODO rm
-    uart_tx(FSAT_frame);
-	frame2string(FSAT_frame,Debug_FSAT_Frame, sizeof Debug_FSAT_Frame); //TODO rm
-	debug(Debug_FSAT_Frame); //todo rm
-	debug("Sending to uZED/uG done");
-	wdt_reset_counter();
-}
 
+// TODO: move to appropriate file module
 void concatenate_frame(void){
 	unsigned int i,j = 1;
 	FSAT_frame[0] = STT_BYTE;
@@ -174,6 +144,8 @@ void concatenate_frame(void){
 	FSAT_frame[FSAT_FRAME_LENGTH - 1] = END_BYTE;
 }
 
+
+// TODO: move to appropriate file module
 void concatenate_info_frame(void){
 	misc_info_frame[0] = INFO_STT_BYTE;
 	misc_info_frame[1] = (char)(cycleCounter >> 8);

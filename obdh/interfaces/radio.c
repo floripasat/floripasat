@@ -5,9 +5,8 @@
  *      Author: mario
  */
 
-#ifndef INTERFACES_RADIO_C_
-#define INTERFACES_RADIO_C_
-
-
-
-#endif /* INTERFACES_RADIO_C_ */
+void readBeacon(void){
+//    	debug("Reading Beacon init");
+//    	debug("Reading Beacon done");
+//		wdt_reset_counter();
+}

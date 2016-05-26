@@ -10,6 +10,39 @@
 
 #define DATAFRAME_LENGTH  35
 
+#define SOF	0x7B		// '{' Start Of Frame
+#define EOF	0x7D		// '}' End Of Frame
+
+// Datastreams are initiated by 3 consecutives SOF, to minimize conflit with payloads of same value.
+// TODO: implement a dynamic data encoding that always prevents conflit with SOF, deterministically.
+//		 (eg. payload of conflicting value to be preceded by another special char)
+// Termination is done by a EOF succeded by a \n\r for better formating in ascii debug environments.
+// Example dataframe: {{{BBB}\n\r  , where BBB is a bytestream.
+
+
+char EPS_data_buffer[EPS_DATA_LENGTH];
+char MPU_data_buffer[MPU_DATA_LENGTH];
+char BEACON_data_buffer[BEACON_DATA_LENGTH];
+char FSAT_frame[FSAT_FRAME_LENGTH];
+char misc_info_frame[MISC_INFO_LENGHT];
+
+
+//debuf frames
+unsigned char Debug_FSAT_Frame[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
+									"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
+									"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
+									"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
+
+unsigned char Debug_EPS_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
+								  "0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};//TODO rm
+
+unsigned char Debug_MPU_Data[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,"
+								  "0x00,0x00,0x00,0x00"};//TODO rm
+
+unsigned char Debug_BEACON_Data[] = {"0x00,0x00,0x00"};//TODO rm
+
+
+
 
 
 void dataframe_encode_obdh (char* frame, int a, int b);

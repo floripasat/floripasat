@@ -27,7 +27,7 @@ void wdt_release_counter(void){
 	WDTCTL = ((WDTCTL & 0x00FF) + WDTPW) & ~WDTHOLD;
 }
 
-void reboot(void){
+void system_reboot(void){
 	WDTCTL = 0x00;
 }
 
@@ -35,6 +35,6 @@ void reboot(void){
 #pragma vector = WDT_VECTOR
 __interrupt void WDT_ISR(void){
 	flash_save_ptr();
-	reboot();
+	system_reboot();
 }
 

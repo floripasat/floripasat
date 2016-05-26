@@ -17,8 +17,7 @@ unsigned char TXByteCtr;
 void Port_Mapping_UCB0(void);
 void i2c_setup(unsigned int);
 void i2c_read_epsFrame(char *, unsigned int );
-void i2c_IMU_read(unsigned char , char* ,unsigned int );
-void i2c_IMU_write(unsigned char , unsigned char );
+
 
 
 #endif /* I2C_H_ */
