@@ -8,7 +8,7 @@
 #ifndef INTERFACES_IMU_H_
 #define INTERFACES_IMU_H_
 
-#include "../hal/obdh_engmodel1.h"
+#include "../hal/engmodel1.h"
 #include "../util/i2c.h"
 #include "../util/debug.h"
 //#include "../util/codecs.h"

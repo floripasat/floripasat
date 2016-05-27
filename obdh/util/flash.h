@@ -5,6 +5,9 @@
  *      Author: mfrata
  */
 
+#include <msp430.h>
+#include "misc.h"
+
 #ifndef UTIL_FLASH_H_
 #define UTIL_FLASH_H_
 

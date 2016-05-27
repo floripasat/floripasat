@@ -6,7 +6,6 @@
  */
 
 #include "sysclock.h"
-#include "misc.h"
 
 #define SYSCLOCK_INCREMENT 970   // 1ms, since Timer clk source is internal 1Mhz
 

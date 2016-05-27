@@ -9,6 +9,7 @@
 #define UTIL_SYSCLOCK_H_
 
 #include "driverlib.h"
+#include "misc.h"
 
 void  sysclock_setup(void);
 float sysclock_read (void);
