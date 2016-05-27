@@ -18,6 +18,6 @@ void debug_inline (char* msg);
 void debug_int    (char* msg,  int16_t value);
 void debug_uint   (char* msg, uint16_t value);
 void debug_float  (char* msg,    float value);
-
+void debug_array  (char* msg, char* array, uint16_t length);
 
 #endif /* UTIL_DEBUG_H_ */

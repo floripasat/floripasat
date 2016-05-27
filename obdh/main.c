@@ -32,7 +32,7 @@
 
 
 uint16_t cycleCounter = 0;
-char tmpStr[100];
+char tmpStr[200];
 
 char imuData[MPU_DATA_LENGTH];
 
@@ -80,7 +80,7 @@ void main(void) {
     	debug("  IMU read init \t\t\t\t(Task 2.4)");
     	//wdt init for imu
     	imu_read(imuData);
-    	debug("    IMU decoding data");
+    	debug_array("    IMU decoding data", imuData, sizeof(imuData) );
     	debug( imu_data2string(tmpStr, imuData, IMU_ACC_RANGE, IMU_GYR_RANGE) );
     	debug("  IMU read done");
     	wdt_reset_counter();
@@ -93,7 +93,7 @@ void main(void) {
     	debug("Main loop done");
     	sysled_off();
 
-    	debug("Sleeping for 5000000 cycles");
+    	debug("Sleeping for 1000000 cycles");
     	__delay_cycles(5000000);
 
     }
