@@ -8,9 +8,11 @@
 #ifndef INTERFACES_UG_H_
 #define INTERFACES_UG_H_
 
+#include <stdint.h>
+
 void send2uZed(void);
 
-
+void uG_send(char* dataframe, uint16_t length);
 
 
 #endif /* INTERFACES_UG_H_ */

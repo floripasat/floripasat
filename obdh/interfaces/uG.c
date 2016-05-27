@@ -5,6 +5,8 @@
  *      Author: mario
  */
 
+#include "uG.h"
+#include "../util/uart.h"
 
 void send2uZed(void){
 //	debug("Sending to uZED/uG init");
@@ -16,3 +18,9 @@ void send2uZed(void){
 //	wdt_reset_counter();
 }
 
+
+void uG_send(char* dataframe, uint16_t length){
+
+
+
+}

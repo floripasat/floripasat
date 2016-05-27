@@ -120,10 +120,12 @@ void debug_array  (char* msg, char* array, uint16_t length){
 		uart_tx(" {");
 
 		uint16_t i = 0;
-		for (i=0; i<length; i++){
-			sprintf(tmpStr, "0x%X,", array[i]);
+		for (i=0; i<(length-1); i++){
+			sprintf(tmpStr, "0x%02X,", array[i]);
 			uart_tx(tmpStr);
 		}
+		sprintf(tmpStr, "0x%02X", array[i]);		// prevent last comma
+		uart_tx(tmpStr);
 		uart_tx("}\n\r");
 
 	}

@@ -20,7 +20,7 @@ void imu_config(void){
 
 void imu_read(char* imuData){
 
-	imu_i2c_read(MPU9150_ACCEL_XOUT_H, imuData, sizeof imuData);
+	imu_i2c_read(MPU9150_ACCEL_XOUT_H, imuData, MPU_DATA_LENGTH );
 
 }
 

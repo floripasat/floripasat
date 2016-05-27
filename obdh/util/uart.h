@@ -7,7 +7,9 @@
 
 
 void uart_setup(unsigned long);
-void uart_tx(char *);
+void uart_tx     (char *tx_data);
+void uart_tx_char(char *tx_data);
+
 
 void uart_tx_newline(void);
 void uart_set_baudrate(unsigned long);

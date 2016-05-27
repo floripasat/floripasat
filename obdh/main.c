@@ -35,8 +35,10 @@ uint16_t cycleCounter = 0;
 char tmpStr[200];
 
 char imuData[MPU_DATA_LENGTH];
+char dataframeuG[35];
 
 
+char frame_uG[] = {0x41, 0x42, 0x43, 0x44, 0x45};
 
 
 //main tasks
@@ -88,6 +90,22 @@ void main(void) {
 //    	readBeacon();
 //    	write2Flash();
 //    	send2uZed();
+
+    	debug("  Sending data to uG/Host \t\t\t(Task 2.7)");
+    	//wdt init for uG tx
+//    	debug_array("    IMU decoding data", imuData, sizeof(imuData) );
+//    	uG_send(frame_uG, sizeof(frame_uG));
+//    	uart_tx("{{{aabbcc}\n\r");
+
+    	uart_tx("{{{");
+    	uart_tx("payload");
+    	uart_tx("}\n\r");
+
+    	debug("  IMU read done");
+    	wdt_reset_counter();
+
+
+
 
 
     	debug("Main loop done");

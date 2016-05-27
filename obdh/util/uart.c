@@ -29,12 +29,17 @@ void uart_set_baudrate(unsigned long baudrate){
 	}
 }
 
-void uart_tx(char *tx_data){			//Define a function that accepts a character pointer to an array
+void uart_tx(char *tx_data){					//Define a function that accepts a character pointer to an array
 	while (*tx_data != 0) { 					// Increment through array, look for null pointer (0)  at end of string
-		while ((UCA2STAT & UCBUSY) == TRUE);         // Wait if line TX/RX module is busy with data
+		while ((UCA2STAT & UCBUSY) == TRUE);    // Wait if line TX/RX module is busy with data
 		UCA2TXBUF = *tx_data; 					// Send out element i of tx_data array on UART bus
 		tx_data++;
 	}
 
 }
 
+
+void uart_tx_char(char *tx_data){
+	while ((UCA2STAT & UCBUSY) == TRUE);
+	UCA2TXBUF = *tx_data;
+}
