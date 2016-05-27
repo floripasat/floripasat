@@ -48,7 +48,7 @@ static void registerConfig(void) {
 */
 static void runRX(void) {
 
-	uint8_t rxBuffer[5] = { 0 };
+	uint8_t rxBuffer[200] = { 0 };
 	uint8_t rxBytes;
 	uint8_t marcState;
 
@@ -57,23 +57,29 @@ static void runRX(void) {
 
 	// Read number of bytes in RX FIFO
 	cc112xSpiReadReg(CC112X_NUM_RXBYTES, &rxBytes, 1);
+	debug_uint("rxBytes:", rxBytes);
 
 	// Check that we have bytes in FIFO
 	if (rxBytes != 0) {
+		debug("rxBytes != 0");
 
 		// Read MARCSTATE to check for RX FIFO error
 		cc112xSpiReadReg(CC112X_MARCSTATE, &marcState, 1);
+		debug("cc112xSpiReadReg()");
 
 		// Mask out MARCSTATE bits and check if we have a RX FIFO error
 		if ((marcState & 0x1F) == RX_FIFO_ERROR) {
+			debug("(marcState & 0x1F) == RX_FIFO_ERROR");
 			// Flush RX FIFO
-			trxSpiCmdStrobe(CC112X_SFRX);
+//			trxSpiCmdStrobe(CC112X_SFRX);
 		} else {
-			// Read n bytes from RX FIFO
-			cc112xSpiReadRxFifo(rxBuffer, rxBytes);
+			debug("(marcState & 0x1F) == RX_FIFO_ERROR  ELSE");
+//			// Read n bytes from RX FIFO
+			cc112xSpiReadRxFifo(rxBuffer, 126);
 			debug("Printing radio buffer...");
-			debug_array("Radio data:", rxBuffer, 5);
+			debug_array("Radio data:", rxBuffer, 200);
 		}
+
 	}
 
 	// Set radio back in RX
