@@ -31,5 +31,6 @@
 #OBDH output files
 obdh/Debug/*
 obdh/.settings/org.eclipse.core.resources.prefs
+obdh/.launches/obdh.launch
 
 
