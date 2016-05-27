@@ -36,6 +36,7 @@ char tmpStr[200];
 
 char imuData[MPU_DATA_LENGTH];
 char dataframeuG[35];
+char radioData[];
 
 
 char frame_uG[] = {0x41, 0x42, 0x43, 0x44, 0x45};
@@ -87,9 +88,14 @@ void main(void) {
     	debug("  IMU read done");
     	wdt_reset_counter();
 
-//    	readBeacon();
-//    	write2Flash();
-//    	send2uZed();
+
+
+    	readTransceiver();
+
+
+
+    	write2Flash();
+    	send2uZed();
 
     	debug("  Sending data to uG/Host \t\t\t(Task 2.7)");
     	//wdt init for uG tx
@@ -131,8 +137,10 @@ void main_setup(void){
 	i2c_setup(EPS);
 	debug("  EPS setup done");
 	i2c_setup(MPU);
+	SPI_Setup();
 	__enable_interrupt();
 	imu_config();
+	radio_Setup();
 	debug("  IMU setup done");
 }
 
