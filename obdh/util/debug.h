@@ -11,16 +11,13 @@
 #include "sysclock.h"
 #include "uart.h"
 
-#define DEBUG_LOG_ENABLE 		1
-
-char tmpStr[16];
+#define DEBUG_LOG_ENABLE 	1	//TODO: move debug enable flag to main.c, for beter UX/visibility
 
 void debug        (char* msg);
+void debug_inline (char* msg);
 void debug_int    (char* msg,  int16_t value);
 void debug_uint   (char* msg, uint16_t value);
-void debug_print  (char* msg);
-
-
+void debug_float  (char* msg,    float value);
 
 
 #endif /* UTIL_DEBUG_H_ */

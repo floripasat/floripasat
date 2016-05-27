@@ -11,7 +11,7 @@ Keypoints:
 - Max_time should include some margin and consider worst case cenario.
 - Item total time correspond to, at least, the sum of all subitems times, but not limited to it (may contain extra time in the parent function itself).
 - Item times can be lower, since are calculated by worst case cenario.
-
+- Debug message or extra functions should be accounted in the worst case cenario.
 
 EXECUTION TIME TABLE
 ----------------------------------------------------------------------------------------------------------

@@ -35,7 +35,8 @@
 #define INFO_STT_BYTE  	0x55
 #define INFO_END_BYTE	0xFF
 
-
+#define IMU_ACC_RANGE	2.0
+#define IMU_GYR_RANGE	2.0
 
 
 #endif /* HAL_OBDH_H_ */

@@ -12,22 +12,23 @@ char imuTmpStr[100];
 
 
 void imu_config(void){
-	i2c_IMU_write(MPU9150_PWR_MGMT_1, 0x00);
-	i2c_IMU_write(MPU9150_ACCEL_CONFIG, 0x00);
+	imu_i2c_write(MPU9150_PWR_MGMT_1, 0x00);
+	imu_i2c_write(MPU9150_ACCEL_CONFIG, 0x00);
 //	i2c_IMU_write(MPU9150_ACCEL_CONFIG, 0x18); //para leitura durante a subida
 }
 
 
-void imu_read(void){
-//	debug("Reading MPU init");
+void imu_read(char* imuData){
 
-	i2c_IMU_read(MPU9150_ACCEL_XOUT_H, imuData, sizeof imuData);
-//	frame2string(MPU_data_buffer,Debug_MPU_Data, sizeof Debug_MPU_Data); //TODO rm
+	imu_i2c_read(MPU9150_ACCEL_XOUT_H, imuData, sizeof imuData);
 
-	debug("Decoding IMU data...");
+}
 
-//	IMU response:
-//	[accXH][accXL][accYH][accYL][accZH][accZL][tempH][tempL][gyrXH][gyrXL][gyrYH][gyrYL][gyrZH][gyrZL]
+
+char* imu_data2string(char* stringBuffer, char* imuData, float accRange, float gyrRange){
+
+	//	IMU MPU6050 response:
+	//	[accXH][accXL][accYH][accYL][accZH][accZL][tempH][tempL][gyrXH][gyrXL][gyrYH][gyrYL][gyrZH][gyrZL]
 
 	char accXH = imuData[0];
 	char accXL = imuData[1];
@@ -46,37 +47,26 @@ void imu_read(void){
 	char gyrZH = imuData[12];
 	char gyrZL = imuData[13];
 
+	float temp = (float) ((( tempH << 8 ) | tempL ) / 340.0 + 35.0 );
 
-	int temp = (signed int) ((( tempH << 8 ) | tempL ) / 340 + 35 );
-	int accX = (signed int)  (( accXH << 8 ) | accXL );
-	int accY = (signed int)  (( accYH << 8 ) | accYL );
-	int accZ = (signed int)  (( accZH << 8 ) | accZL );
-	int gyrX = (signed int)  (( gyrXH << 8 ) | gyrXL );
-	int gyrY = (signed int)  (( gyrYH << 8 ) | gyrYL );
-	int gyrZ = (signed int)  (( gyrZH << 8 ) | gyrZL );
+	float accX = (float)( ((accXH<<8 | accXL)*accRange)/32768.0 );
+	float accY = (float)( ((accYH<<8 | accYL)*accRange)/32768.0 );
+	float accZ = (float)( ((accZH<<8 | accZL)*accRange)/32768.0 );
 
-	debug_int("temp:", temp);
-	debug_int("accX:", accX);
-	debug_int("accY:", accY);
-	debug_int("accZ:", accZ);
-	debug_int("gyrX:", gyrX);
-	debug_int("gyrY:", gyrY);
-	debug_int("gyrZ:", gyrZ);
+	float gyrX = (float)( ((gyrXH<<8 | gyrXL)*gyrRange)/32768.0 );
+	float gyrY = (float)( ((gyrYH<<8 | gyrYL)*gyrRange)/32768.0 );
+	float gyrZ = (float)( ((gyrZH<<8 | gyrZL)*gyrRange)/32768.0 );
 
-//	debug( imu_data2string(imuTmpStr, MPU_data_buffer) );
+	sprintf(stringBuffer, "\tTemperature: %.3f C"
+						  "\t\tAcc (X,Y,Z):\t%.3f\t%.3f\t%.3f G"
+						  "\t\tGyr (X,Y,Z):\t%.3f\t%.3f\t%.3f g/S",
+						  temp, accX,accY,accZ, gyrX,gyrY,gyrZ);
 
-//	wdt_reset_counter();
+	return stringBuffer;
 }
 
 
-char* imu_data2string(char* aa1, char* imuData){
-
-	sprintf(aa1, "%d", 123 );
-
-}
-
-
-void i2c_IMU_write(unsigned char reg_adrr, unsigned char data) {
+void imu_i2c_write(unsigned char reg_adrr, unsigned char data) {
 	unsigned char TxData[] = { reg_adrr, data };
 	PTxData = (unsigned char *) TxData;
 	TXByteCtr = sizeof TxData;
@@ -84,7 +74,7 @@ void i2c_IMU_write(unsigned char reg_adrr, unsigned char data) {
 	while (UCB1CTL1 & UCTXSTP);
 }
 
-void i2c_IMU_read(unsigned char reg_adrr, char buffer[],unsigned int bytes) {
+void imu_i2c_read(unsigned char reg_adrr, char buffer[],unsigned int bytes) {
 	PTxData = &reg_adrr;
 	TXByteCtr = 1;
 	UCB1CTL1 |= UCTR + UCTXSTT;

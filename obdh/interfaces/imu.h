@@ -115,15 +115,15 @@
 
 
 
-char imuData[MPU_DATA_LENGTH];
+//char imuData[MPU_DATA_LENGTH];
 
 void imu_config(void);
-void imu_read(void);
+void imu_read(char* imuData);
 
-char* imu_data2string(char* stringBuffer, char* imuData);
+char* imu_data2string(char* stringBuffer, char* imuData, float accRange, float gyrRange);
 
-void i2c_IMU_read(unsigned char , char* ,unsigned int );
-void i2c_IMU_write(unsigned char , unsigned char );
+void imu_i2c_read(unsigned char , char* ,unsigned int );
+void imu_i2c_write(unsigned char , unsigned char );
 
 
 #endif /* INTERFACES_IMU_H_ */

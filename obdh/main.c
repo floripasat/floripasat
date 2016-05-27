@@ -32,9 +32,9 @@
 
 
 uint16_t cycleCounter = 0;
-//char tmpStr[100];
+char tmpStr[100];
 
-
+char imuData[MPU_DATA_LENGTH];
 
 
 
@@ -56,36 +56,35 @@ void main(void) {
 
 //	Can't debug log the init because UART, Timers, etc are not yet setup
 	main_setup();	//Task 1
-	debug("Main setup done \t\t(Task 1)");
+	debug("Main setup done \t\t\t\t(Task 1)");
 //	All tasks beyond this point MUST keep track/control of the watchdog (ONLY in the high level main loop).
 
 
     while(1) {		//Task 2
 
-    	debug("Main loop init \t\t(Task 2)");
+    	debug("Main loop init \t\t\t\t(Task 2)");
     	cycleCounter++;
     	sysled_on();
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
 
-
-    	debug("  EPS read init \t\t(Task 2.1)");
+    	debug("  EPS read init \t\t\t\t(Task 2.1)");
     	//wdt init for eps
     	eps_read();
+    	debug("  EPS read done");
     	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
 //    								  necessario até a proxima atividade "rastreada" por ele,
 //									  não apenas reiniciado. Se não irá
-    	debug("  EPS read done");
 
 
 
-    	debug("  IMU read init \t\t(Task 2.4)");
+    	debug("  IMU read init \t\t\t\t(Task 2.4)");
     	//wdt init for imu
-    	imu_read();
-    	wdt_reset_counter();
+    	imu_read(imuData);
+    	debug("    IMU decoding data");
+    	debug( imu_data2string(tmpStr, imuData, IMU_ACC_RANGE, IMU_GYR_RANGE) );
     	debug("  IMU read done");
+    	wdt_reset_counter();
 
-
-//    	readImu();
 //    	readBeacon();
 //    	write2Flash();
 //    	send2uZed();
@@ -94,7 +93,7 @@ void main(void) {
     	debug("Main loop done");
     	sysled_off();
 
-
+    	debug("Sleeping for 5000000 cycles");
     	__delay_cycles(5000000);
 
     }
@@ -106,15 +105,17 @@ void main_setup(void){
 	watchdog_setup(WATCHDOG,_18_H_12_MIN_16_SEC);
 	sysclock_setup();
 	uart_setup(9600);
-	debug("\n\n\r MAIN booting...\n\r"); //TODO rm
+	debug("  UART setup done");
 	sysled_enable();
+	debug("  Sysled setup done");
 	flash_setup(BANK1_ADDR);
+	debug("  Flash setup done");
 	i2c_setup(EPS);
+	debug("  EPS setup done");
 	i2c_setup(MPU);
 	__enable_interrupt();
 	imu_config();
-	debug("MAIN boot completed.\n\r"); //TODO rm
-	wdt_reset_counter();
+	debug("  IMU setup done");
 }
 
 

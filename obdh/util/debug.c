@@ -8,7 +8,7 @@
 
 #include "debug.h"
 
-void debug_print(char* msg){
+void debug_inline(char* msg){
 	if (DEBUG_LOG_ENABLE){
 		uart_tx(msg);
 	}
@@ -18,6 +18,7 @@ void debug_print(char* msg){
 
 void debug(char* msg){
 	if (DEBUG_LOG_ENABLE){
+		char tmpStr[16];
 		uart_tx("[ ");
 		//TODO:
 		//should use the returned float from sysclock;
@@ -25,7 +26,7 @@ void debug(char* msg){
 		sprintf(tmpStr, "%u", sysclock_read_s() );
 		uart_tx(tmpStr);
 		uart_tx(".");
-		sprintf(tmpStr, "%u", sysclock_read_ms() );
+		sprintf(tmpStr, "%03u", sysclock_read_ms() );
 		uart_tx(tmpStr);
 		uart_tx(" ] ");
 		uart_tx(msg);
@@ -37,6 +38,7 @@ void debug(char* msg){
 
 void debug_uint(char* msg, uint16_t value){
 	if (DEBUG_LOG_ENABLE){
+		char tmpStr[16];
 		uart_tx("[ ");
 		//TODO:
 		//should use the returned float from sysclock;
@@ -44,7 +46,7 @@ void debug_uint(char* msg, uint16_t value){
 		sprintf(tmpStr, "%u", sysclock_read_s() );
 		uart_tx(tmpStr);
 		uart_tx(".");
-		sprintf(tmpStr, "%u", sysclock_read_ms() );
+		sprintf(tmpStr, "%03u", sysclock_read_ms() );
 		uart_tx(tmpStr);
 		uart_tx(" ] ");
 		uart_tx(msg);
@@ -58,6 +60,7 @@ void debug_uint(char* msg, uint16_t value){
 
 void debug_int(char* msg, int16_t value){
 	if (DEBUG_LOG_ENABLE){
+		char tmpStr[16];
 		uart_tx("[ ");
 		//TODO:
 		//should use the returned float from sysclock;
@@ -65,7 +68,7 @@ void debug_int(char* msg, int16_t value){
 		sprintf(tmpStr, "%u", sysclock_read_s() );
 		uart_tx(tmpStr);
 		uart_tx(".");
-		sprintf(tmpStr, "%u", sysclock_read_ms() );
+		sprintf(tmpStr, "%03u", sysclock_read_ms() );
 		uart_tx(tmpStr);
 		uart_tx(" ] ");
 		uart_tx(msg);
@@ -78,5 +81,25 @@ void debug_int(char* msg, int16_t value){
 
 
 
+void debug_float(char* msg, float value){
+	if (DEBUG_LOG_ENABLE){
+		char tmpStr[16];
+		uart_tx("[ ");
+		//TODO:
+		//should use the returned float from sysclock;
+		//but it may be causing syslock drift (due debug print itself of sysclock float math)
+		sprintf(tmpStr, "%u", sysclock_read_s() );
+		uart_tx(tmpStr);
+		uart_tx(".");
+		sprintf(tmpStr, "%03u", sysclock_read_ms() );
+		uart_tx(tmpStr);
+		uart_tx(" ] ");
+		uart_tx(msg);
+		uart_tx(" ");
+		sprintf(tmpStr, "%.3f", value);
+		uart_tx( tmpStr );
+		uart_tx("\n\r");
+	}
+}
 
 
