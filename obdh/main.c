@@ -13,7 +13,7 @@
 #include <msp430.h>
 #include "driverlib.h"
 
-#include "hal/obdh_engmodel1.h"
+#include "hal/engmodel1.h"
 
 #include "util/codecs.h"
 #include "util/crc.h"
@@ -98,7 +98,10 @@ void main(void) {
 //    	uart_tx("{{{aabbcc}\n\r");
 
     	uart_tx("{{{");
-    	uart_tx("payload");
+    	int i;
+    	for (i=0; i<sizeof(frame_uG); i++){
+    		uart_tx_char( frame_uG[i] );
+    	}
     	uart_tx("}\n\r");
 
     	debug("  IMU read done");
@@ -106,13 +109,11 @@ void main(void) {
 
 
 
-
-
     	debug("Main loop done");
-    	sysled_off();
 
-    	debug("Sleeping for 1000000 cycles");
-    	__delay_cycles(5000000);
+    	debug("Sleeping...");
+    	sysled_off();
+    	__delay_cycles(DELAY_5_S_IN_CYCLES);
 
     }
 }
@@ -124,7 +125,8 @@ void main_setup(void){
 	sysclock_setup();
 	uart_setup(9600);
 	debug("  UART setup done");
-	sysled_enable();
+	sysled_setup();
+	payloadEnable_setup();
 	debug("  Sysled setup done");
 	flash_setup(BANK1_ADDR);
 	debug("  Flash setup done");

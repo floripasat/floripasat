@@ -39,7 +39,7 @@ void uart_tx(char *tx_data){					//Define a function that accepts a character po
 }
 
 
-void uart_tx_char(char *tx_data){
+void uart_tx_char(char tx_char){
 	while ((UCA2STAT & UCBUSY) == TRUE);
-	UCA2TXBUF = *tx_data;
+	UCA2TXBUF = tx_char;
 }

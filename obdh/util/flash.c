@@ -5,9 +5,8 @@
  *      Author: mfrata
  */
 
-#include <msp430.h>
+
 #include "flash.h"
-#include "misc.h"
 
 
 void flash_write(char* data, int bytes){
