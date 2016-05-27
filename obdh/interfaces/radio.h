@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "cc112x_spi.h"
 #include "hal_spi_rf_floripasat.h"
+#include "../util/debug.h"
 
 //#include "../util/spi.h"
 

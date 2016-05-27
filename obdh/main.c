@@ -89,13 +89,16 @@ void main(void) {
     	wdt_reset_counter();
 
 
-
+    	debug("  RADIO read init \t\t\t\t(Task 2.4)");
+    	//wdt init for radio
     	readTransceiver();
+    	debug("  RADIO read done");
+    	wdt_reset_counter();
 
 
+//    	write2Flash();
+//    	send2uZed();
 
-    	write2Flash();
-    	send2uZed();
 
     	debug("  Sending data to uG/Host \t\t\t(Task 2.7)");
     	//wdt init for uG tx

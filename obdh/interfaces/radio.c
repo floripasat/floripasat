@@ -71,6 +71,8 @@ static void runRX(void) {
 		} else {
 			// Read n bytes from RX FIFO
 			cc112xSpiReadRxFifo(rxBuffer, rxBytes);
+			debug("Printing radio buffer...");
+			debug_array("Radio data:", rxBuffer, 5);
 		}
 	}
 
