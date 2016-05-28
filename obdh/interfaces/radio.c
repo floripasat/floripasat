@@ -48,7 +48,7 @@ static void registerConfig(void) {
 */
 static void runRX(void) {
 
-	uint8_t rxBuffer[200] = { 0 };
+	uint8_t rxBuffer[150] = { 0 };
 	uint8_t rxBytes;
 	uint8_t marcState;
 
@@ -57,6 +57,7 @@ static void runRX(void) {
 
 	// Read number of bytes in RX FIFO
 	cc112xSpiReadReg(CC112X_NUM_RXBYTES, &rxBytes, 1);
+
 	debug_uint("rxBytes:", rxBytes);
 
 	// Check that we have bytes in FIFO
@@ -75,9 +76,12 @@ static void runRX(void) {
 		} else {
 			debug("(marcState & 0x1F) == RX_FIFO_ERROR  ELSE");
 //			// Read n bytes from RX FIFO
-			cc112xSpiReadRxFifo(rxBuffer, 126);
+//			debug_array("Radio buffer initial state:", rxBuffer, 200);
+
+			cc112xSpiReadRxFifo(rxBuffer, rxBytes);
 			debug("Printing radio buffer...");
-			debug_array("Radio data:", rxBuffer, 200);
+			debug_array("Radio data:", rxBuffer, rxBytes );
+			debug_array_ascii("Radio ASCII:", rxBuffer, rxBytes );
 		}
 
 	}

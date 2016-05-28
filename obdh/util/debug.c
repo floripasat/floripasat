@@ -132,5 +132,31 @@ void debug_array  (char* msg, char* array, uint16_t length){
 }
 
 
+void debug_array_ascii  (char* msg, char* array, uint16_t length){
+	if (DEBUG_LOG_ENABLE){
+		char tmpStr[16];
+		uart_tx("[ ");
+		sprintf(tmpStr, "%u", sysclock_read_s() );
+		uart_tx(tmpStr);
+		uart_tx(".");
+		sprintf(tmpStr, "%03u", sysclock_read_ms() );
+		uart_tx(tmpStr);
+		uart_tx(" ] ");
+
+		uart_tx(msg);
+
+		uart_tx(" {");
+
+		uint16_t i = 0;
+		for (i=0; i<(length-1); i++){
+			sprintf(tmpStr, "%c", array[i]);
+			uart_tx(tmpStr);
+		}
+		sprintf(tmpStr, "%c", array[i]);		// prevent last comma
+		uart_tx(tmpStr);
+		uart_tx("}\n\r");
+
+	}
+}
 
 

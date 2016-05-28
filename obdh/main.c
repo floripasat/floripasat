@@ -88,11 +88,12 @@ void main(void) {
     	debug("  IMU read done");
     	wdt_reset_counter();
 
-
+    	debug("-----------------------------------------------");
     	debug("  RADIO read init \t\t\t\t(Task 2.4)");
     	//wdt init for radio
     	readTransceiver();
     	debug("  RADIO read done");
+    	debug("-----------------------------------------------");
     	wdt_reset_counter();
 
 
@@ -122,7 +123,11 @@ void main(void) {
 
     	debug("Sleeping...");
     	sysled_off();
-    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_1_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
 
     }
 }
