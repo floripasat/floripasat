@@ -5,29 +5,11 @@
  *      Author: mario
  */
 
-
-void dataframe_encode_obdh (char* frame, int a, int b){
-
-
-}
-
-void dataframe_encode_radio(char* frame, int a, int b){
-
-
-}
-
-
-void dataframe_encode_eps  (char* frame, int a, int b){
-
-
-}
-
-
-void dataframe_encode_imu  (char* frame, int a, int b){
+#include "codecs.h"
 
 
 
-}
+
 
 
 char* dataframe2string 	   (char* frame) {

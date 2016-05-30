@@ -34,8 +34,8 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 2										Main Loop (continuous execution)			NOT_IMPLEMENTED
 2.1										  Read OBDH internal data (? bytes)			NOT_IMPLEMENTED
 2.2										  Read EPS data (18 bytes)					NOT_IMPLEMENTED
-2.3										  Read Radio data (5 bytes)					NOT_IMPLEMENTED
-2.4										  Read IMU data (14 bytes)					NOT_IMPLEMENTED
+2.3										  Read IMU data (14 bytes)					NOT_IMPLEMENTED
+2.4										  Read Radio data (5 bytes)					NOT_IMPLEMENTED
 2.5										  Encode dataframe 							NOT_IMPLEMENTED
 2.6										  Save dataframe to internal flash			NOT_IMPLEMENTED
 2.7										  Send dataframe to UART (uG host downlink)	NOT_IMPLEMENTED

@@ -9,6 +9,14 @@
 #define INTERFACES_UG_H_
 
 #include <stdint.h>
+#include "../hal/engmodel1.h"
+
+void uG_encode_dataframe (char*     ugFrame,
+						  char*    obdhData,
+						  char*   radioData,
+						  char*     epsData,
+						  char*     imuData,
+						  uint8_t frameCRC8 );
 
 void send2uZed(void);
 

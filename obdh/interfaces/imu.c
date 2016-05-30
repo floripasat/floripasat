@@ -13,14 +13,19 @@ char imuTmpStr[100];
 
 void imu_config(void){
 	imu_i2c_write(MPU9150_PWR_MGMT_1, 0x00);
-	imu_i2c_write(MPU9150_ACCEL_CONFIG, 0x00);
-//	i2c_IMU_write(MPU9150_ACCEL_CONFIG, 0x18); //para leitura durante a subida
+
+	if (IMU_ACC_RANGE == 2.0) {
+		imu_i2c_write(MPU9150_ACCEL_CONFIG, 0x00);   // config for +-2g range
+	} else {
+		imu_i2c_write(MPU9150_ACCEL_CONFIG, 0x18);   // config for +-16g range
+	}
+
 }
 
 
 void imu_read(char* imuData){
 
-	imu_i2c_read(MPU9150_ACCEL_XOUT_H, imuData, MPU_DATA_LENGTH );
+	imu_i2c_read(MPU9150_ACCEL_XOUT_H, imuData, IMU_DATA_LENGTH );
 
 }
 

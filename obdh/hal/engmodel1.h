@@ -42,11 +42,17 @@
 #define DELAY_60_S_IN_CYCLES	62914560	// @ 1Mhz Internal clock	~61.52	s
 
 
-#define  EPS_DATA_LENGTH 	18
-#define  MPU_DATA_LENGTH 	14
-#define  BEACON_DATA_LENGTH 3
-#define  FSAT_FRAME_LENGTH	38
-#define  MISC_INFO_LENGHT 	4
+#define OBDH_DATA_LENGTH	 7	//  7 B of payload
+#define EPS_DATA_LENGTH 	17	// 17 B of payload + 2 * 3 Bytes of SOF and EOF
+#define IMU_DATA_LENGTH 	9
+#define RADIO_DATA_LENGTH 	 4
+#define UG_FRAME_LENGTH		41	// SOF(3) + Payload(35) + EOF(3)
+
+
+//TODO: deprecated
+#define BEACON_DATA_LENGTH   3
+#define FSAT_FRAME_LENGTH	38
+#define MISC_INFO_LENGHT 	 4
 
 #define  STT_BYTE 		0xAC
 #define  END_BYTE		0xFF
@@ -54,7 +60,7 @@
 #define INFO_STT_BYTE  	0x55
 #define INFO_END_BYTE	0xFF
 
-#define IMU_ACC_RANGE	2.0
+#define IMU_ACC_RANGE	16.0
 #define IMU_GYR_RANGE	2.0
 
 

@@ -9,8 +9,9 @@
 #define INTERFACES_EPS_H_
 
 #include "../util/debug.h"
+#include "../hal/engmodel1.h"
 
-void eps_read(void);
+void eps_read(char* imuData);
 
 
 
