@@ -26,11 +26,12 @@ void uG_encode_dataframe (char*     ugFrame,
 	// Frame sent to uG Host mission: 41 Bytes
 	// SOF (3B) + Payload (35B) + EOF (3B)
 	// Ex: {{{BBB..BBB}\n\r
+	// 7b 7b 7b 00 01 02 03 04  05 05 00 00 00 00 00 00 00 00 00 00 00 01 00 00 09 00 0d 01 02 03 04 05 06 07 08 09 0a 06 7d 0a 0d
 
 	//Start of Frame
-	ugFrame[0] = '{';
-	ugFrame[1] = '{';
-	ugFrame[2] = '{';
+	ugFrame[0] = '{';				// 0x7B
+	ugFrame[1] = '{';				// 0x7B
+	ugFrame[2] = '{';				// 0x7B
 
 	// Payload
 	ugFrame[3]  = obdhData[0];		//Sysclock  S H
@@ -74,9 +75,9 @@ void uG_encode_dataframe (char*     ugFrame,
 	ugFrame[37] = frameCRC8;		//CRC8
 
 	// End of Frame
-	ugFrame[38] = '}';
-	ugFrame[39] = '\n';
-	ugFrame[40] = '\r';
+	ugFrame[38] = '}';				// 0x7D
+	ugFrame[39] = '\n';				// 0x0A
+	ugFrame[40] = '\r';				// 0x0D
 
 }
 

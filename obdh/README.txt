@@ -31,15 +31,15 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 1.5										  Proceed to Task 2							NOT_IMPLEMENTED
 
 
-2										Main Loop (continuous execution)			NOT_IMPLEMENTED
-2.1										  Read OBDH internal data (? bytes)			NOT_IMPLEMENTED
-2.2										  Read EPS data (18 bytes)					NOT_IMPLEMENTED
-2.3										  Read IMU data (14 bytes)					NOT_IMPLEMENTED
-2.4										  Read Radio data (5 bytes)					NOT_IMPLEMENTED
-2.5										  Encode dataframe 							NOT_IMPLEMENTED
-2.6										  Save dataframe to internal flash			NOT_IMPLEMENTED
-2.7										  Send dataframe to UART (uG host downlink)	NOT_IMPLEMENTED
-2.8										  Sleep for X ms							NOT_IMPLEMENTED		
+2			500				500			Main Loop (continuous execution)			NOT_IMPLEMENTED
+2.1							10			  Read OBDH internal data (? bytes)			NOT_IMPLEMENTED
+2.2							100			  Read EPS data (18 bytes)					NOT_IMPLEMENTED
+2.3							10			  Read IMU data (14 bytes)					NOT_IMPLEMENTED
+2.4							50			  Read Radio data (5 bytes)					NOT_IMPLEMENTED
+2.5							10			  Encode dataframe 							NOT_IMPLEMENTED
+2.6							50			  Save dataframe to internal flash			NOT_IMPLEMENTED
+2.7			46				50			  Send dataframe to UART (uG host downlink)	NOT_IMPLEMENTED
+2.8							180			  Sleep for X ms							NOT_IMPLEMENTED		
 2.9										  Repeat Task 2 							NOT_IMPLEMENTED											  	
 										  	
 3										Error State (hibernation)					NOT_IMPLEMENTED
@@ -48,6 +48,16 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 3.3 									  Periodic wakeup 							NOT_IMPLEMENTED
 3.3.1									    Re-evaluate system conditions 			NOT_IMPLEMENTED
 ----------------------------------------------------------------------------------------------------------
+
+TIME SLOTS
+----------------------------------------------------------------------------------------------------------
+
+ms		Task
+
+
+
+
+
 
 
 DATAFRAME FORMAT

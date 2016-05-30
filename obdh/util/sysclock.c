@@ -66,7 +66,7 @@ void __attribute__ ((interrupt(TIMERB0_VECTOR))) TIMERB0_ISR (void)
 {
 	sysclock_ms++;
 
-	if (sysclock_ms == DELAY_1_MS_IN_CYCLES){
+	if (sysclock_ms == 1000){
 		sysclock_s++;
 		sysclock_ms = 0;
 	}

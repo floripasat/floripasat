@@ -20,6 +20,6 @@ void obdh_read(char* obdhData){
 	obdhData[5] = 5;		//temperature low
 	obdhData[6] = 5;		//system status code
 
-	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+
 
 }

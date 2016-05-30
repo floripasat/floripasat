@@ -20,8 +20,6 @@ void eps_read(char* imuData){
 	imuData[0] = '\n';
 	imuData[0] = '\r';
 
-	__delay_cycles(DELAY_100_MS_IN_CYCLES);
-
 //	i2c_read_epsFrame(EPS_data_buffer,EPS_DATA_LENGTH);
 //	frame2string(EPS_data_buffer,Debug_EPS_Data, sizeof Debug_EPS_Data); //TODO rm
 //	debug(Debug_EPS_Data);

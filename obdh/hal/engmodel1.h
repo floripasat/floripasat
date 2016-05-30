@@ -33,11 +33,28 @@
 // 1 Cycle = 1.0 / 1.048576*10^6 seconds  @~1Mhz default clock
 
 
-#define DELAY_1_MS_IN_CYCLES	    1049	// @ 1Mhz Internal clock	~1.040 ms
-#define DELAY_10_MS_IN_CYCLES	   10486	// @ 1Mhz Internal clock	~10.27 ms
-#define DELAY_100_MS_IN_CYCLES	  104858	// @ 1Mhz Internal clock	~102.5 ms
-#define DELAY_1_S_IN_CYCLES		 1048576	// @ 1Mhz Internal clock	~1.026  s
-#define DELAY_5_S_IN_CYCLES		 5242880	// @ 1Mhz Internal clock
+//#define DELAY_1_MS_IN_CYCLES	    1049	// @ 1Mhz Internal clock	~1.040 ms
+#define DELAY_1_MS_IN_CYCLES	    1010	// @ 1Mhz Internal clock	~1.001 ms
+
+#define DELAY_9_MS_IN_CYCLES	   9210	// @ 1Mhz Internal clock	~10 ms
+
+#define DELAY_10_MS_IN_CYCLES	   10220	// @ 1Mhz Internal clock	~10 ms
+//#define DELAY_10_MS_IN_CYCLES	   10486	// @ 1Mhz Internal clock	~10.27 ms
+
+#define DELAY_99_MS_IN_CYCLES	  101390	// @ 1Mhz Internal clock	~100 ms
+
+#define DELAY_50_MS_IN_CYCLES	  51200	// @ 1Mhz Internal clock	~100 ms
+
+#define DELAY_100_MS_IN_CYCLES	  102400	// @ 1Mhz Internal clock	~100 ms
+//#define DELAY_100_MS_IN_CYCLES	  104858	// @ 1Mhz Internal clock	~102.5 ms
+
+
+#define DELAY_1_S_IN_CYCLES		 1317472	// @ 1Mhz Internal clock	~1.026  s
+//#define DELAY_1_S_IN_CYCLES	 1048576	// @ 1Mhz Internal clock	~1.026  s
+
+//#define DELAY_5_S_IN_CYCLES	5242880		// @ 1Mhz Internal clock
+#define DELAY_5_S_IN_CYCLES		 5130019	// @ 1Mhz Internal clock	~5.00X s
+
 #define DELAY_10_S_IN_CYCLES	10485760	// @ 1Mhz Internal clock	~10.25  s
 #define DELAY_60_S_IN_CYCLES	62914560	// @ 1Mhz Internal clock	~61.52	s
 

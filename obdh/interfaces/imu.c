@@ -24,9 +24,7 @@ void imu_config(void){
 
 
 void imu_read(char* imuData){
-
 	imu_i2c_read(MPU9150_ACCEL_XOUT_H, imuData, IMU_DATA_LENGTH );
-
 }
 
 

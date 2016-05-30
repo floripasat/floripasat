@@ -35,7 +35,9 @@ void payloadEnable_on(void){
 void payloadEnable_off(void){
 	PAYLOAD_ENABLE_PORT_OUT &= ~PAYLOAD_ENABLE_PIN;
 }
-
+void payloadEnable_toggle(void){
+	PAYLOAD_ENABLE_PORT_OUT ^= PAYLOAD_ENABLE_PIN; //toggle port state
+}
 
 
 char* int2str(char* stringBuffer, int16_t value){

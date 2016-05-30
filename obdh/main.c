@@ -70,24 +70,28 @@ void main(void) {
 
     while(1) {		//Task 2
 
-    	debug("Main loop init \t\t\t\t\t(Task 2)");
+    	payloadEnable_toggle();
     	cycleCounter++;
     	sysled_on();
-    	payloadEnable_on();
+    	debug("Main loop init \t\t\t\t\t(Task 2)");
+
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
 
     	debug("  OBDH internal read init \t\t\t\t(Task 2.1)");
     	//wdt init for obdh internal
     	obdh_read(obdhData);
+    	__delay_cycles(DELAY_9_MS_IN_CYCLES);
     	debug_array("    OBDH data:", obdhData, OBDH_DATA_LENGTH);
     	debug("  OBDH read done");
     	wdt_reset_counter();
 
 
 
+//    	payloadEnable_toggle();
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	//wdt init for eps
     	eps_read(epsData);
+    	__delay_cycles(DELAY_99_MS_IN_CYCLES);
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
     	debug("  EPS read done");
     	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
@@ -96,6 +100,7 @@ void main(void) {
 
 
 
+//    	payloadEnable_toggle();
     	debug("  IMU read init \t\t\t\t\t(Task 2.3)");
     	//wdt init for imu
     	imu_read(imuData);
@@ -103,6 +108,7 @@ void main(void) {
     	debug( imu_data2string(tmpStr, imuData, IMU_ACC_RANGE, IMU_GYR_RANGE) );
     	debug("  IMU read done");
     	wdt_reset_counter();
+
 
 
 //    	debug("-----------------------------------------------");
@@ -116,7 +122,7 @@ void main(void) {
 
 //    	write2Flash();
 
-
+//    	payloadEnable_toggle();
     	//    	send2uZed();
     	debug("  uG communication: sending data to host \t\t(Task 2.7)");
     	//wdt init for uG tx
@@ -128,26 +134,27 @@ void main(void) {
     	uG_encode_dataframe ( ugFrame, obdhData, radioData, epsData, imuData, frameCRC8 );
     	debug_array("    uG Frame:", ugFrame, UG_FRAME_LENGTH);
     	uG_send(ugFrame, UG_FRAME_LENGTH);
-
-//    	uart_tx("{{{");
-//    	int i;
-//    	for (i=0; i<sizeof(frame_uG); i++){
-//    		uart_tx_char( frame_uG[i] );
-//    	}
-//    	uart_tx("}\n\r");
-
     	debug("  uG communication done");
     	wdt_reset_counter();
 
 
-
     	debug("Main loop done");
+//    	Time: ~ 227,663 ms
+    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+//    	~ 250ms
 
+    	payloadEnable_toggle();
     	debug("Sleeping...");
     	sysled_off();
-    	payloadEnable_off();
-//    	__delay_cycles(DELAY_1_S_IN_CYCLES);
-    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+
+//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
     }
 }
 
