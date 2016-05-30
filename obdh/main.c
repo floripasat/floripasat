@@ -173,10 +173,10 @@ void main_setup(void){
 	i2c_setup(EPS);
 	debug("  EPS setup done");
 	i2c_setup(MPU);
-//	SPI_Setup();
 	__enable_interrupt();
 	imu_config();
-//	radio_Setup();
+	SPI_Setup();
+	radio_Setup();
 	debug("  IMU setup done");
 }
 
