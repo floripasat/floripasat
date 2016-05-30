@@ -63,7 +63,7 @@ char* imu_data2string(char* stringBuffer, char* imuData, float accRange, float g
 	float gyrZ = (float)( ((gyrZH<<8 | gyrZL)*gyrRange)/32768.0 );
 
 	sprintf(stringBuffer, "\tTemperature: %.3f C"
-						  "\t\tAcc (X,Y,Z):\t%.3f\t%.3f\t%.3f G"
+						  "\t\tAcc (X,Y,Z):\t%.6f\t%.6f\t%.6f G"
 						  "\t\tGyr (X,Y,Z):\t%.3f\t%.3f\t%.3f g/S",
 						  temp, accX,accY,accZ, gyrX,gyrY,gyrZ);
 

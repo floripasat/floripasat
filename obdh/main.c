@@ -64,17 +64,17 @@ void main(void) {
 
 //	Can't debug log the init because UART, Timers, etc are not yet setup
 	main_setup();	//Task 1
-	debug("Main setup done \t\t\t\t(Task 1)");
+	debug("Main setup done \t\t\t\t\t(Task 1)");
 //	All tasks beyond this point MUST keep track/control of the watchdog (ONLY in the high level main loop).
 
 
     while(1) {		//Task 2
 
-    	debug("Main loop init \t\t\t\t(Task 2)");
+    	debug("Main loop init \t\t\t\t\t(Task 2)");
     	cycleCounter++;
     	sysled_on();
+    	payloadEnable_on();
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
-
 
     	debug("  OBDH internal read init \t\t\t\t(Task 2.1)");
     	//wdt init for obdh internal
@@ -85,7 +85,7 @@ void main(void) {
 
 
 
-    	debug("  EPS read init \t\t\t\t(Task 2.2)");
+    	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	//wdt init for eps
     	eps_read(epsData);
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
@@ -96,7 +96,7 @@ void main(void) {
 
 
 
-    	debug("  IMU read init \t\t\t\t(Task 2.3)");
+    	debug("  IMU read init \t\t\t\t\t(Task 2.3)");
     	//wdt init for imu
     	imu_read(imuData);
     	debug_array("    IMU data", imuData, sizeof(imuData) );
@@ -118,7 +118,7 @@ void main(void) {
 
 
     	//    	send2uZed();
-    	debug("  Sending data to uG/Host \t\t\t(Task 2.7)");
+    	debug("  uG communication: sending data to host \t\t(Task 2.7)");
     	//wdt init for uG tx
 //    	debug_array("    IMU decoding data", imuData, sizeof(imuData) );
 //    	uG_send(frame_uG, sizeof(frame_uG));
@@ -145,6 +145,7 @@ void main(void) {
 
     	debug("Sleeping...");
     	sysled_off();
+    	payloadEnable_off();
 //    	__delay_cycles(DELAY_1_S_IN_CYCLES);
     	__delay_cycles(DELAY_5_S_IN_CYCLES);
     }
