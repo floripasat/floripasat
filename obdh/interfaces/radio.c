@@ -48,14 +48,18 @@ static void registerConfig(void) {
 */
 static void runRX(void) {
 
+	debug("runRX() init");
+
 	uint8_t rxBuffer[150] = { 0 };
 	uint8_t rxBytes;
 	uint8_t marcState;
 
 	// Set radio in RX
+	debug("trxSpiCmdStrobe() init");
 	trxSpiCmdStrobe(CC112X_SRX);
 
 	// Read number of bytes in RX FIFO
+	debug("cc112xSpiReadReg() init");
 	cc112xSpiReadReg(CC112X_NUM_RXBYTES, &rxBytes, 1);
 
 	debug_uint("rxBytes:", rxBytes);

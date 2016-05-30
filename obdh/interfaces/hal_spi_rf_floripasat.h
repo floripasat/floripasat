@@ -17,6 +17,7 @@ extern "C" {
  */
 #include <msp430.h>
 #include "radio.h"
+#include "../hal/engmodel1.h"
 
 
 #ifdef  __cplusplus

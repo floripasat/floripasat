@@ -111,13 +111,13 @@ void main(void) {
 
 
 
-//    	debug("-----------------------------------------------");
-//    	debug("  RADIO read init \t\t\t\t(Task 2.4)");
-//    	//wdt init for radio
-//    	readTransceiver();
-//    	debug("  RADIO read done");
-//    	debug("-----------------------------------------------");
-//    	wdt_reset_counter();
+    	debug("-----------------------------------------------");
+    	debug("  RADIO read init \t\t\t\t(Task 2.4)");
+    	//wdt init for radio
+    	readTransceiver();
+    	debug("  RADIO read done");
+    	debug("-----------------------------------------------");
+    	wdt_reset_counter();
 
 
 //    	write2Flash();

@@ -13,148 +13,150 @@
  * INCLUDES
  */
 #include <msp430.h>
-#include "radio.h"
-#include <stdint.h>
+#include "stdint.h"
 #include "hal_spi_rf_floripasat.h"
+#include "hal_types.h"
+#include "hal_defs.h"
 
 /******************************************************************************
  * LOCAL FUNCTIONS
  */
+static void trxReadWriteBurstSingle(uint8 addr,uint8 *pData,uint16 len) ;
 
 
-///******************************************************************************
-// * @fn          trxRfSpiInterfaceInit
-// * @brief       Function to initialize TRX SPI. CC1101/CC112x is currently
-// *              supported. The supported prescalerValue must be set so that
-// *              SMCLK/prescalerValue does not violate radio SPI constraints.
-// *
-// * input parameters
-// *
-// * @param       prescalerValue - SMCLK/prescalerValue gives SCLK frequency
-// *
-// * output parameters
-// *
-// * @return      void
-// */
-//void trxRfSpiInterfaceInit(uint8_t prescalerValue)
-//{
-//	 /* UART is configured in USCI_A1*/// (FloripaSat Prototipo)
-//
-//	 //UCA1CTL1 |= UCSWRST;                      // **Put state machine in reset**
-//	 //UCA1CTL1 |= UCSSEL_2;                     // SMCLK
-//	 //UCA1BR0 = 6;                              // 1MHz 9600 (see User's Guide)
-//	 //UCA1BR1 = 0;                              // 1MHz 9600
-//	 //UCA1MCTL = UCBRS_0 | UCBRF_13 | UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
-//	                                            // over sampling
-//	 //UCA1CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
-//
-//
-//	 /* UART is configured in USCI_A2*/// (FloripaSat EngModel uG)
-//
-//	 UCA2CTL1 |= UCSWRST;                      // **Put state machine in reset**
-//	 UCA2CTL1 |= UCSSEL_2;                     // SMCLK
-//	 UCA2BR0 = 6;                              // 1MHz 9600 (see User's Guide)
-//	 UCA2BR1 = 0;                              // 1MHz 9600
-//	 UCA2MCTL = UCBRS_0 | UCBRF_13 | UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
-//	 	                                            // over sampling
-//	 UCA2CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
-//
-//
-//
-//
-//
-//	/* SPI is configured in USCI_A0	 */
-//
-//	/* Keep peripheral in reset state*/
-//	UCA0CTL1 |= UCSWRST;			// UCSWRST (0x01) USCI Software Reset (1 Enabled. USCI logic held in reset state)
-//
-//	// Testando o P2MAP
-//	P2MAP0 = PM_UCA0CLK;
-//	P2MAP4 = PM_UCA0SIMO;
-//	P2MAP5 = PM_UCA0SOMI;
-//
-//	/* Configuration
-//	 * -  8-bit
-//	 * -  Master Mode
-//	 * -  3-pin
-//	 * -  synchronous mode
-//	 * -  MSB first
-//	 * -  Clock phase select = captured on first edge
-//	 * -  Inactive state is low
-//	 * -  SMCLK as clock source
-//	 * -  Spi clk is adjusted corresponding to systemClock as the highest rate
-//	 *    supported by the supported radios: this could be optimized and done
-//	 *    after chip detect.
-//	*/
-//	UCA0CTL0  =  0x00+UCMST + UCSYNC + UCMODE_0 + UCMSB + UCCKPH;
-//	UCA0CTL1 |=  UCSSEL_2;							// USCI clock source select. SCLK do SPI trabalha com SMCLK
-//	UCA0BR1   =  0x00;
-//	UCA0BR0   = prescalerValue;
-//
-//	  ///* Configuring UCA0BR0
-//	  // * Set up spi clk to comply with the maximum spi clk speed for the radios
-//	  // * according to userguides. Takes the slowest spi clk into account.
-//	  // */
-//	  //switch(systemClock)
-//	  //{
-//	  //  case 0:
-//	  //    /* Do not divide SMCLK */
-//	  //    UCA0BR0 = 0x01;
-//	  //    break;
-//	  //  case 1:
-//	  //    /* Do not divide SMCLK */
-//	  //    UCA0BR0 = 0x01;
-//	  //    break;
-//	  //  case 2:
-//	  //    /* Divide SMCLK by 2*/
-//	  //    UCA0BR0 = 0x02;
-//	  //    break;
-//	  //  case 3:
-//	  //    /* Divide SMCLK by 2*/
-//	  //    UCA0BR0 = 0x02;
-//	  //    break;
-//	  //  case 4:
-//	  //    /* Divide SMCLK by 3*/
-//	  //    UCA0BR0 = 0x03;
-//	  //    break;
-//	  //  case 5:
-//	  //    /* Divide SMCLK by 4*/
-//	  //    UCA0BR0 = 0x04;
-//	  //    break;
-//	  //  case 6:
-//	  //    /* Divide SMCLK by 4*/
-//	  //    UCA0BR0 = 0x04;
-//	  //    break;
-//	  //  default:
-//	  //    /* Divide SMCLK by 4*/
-//	  //    UCA0BR0 = 0x04;
-//	  //    break;
-//	  //}
-//
-//
-//	//P2REN |= BIT5;			// FLoripaSat
-//
-//	/* Configure port and pins
-//	 * - MISO/MOSI/SCLK GPIO controlled by peripheral
-//	 * - CS_n GPIO controlled manually, set to 1
-//	*/
-//	// P2SEL       |= BIT4 (MOSI)		 + BIT5 (MISO)		  + BIT0 (SCLK)
-//	TRXEM_PORT_SEL |= TRXEM_SPI_MOSI_PIN + TRXEM_SPI_MISO_PIN + TRXEM_SPI_SCLK_PIN;
-//
-//	// P2SEL       |= BIT3 (CSn)
-//	TRXEM_PORT_SEL &= ~TRXEM_SPI_SC_N_PIN;	// P2.3 (CSn)
-//	TRXEM_PORT_OUT |= TRXEM_SPI_SC_N_PIN + TRXEM_SPI_MISO_PIN;/* Pullup on MISO */		// Original
-//	//TRXEM_PORT_OUT |= TRXEM_SPI_SC_N_PIN;/* Pulldown on MISO */						// FloripaSat
-//
-//	TRXEM_PORT_DIR |= TRXEM_SPI_SC_N_PIN;
-//	/* In case not automatically set */
-//	TRXEM_PORT_DIR |= TRXEM_SPI_MOSI_PIN + TRXEM_SPI_SCLK_PIN;
-//	TRXEM_PORT_DIR &= ~TRXEM_SPI_MISO_PIN;
-//
-//	/* Release for operation */
-//	UCA0CTL1 &= ~UCSWRST;
-//	return;
-//}
+/******************************************************************************
+ * @fn          trxRfSpiInterfaceInit
+ * @brief       Function to initialize TRX SPI. CC1101/CC112x is currently
+ *              supported. The supported prescalerValue must be set so that
+ *              SMCLK/prescalerValue does not violate radio SPI constraints.
+ *
+ * input parameters
+ *
+ * @param       prescalerValue - SMCLK/prescalerValue gives SCLK frequency
+ *
+ * output parameters
+ *
+ * @return      void
+ */
+void trxRfSpiInterfaceInit(uint8 prescalerValue)
+{
+	 /* UART is configured in USCI_A1*/// (FloripaSat Prototipo)
+
+	 //UCA1CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	 //UCA1CTL1 |= UCSSEL_2;                     // SMCLK
+	 //UCA1BR0 = 6;                              // 1MHz 9600 (see User's Guide)
+	 //UCA1BR1 = 0;                              // 1MHz 9600
+	 //UCA1MCTL = UCBRS_0 | UCBRF_13 | UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
+	                                            // over sampling
+	 //UCA1CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+
+
+	 /* UART is configured in USCI_A2*/// (FloripaSat EngModel uG)
+
+	 UCA2CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	 UCA2CTL1 |= UCSSEL_2;                     // SMCLK
+	 UCA2BR0 = 6;                              // 1MHz 9600 (see User's Guide)
+	 UCA2BR1 = 0;                              // 1MHz 9600
+	 UCA2MCTL = UCBRS_0 | UCBRF_13 | UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
+	 	                                            // over sampling
+	 UCA2CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+
+
+
+
+
+	/* SPI is configured in USCI_A0	 */
+
+	/* Keep peripheral in reset state*/
+	UCA0CTL1 |= UCSWRST;			// UCSWRST (0x01) USCI Software Reset (1 Enabled. USCI logic held in reset state)
+
+	// Testando o P2MAP
+	P2MAP0 = PM_UCA0CLK;
+	P2MAP4 = PM_UCA0SIMO;
+	P2MAP5 = PM_UCA0SOMI;
+
+	/* Configuration
+	 * -  8-bit
+	 * -  Master Mode
+	 * -  3-pin
+	 * -  synchronous mode
+	 * -  MSB first
+	 * -  Clock phase select = captured on first edge
+	 * -  Inactive state is low
+	 * -  SMCLK as clock source
+	 * -  Spi clk is adjusted corresponding to systemClock as the highest rate
+	 *    supported by the supported radios: this could be optimized and done
+	 *    after chip detect.
+	*/
+	UCA0CTL0  =  0x00+UCMST + UCSYNC + UCMODE_0 + UCMSB + UCCKPH;
+	UCA0CTL1 |=  UCSSEL_2;							// USCI clock source select. SCLK do SPI trabalha com SMCLK
+	UCA0BR1   =  0x00;
+	UCA0BR0   = prescalerValue;
+
+	  ///* Configuring UCA0BR0
+	  // * Set up spi clk to comply with the maximum spi clk speed for the radios
+	  // * according to userguides. Takes the slowest spi clk into account.
+	  // */
+	  //switch(systemClock)
+	  //{
+	  //  case 0:
+	  //    /* Do not divide SMCLK */
+	  //    UCA0BR0 = 0x01;
+	  //    break;
+	  //  case 1:
+	  //    /* Do not divide SMCLK */
+	  //    UCA0BR0 = 0x01;
+	  //    break;
+	  //  case 2:
+	  //    /* Divide SMCLK by 2*/
+	  //    UCA0BR0 = 0x02;
+	  //    break;
+	  //  case 3:
+	  //    /* Divide SMCLK by 2*/
+	  //    UCA0BR0 = 0x02;
+	  //    break;
+	  //  case 4:
+	  //    /* Divide SMCLK by 3*/
+	  //    UCA0BR0 = 0x03;
+	  //    break;
+	  //  case 5:
+	  //    /* Divide SMCLK by 4*/
+	  //    UCA0BR0 = 0x04;
+	  //    break;
+	  //  case 6:
+	  //    /* Divide SMCLK by 4*/
+	  //    UCA0BR0 = 0x04;
+	  //    break;
+	  //  default:
+	  //    /* Divide SMCLK by 4*/
+	  //    UCA0BR0 = 0x04;
+	  //    break;
+	  //}
+
+
+	//P2REN |= BIT5;			// FLoripaSat
+
+	/* Configure port and pins
+	 * - MISO/MOSI/SCLK GPIO controlled by peripheral
+	 * - CS_n GPIO controlled manually, set to 1
+	*/
+	// P2SEL       |= BIT4 (MOSI)		 + BIT5 (MISO)		  + BIT0 (SCLK)
+	TRXEM_PORT_SEL |= TRXEM_SPI_MOSI_PIN + TRXEM_SPI_MISO_PIN + TRXEM_SPI_SCLK_PIN;
+
+	// P2SEL       |= BIT3 (CSn)
+	TRXEM_PORT_SEL &= ~TRXEM_SPI_SC_N_PIN;	// P2.3 (CSn)
+	TRXEM_PORT_OUT |= TRXEM_SPI_SC_N_PIN + TRXEM_SPI_MISO_PIN;/* Pullup on MISO */		// Original
+	//TRXEM_PORT_OUT |= TRXEM_SPI_SC_N_PIN;/* Pulldown on MISO */						// FloripaSat
+
+	TRXEM_PORT_DIR |= TRXEM_SPI_SC_N_PIN;
+	/* In case not automatically set */
+	TRXEM_PORT_DIR |= TRXEM_SPI_MOSI_PIN + TRXEM_SPI_SCLK_PIN;
+	TRXEM_PORT_DIR &= ~TRXEM_SPI_MISO_PIN;
+
+	/* Release for operation */
+	UCA0CTL1 &= ~UCSWRST;
+	return;
+}
 
 
 /*******************************************************************************
@@ -169,14 +171,13 @@
  * output parameters
  * @return      status byte
  */
-rfStatus_t trxSpiCmdStrobe(uint8_t cmd)
+rfStatus_t trxSpiCmdStrobe(uint8 cmd)
 {
-	uint8_t rc;
+	uint8 rc;
 	TRXEM_SPI_BEGIN();
 	while(TRXEM_PORT_IN & TRXEM_SPI_MISO_PIN);
 	TRXEM_SPI_TX(cmd);
-//	TRXEM_SPI_WAIT_DONE();
-	__delay_cycles(DELAY_50_MS_IN_CYCLES);
+	TRXEM_SPI_WAIT_DONE();
 	rc = TRXEM_SPI_RX();
 	TRXEM_SPI_END();
 	return(rc);
@@ -201,9 +202,9 @@ rfStatus_t trxSpiCmdStrobe(uint8_t cmd)
  * output parameters
  * @return      chip status
  */
-rfStatus_t trx8BitRegAccess(uint8_t accessType, uint8_t addrByte, uint8_t *pData, uint16_t len)
+rfStatus_t trx8BitRegAccess(uint8 accessType, uint8 addrByte, uint8 *pData, uint16 len)
 {
-	uint8_t readValue;
+	uint8 readValue;
 
 	/* Pull CS_N low and wait for SO to go low before communication starts */
 	TRXEM_SPI_BEGIN();
@@ -237,21 +238,19 @@ rfStatus_t trx8BitRegAccess(uint8_t accessType, uint8_t addrByte, uint8_t *pData
  * output parameters
  * @return      rfStatus_t
  */
-rfStatus_t trx16BitRegAccess(uint8_t accessType, uint8_t extAddr, uint8_t regAddr, uint8_t *pData, uint8_t len)
+rfStatus_t trx16BitRegAccess(uint8 accessType, uint8 extAddr, uint8 regAddr, uint8 *pData, uint8 len)
 {
-	uint8_t readValue;
+	uint8 readValue;
 
 	TRXEM_SPI_BEGIN();
 	while(TRXEM_PORT_IN & TRXEM_SPI_MISO_PIN);
 	/* send extended address byte with access type bits set */
 	TRXEM_SPI_TX(accessType|extAddr);
-//	TRXEM_SPI_WAIT_DONE();
-	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+	TRXEM_SPI_WAIT_DONE();
 	/* Storing chip status */
 	readValue = TRXEM_SPI_RX();
 	TRXEM_SPI_TX(regAddr);
-//	TRXEM_SPI_WAIT_DONE();
-	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+	TRXEM_SPI_WAIT_DONE();
 	/* Communicate len number of bytes */
 	trxReadWriteBurstSingle(accessType|extAddr,pData,len);
 	TRXEM_SPI_END();
@@ -285,9 +284,9 @@ rfStatus_t trx16BitRegAccess(uint8_t accessType, uint8_t extAddr, uint8_t regAdd
  * output parameters
  * @return      void
  */
-static void trxReadWriteBurstSingle(uint8_t addr,uint8_t *pData,uint16_t len)
+static void trxReadWriteBurstSingle(uint8 addr,uint8 *pData,uint16 len)
 {
-	uint16_t i;
+	uint16 i;
 	/* Communicate len number of bytes: if RX - the procedure sends 0x00 to push bytes from slave*/
   if(addr&RADIO_READ_ACCESS)
   {
@@ -296,8 +295,7 @@ static void trxReadWriteBurstSingle(uint8_t addr,uint8_t *pData,uint16_t len)
       for (i = 0; i < len; i++)
       {
           TRXEM_SPI_TX(0);            /* Possible to combining read and write as one access type */
-//          TRXEM_SPI_WAIT_DONE();
-          __delay_cycles(DELAY_100_MS_IN_CYCLES);
+          TRXEM_SPI_WAIT_DONE();
           *pData = TRXEM_SPI_RX();     /* Store pData from last pData RX */
           pData++;
       }
