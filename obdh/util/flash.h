@@ -41,5 +41,7 @@ void flash_write_single(char ,long *);
 void flash_write_long(long* ,long *);
 void flash_save_ptr(void);
 
+void write2Flash(char*, int);
+
 
 #endif /* UTIL_FLASH_H_ */

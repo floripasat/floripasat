@@ -9,7 +9,6 @@
 #define UTIL_WATCHDOG_H_
 
 #include <msp430.h>
-#include "flash.h"
 
 //mode
 #define INTERVAL			0x10

@@ -46,8 +46,7 @@ char ugFrame[UG_FRAME_LENGTH];
 //main tasks
 void main_setup(void);
 
-//TODO: move to appropriate file
-void write2Flash(void);
+
 
 //frames manipulation
 void concatenate_frame(void);
@@ -134,9 +133,8 @@ void main(void) {
 
 
 //    	wdt init for flash
-
-//    	write2Flash();
-//    	wdt_reset_counter();
+    	write2Flash(ugFrame,UG_FRAME_LENGTH);
+    	wdt_reset_counter();
 
     	debug("Main loop done");
 //    	Time: ~ 227,663 ms
