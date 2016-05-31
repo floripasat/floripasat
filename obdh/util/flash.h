@@ -6,7 +6,7 @@
  */
 
 #include <msp430.h>
-#include "misc.h"
+#include "debug.h"
 
 #ifndef UTIL_FLASH_H_
 #define UTIL_FLASH_H_

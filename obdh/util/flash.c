@@ -8,6 +8,13 @@
 
 #include "flash.h"
 
+void write2Flash(char* data, int bytes){
+	debug("Writing to flash init");
+	flash_write(data,bytes);
+	flash_save_ptr();
+	debug("Writing to flash done");
+}
+
 
 void flash_write(char* data, int bytes){
   unsigned int i;

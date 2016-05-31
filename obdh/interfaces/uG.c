@@ -48,29 +48,29 @@ void uG_encode_dataframe (char*     ugFrame,
 	ugFrame[13] = imuData[3];		//Acc Y L
 	ugFrame[14] = imuData[4];		//Acc Z H
 	ugFrame[15] = imuData[5];		//Acc Z L
-	ugFrame[16] = imuData[6];		//Gyr X H
-	ugFrame[17] = imuData[7];		//Gyr X L
-	ugFrame[18] = imuData[8];		//Gyr Y H
-	ugFrame[19] = imuData[9];		//Gyr Y L
-	ugFrame[20] = imuData[10];		//Gyr Z H
-	ugFrame[21] = imuData[11];		//Gyr Z L
+	ugFrame[16] = imuData[8];		//Gyr X H
+	ugFrame[17] = imuData[9];		//Gyr X L
+	ugFrame[18] = imuData[10];		//Gyr Y H
+	ugFrame[19] = imuData[11];		//Gyr Y L
+	ugFrame[20] = imuData[12];		//Gyr Z H
+	ugFrame[21] = imuData[13];		//Gyr Z L
 
 	ugFrame[22] = radioData[0];		//Counter H
 	ugFrame[23] = radioData[1];		//Counter L
 	ugFrame[24] = radioData[2];		//Counter H
 	ugFrame[25] = radioData[3];		//Counter L
 
-	ugFrame[26] = epsData[0];		// Current H
-	ugFrame[27] = epsData[1];		// Current L
-	ugFrame[28] = epsData[2];		// Voltage BAT1 H
-	ugFrame[29] = epsData[3];		// Voltage BAT1 L
-	ugFrame[30] = epsData[4];		// Voltage BAT2 H
-	ugFrame[31] = epsData[5];		// Voltage BAT2 L
-	ugFrame[32] = epsData[6];		// Temperature  H
-	ugFrame[33] = epsData[7];		// Temperature  L
-	ugFrame[34] = epsData[8];		// Current Accum. H
-	ugFrame[35] = epsData[9];		// Current Accum  L
-	ugFrame[36] = epsData[10];		// Bat Mon. Protection Reg.
+	ugFrame[26] = epsData[3];		// Current H
+	ugFrame[27] = epsData[4];		// Current L
+	ugFrame[28] = epsData[5];		// Voltage BAT1 H
+	ugFrame[29] = epsData[6];		// Voltage BAT1 L
+	ugFrame[30] = epsData[7];		// Voltage BAT2 H
+	ugFrame[31] = epsData[8];		// Voltage BAT2 L
+	ugFrame[32] = epsData[9];		// Temperature  H
+	ugFrame[33] = epsData[10];		// Temperature  L
+	ugFrame[34] = epsData[11];		// Current Accum. H
+	ugFrame[35] = epsData[12];		// Current Accum  L
+	ugFrame[36] = epsData[13];		// Bat Mon. Protection Reg.
 
 	ugFrame[37] = frameCRC8;		//CRC8
 

@@ -38,7 +38,7 @@ void i2c_setup(unsigned int device){
 	}
 }
 
-void i2c_read_epsFrame(char *Buffer, unsigned int bytes){
+void i2c_read_eps(char *Buffer, unsigned int bytes){
 	PRxData = Buffer;
 	RXByteCtr = bytes;
 	UCB0CTL1 &= ~UCTR;

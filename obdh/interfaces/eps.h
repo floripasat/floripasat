@@ -9,10 +9,9 @@
 #define INTERFACES_EPS_H_
 
 #include "../util/debug.h"
+#include "../util/i2c.h"
 #include "../hal/engmodel1.h"
 
-void eps_read(char* imuData);
-
-
+void eps_read(char* data);
 
 #endif /* INTERFACES_EPS_H_ */

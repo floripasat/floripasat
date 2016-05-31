@@ -60,9 +60,9 @@
 
 
 #define OBDH_DATA_LENGTH	 7	//  7 B of payload
-#define EPS_DATA_LENGTH 	17	// 17 B of payload + 2 * 3 Bytes of SOF and EOF
-#define IMU_DATA_LENGTH 	9
-#define RADIO_DATA_LENGTH 	 4
+#define EPS_DATA_LENGTH 	23	// 17 B of payload + 2 * 3 Bytes of SOF and EOF
+#define IMU_DATA_LENGTH 	14	// 6 B to Acc + 6 B to Gyr
+#define RADIO_DATA_LENGTH 	 4	// 2 B to counter + 2 B fo signal dB
 #define UG_FRAME_LENGTH		41	// SOF(3) + Payload(35) + EOF(3)
 
 

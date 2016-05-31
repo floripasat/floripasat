@@ -35,16 +35,12 @@
 uint16_t cycleCounter = 0;
 char tmpStr[200];
 
-char obdhData[OBDH_DATA_LENGTH];
-char  imuData[IMU_DATA_LENGTH];
-char  epsData[EPS_DATA_LENGTH];
+char  obdhData[OBDH_DATA_LENGTH];
+char   imuData[IMU_DATA_LENGTH];
+char   epsData[EPS_DATA_LENGTH];
+char radioData[RADIO_DATA_LENGTH];
 
 char ugFrame[UG_FRAME_LENGTH];
-
-char radioData[];
-
-
-
 
 
 //main tasks
@@ -120,7 +116,6 @@ void main(void) {
     	wdt_reset_counter();
 
 
-//    	write2Flash();
 
 //    	payloadEnable_toggle();
     	//    	send2uZed();
@@ -137,6 +132,11 @@ void main(void) {
     	debug("  uG communication done");
     	wdt_reset_counter();
 
+
+//    	wdt init for flash
+
+//    	write2Flash();
+//    	wdt_reset_counter();
 
     	debug("Main loop done");
 //    	Time: ~ 227,663 ms
@@ -185,18 +185,6 @@ void main_setup(void){
 
 
 
-// TODO: move to appropriate file module
-//void write2Flash(void){
-//	debug("Writing to flash init");
-//	concatenate_frame();
-//	flash_write(FSAT_frame,FSAT_FRAME_LENGTH);
-//	flash_save_ptr();
-//	concatenate_info_frame();
-//	flash_write(misc_info_frame,MISC_INFO_LENGHT);
-//	flash_save_ptr();
-//	debug("Writing to flash done");
-//	wdt_reset_counter();
-//}
 
 
 //// TODO: move to appropriate file module
