@@ -109,7 +109,7 @@ void main(void) {
     	debug("-----------------------------------------------");
     	debug("  RADIO read init \t\t\t\t(Task 2.4)");
     	//wdt init for radio
-    	readTransceiver();
+    	readTransceiver(radioData);
     	debug("  RADIO read done");
     	debug("-----------------------------------------------");
 

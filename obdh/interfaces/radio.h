@@ -364,11 +364,11 @@ rfStatus_t cc112xSpiReadRxFifo(uint8_t *pReadData, uint8_t len);
 static void manualCalibration(void);
 
 
-void readTransceiver(void);
+void readTransceiver(char*);
 void SPI_Setup(void);
 void radio_Setup(void);
 static void registerConfig(void);
-static void runRX(void);
+static void runRX(char*);
 static void manualCalibration(void);
 
 

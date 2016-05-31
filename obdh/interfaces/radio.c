@@ -6,8 +6,8 @@
  */
 #include "radio.h"
 
-void readTransceiver(void){
-	runRX();
+void readTransceiver(char* buffer){
+	 runRX(buffer);
 }
 
 void radio_Setup(void){
@@ -46,7 +46,7 @@ static void registerConfig(void) {
 *
 *   @return     none
 */
-static void runRX(void) {
+static void runRX(char* buffer) {
 
 	debug("runRX() init");
 
@@ -87,11 +87,10 @@ static void runRX(void) {
 			debug("Printing radio buffer...");
 			debug_array("Radio data:", rxBuffer, rxBytes );
 			debug_array_ascii("Radio ASCII:", rxBuffer, rxBytes );
-
-//			radioData[0] = rxBuffer[1];
-//			radioData[1 = rxBuffer[2];
-//			radioData[2] = rxBuffer[6];
-//			radioData[3] = rxBuffer[7];
+			buffer[0] = rxBuffer[1];
+			buffer[1] = rxBuffer[2];
+			buffer[2] = rxBuffer[6];
+			buffer[3] = rxBuffer[7];
 		}
 
 	}
