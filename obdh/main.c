@@ -31,6 +31,8 @@
 #include "interfaces/radio.h"
 #include "interfaces/uG.h"
 
+//#define DEBUG_ENABLE 	0	//TODO: move debug enable flag to main.c, for beter UX/visibility
+
 
 uint16_t cycleCounter = 0;
 char tmpStr[200];
@@ -104,19 +106,15 @@ void main(void) {
     	debug("  IMU read done");
     	wdt_reset_counter();
 
-
-
     	debug("-----------------------------------------------");
     	debug("  RADIO read init \t\t\t\t(Task 2.4)");
     	//wdt init for radio
     	readTransceiver();
     	debug("  RADIO read done");
     	debug("-----------------------------------------------");
+
     	wdt_reset_counter();
 
-
-
-//    	payloadEnable_toggle();
     	//    	send2uZed();
     	debug("  uG communication: sending data to host \t\t(Task 2.7)");
     	//wdt init for uG tx
@@ -133,26 +131,31 @@ void main(void) {
 
 
 //    	wdt init for flash
+
     	write2Flash(ugFrame,UG_FRAME_LENGTH);
     	wdt_reset_counter();
 
+
+
     	debug("Main loop done");
 //    	Time: ~ 227,663 ms
-    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
+
+
+
     	__delay_cycles(DELAY_1_MS_IN_CYCLES);
     	__delay_cycles(DELAY_1_MS_IN_CYCLES);
     	__delay_cycles(DELAY_10_MS_IN_CYCLES);
     	__delay_cycles(DELAY_10_MS_IN_CYCLES);
 //    	~ 250ms
 
-    	payloadEnable_toggle();
     	debug("Sleeping...");
     	sysled_off();
+    	payloadEnable_toggle();
     	__delay_cycles(DELAY_50_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+//    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+//    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 
-//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+
     }
 }
 

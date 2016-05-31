@@ -18,7 +18,7 @@ void write2Flash(char* data, int bytes){
 
 void flash_write(char* data, int bytes){
   unsigned int i;
-  __disable_interrupt();
+//  __disable_interrupt();
   FCTL3 = FWKEY;                            // Clear Lock bit
   FCTL1 = FWKEY|WRT;                        // Set WRT bit for write operation
   for (i = 0; i < bytes; i++){
@@ -27,7 +27,7 @@ void flash_write(char* data, int bytes){
   }
   FCTL1 = FWKEY;                            // Clear WRT bit
   FCTL3 = FWKEY|LOCK;                       // Set LOCK bit
-  __enable_interrupt();
+//  __enable_interrupt();
 }
 
 void flash_write_single(char data, long *addr){
@@ -38,18 +38,18 @@ void flash_write_single(char data, long *addr){
   while((FCTL3 & BUSY) == TRUE);            // Check if Flash being used
   FCTL1 = FWKEY;                            // Clear WRT bit
   FCTL3 = FWKEY|LOCK;                       // Set LOCK bit
-  __enable_interrupt();
+//  __enable_interrupt();
 }
 
 void flash_write_long(long* data, long *addr){
-  __disable_interrupt();
+//  __disable_interrupt();
   FCTL3 = FWKEY;                            // Clear Lock bit
   FCTL1 = FWKEY|BLKWRT;                     // Set WRT bit for write operation
   *addr = data;                				// Write value to flash
   while((FCTL3 & BUSY) == TRUE);            // Check if Flash being used
   FCTL1 = FWKEY;                            // Clear WRT bit
   FCTL3 = FWKEY|LOCK;                       // Set LOCK bit
-  __enable_interrupt();
+//  __enable_interrupt();
 }
 
 
@@ -63,7 +63,7 @@ void flash_setup(long str_addr) {
 
 void flash_erase(long region){
 	int *erase_ptr = region;
-	__disable_interrupt();
+//	__disable_interrupt();
 	FCTL3 = FWKEY;                            // Clear Lock bit
 	switch (region){
 	case BANK0_ADDR: FCTL1 = FWKEY | MERAS; break;
@@ -80,7 +80,7 @@ void flash_erase(long region){
 	while((FCTL3 & BUSY) == TRUE);
 	FCTL1 = FWKEY;                            	// Clear WRT bit
 	FCTL3 = FWKEY | LOCK;                       // Set LOCK bit
-	__enable_interrupt();
+//	__enable_interrupt();
 }
 
 

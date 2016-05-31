@@ -54,6 +54,7 @@ static void runRX(void) {
 	uint8_t rxBytes;
 	uint8_t marcState;
 
+
 	// Set radio in RX
 	debug("trxSpiCmdStrobe() init");
 	trxSpiCmdStrobe(CC112X_SRX);
@@ -86,6 +87,11 @@ static void runRX(void) {
 			debug("Printing radio buffer...");
 			debug_array("Radio data:", rxBuffer, rxBytes );
 			debug_array_ascii("Radio ASCII:", rxBuffer, rxBytes );
+
+//			radioData[0] = rxBuffer[1];
+//			radioData[1 = rxBuffer[2];
+//			radioData[2] = rxBuffer[6];
+//			radioData[3] = rxBuffer[7];
 		}
 
 	}
