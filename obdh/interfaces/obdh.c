@@ -12,16 +12,30 @@
 
 void obdh_read(char* obdhData){
 
-	obdh_temp_read(temp);
+	obdh_temp_read();
 
 	obdhData[0] = 0;		//sysclock  S high
 	obdhData[1] = 1;		//sysclock  S low
 	obdhData[2] = 2;		//sysclock MS high
 	obdhData[3] = 3;		//sysclock MS low
-	obdhData[4] = temp >> 8;//temperature high
-	obdhData[5] = temp;		//temperature low
+	obdhData[4] = obdhTemperatureBuffer >> 8;//temperature high
+	obdhData[5] = obdhTemperatureBuffer;		//temperature low
 	obdhData[6] = 5;		//system status code
 }
+
+char* obdh_data2string(char* stringBuffer, char* obdhData){
+
+	temperatureDegC = (float)(((long)obdhTemperatureBuffer - CALADC12_15V_30C) * (85 - 30)) /
+	        (CALADC12_15V_85C - CALADC12_15V_30C) + 30.0f;
+	// Temperature in Fahrenheit Tf = (9/5)*Tc + 32
+//	temperatureDegF = temperatureDegC * 9.0f / 5.0f + 32.0f;
+
+	sprintf(stringBuffer, "    Internal OBDH Temperature: %.3f C", temperatureDegC);
+
+	return stringBuffer;
+}
+
+
 
 void obdh_temp_convert(unsigned int temp){
 	temperatureDegC = (float)(((long)temp - CALADC12_15V_30C) * (85 - 30)) /
@@ -30,10 +44,10 @@ void obdh_temp_convert(unsigned int temp){
 	temperatureDegF = temperatureDegC * 9.0f / 5.0f + 32.0f;
 }
 
-void obdh_temp_read(int temp){
+void obdh_temp_read(void){
     ADC12CTL0 &= ~ADC12SC;
     ADC12CTL0 |= ADC12SC;                   // Sampling and conversion start
-    ADC12IE = 0x001;                          // ADC_IFG upon conv result-ADCMEMO
+    ADC12IE = 0x001;                        // ADC_IFG upon conv result-ADCMEMO
 }
 
 void obdh_temp_setup(void){
@@ -43,7 +57,7 @@ void obdh_temp_setup(void){
 	                                            // Internal ref = 1.5V
 	  ADC12CTL1 = ADC12SHP;                     // enable sample timer
 	  ADC12MCTL0 = ADC12SREF_1 | ADC12INCH_10;  // ADC i/p ch A10 = temp sense i/p
-	  __delay_cycles(DELAY_100_MS_IN_CYCLES);   // Allow ~100us (at default UCS settings)
+	  __delay_cycles(DELAY_1_MS_IN_CYCLES);   // Allow ~100us (at default UCS settings)
 	                                            // for REF to settle
 	  ADC12CTL0 |= ADC12ENC;
 }
@@ -68,7 +82,8 @@ void __attribute__ ((interrupt(ADC12_VECTOR))) ADC12ISR (void)
     case ADC12IV_ADC12OVIFG: break;           // Vector  2:  ADC overflow
     case ADC12IV_ADC12TOVIFG: break;          // Vector  4:  ADC timing overflow
     case ADC12IV_ADC12IFG0:                   // Vector  6:  ADC12IFG0
-        temp = ADC12MEM0;                     // Move results, IFG is cleared
+        obdhTemperatureBuffer = ADC12MEM0;                     // Move results, IFG is cleared
+        debug_uint("temp = ADC12MEM0:", obdhTemperatureBuffer);
       break;
     case ADC12IV_ADC12IFG1: break;            // Vector  8:  ADC12IFG1
     case ADC12IV_ADC12IFG2: break;            // Vector 10:  ADC12IFG2

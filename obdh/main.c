@@ -77,6 +77,7 @@ void main(void) {
     	debug("  OBDH internal read init \t\t\t\t(Task 2.1)");
     	//wdt init for obdh internal
     	obdh_read(obdhData);
+    	debug( obdh_data2string(tmpStr, obdhData) );
     	__delay_cycles(DELAY_9_MS_IN_CYCLES);
     	debug_array("    OBDH data:", obdhData, OBDH_DATA_LENGTH);
     	debug("  OBDH read done");
@@ -154,7 +155,7 @@ void main(void) {
     	debug("Sleeping...");
     	sysled_off();
     	payloadEnable_toggle();
-    	__delay_cycles(DELAY_1_S_IN_CYCLES);
+    	__delay_cycles(DELAY_5_S_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 

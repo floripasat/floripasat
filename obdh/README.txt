@@ -47,15 +47,13 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 3.2										  Hibernate									NOT_IMPLEMENTED
 3.3 									  Periodic wakeup 							NOT_IMPLEMENTED
 3.3.1									    Re-evaluate system conditions 			NOT_IMPLEMENTED
+
+* MAX_TIME is the time slot for the task.
+Currently there is no scheduler or task switching with context preserving. 
+The system behavior must be deterministic within these limits. Any exceeded 
+time is considered a general failure and incurs into a general reset, by 
+the watchdog.  
 ----------------------------------------------------------------------------------------------------------
-
-TIME SLOTS
-----------------------------------------------------------------------------------------------------------
-
-ms		Task
-
-
-
 
 
 
@@ -63,31 +61,65 @@ ms		Task
 DATAFRAME FORMAT
 ----------------------------------------------------------------------------------------------------------
 
-////////////////////frame///////////////////////////
-[START BYTE][EPS DATA][BEACON DATA][IMU DATA][CRC][END BYTE]
-/////////////frame to save into flash///////////////
-[RTC_TIME][EPS DATA][BEACON DATA][IMU DATA]
+	// Frame sent to uG Host mission: 41 Bytes 
+	// (uZed board adds an extra byte in the host side, indicating if it read the packet correclt formated). 
+	// SOF (3B) + Payload (35B) + EOF (3B)
+	// Ex: {{{BBB..BBB}\n\r
+	// 7b 7b 7b 00 01 02 03 04  05 05 00 00 00 00 00 00 00 00 00 00 00 01 00 00 09 00 0d 01 02 03 04 05 06 07 08 09 0a 06 7d 0a 0d
 
-----------------------------------------------------------------------------------------------------------
+	//Start of Frame
+	ugFrame[0] = '{';				// 0x7B
+	ugFrame[1] = '{';				// 0x7B
+	ugFrame[2] = '{';				// 0x7B
+
+	// Payload
+	ugFrame[3]  = obdhData[0];		//Sysclock  S H
+	ugFrame[4]  = obdhData[1];		//Sysclock  S L
+	ugFrame[5]  = obdhData[2];		//Sysclock MS H
+	ugFrame[6]  = obdhData[3];		//Sysclock MS L
+	ugFrame[7]  = obdhData[4];		//Internal Temperature H
+	ugFrame[8]  = obdhData[5];  	//Internal Temperature L
+	ugFrame[9]  = obdhData[6];		//Status Code
+
+	ugFrame[10] = imuData[0];		//Acc X H
+	ugFrame[11] = imuData[1];		//Acc X L
+	ugFrame[12] = imuData[2];		//Acc Y H
+	ugFrame[13] = imuData[3];		//Acc Y L
+	ugFrame[14] = imuData[4];		//Acc Z H
+	ugFrame[15] = imuData[5];		//Acc Z L
+	ugFrame[16] = imuData[8];		//Gyr X H
+	ugFrame[17] = imuData[9];		//Gyr X L
+	ugFrame[18] = imuData[10];		//Gyr Y H
+	ugFrame[19] = imuData[11];		//Gyr Y L
+	ugFrame[20] = imuData[12];		//Gyr Z H
+	ugFrame[21] = imuData[13];		//Gyr Z L
+
+	ugFrame[22] = radioData[0];		//Counter H
+	ugFrame[23] = radioData[1];		//Counter L
+	ugFrame[24] = radioData[2];		//Counter H
+	ugFrame[25] = radioData[3];		//Counter L
+
+	ugFrame[26] = epsData[3];		// Current H
+	ugFrame[27] = epsData[4];		// Current L
+	ugFrame[28] = epsData[5];		// Voltage BAT1 H
+	ugFrame[29] = epsData[6];		// Voltage BAT1 L
+	ugFrame[30] = epsData[7];		// Voltage BAT2 H
+	ugFrame[31] = epsData[8];		// Voltage BAT2 L
+	ugFrame[32] = epsData[9];		// Temperature  H
+	ugFrame[33] = epsData[10];		// Temperature  L
+	ugFrame[34] = epsData[11];		// Current Accum. H
+	ugFrame[35] = epsData[12];		// Current Accum  L
+	ugFrame[36] = epsData[13];		// Bat Mon. Protection Reg.
+
+	// ugFrame[37] = CRC FIELD
+
+	// End of Frame
+	ugFrame[38] = '}';				// 0x7D
+	ugFrame[39] = '\n';				// 0x0A
+	ugFrame[40] = '\r';				// 0x0D
 
 
 
-MEASUREMENTS 
-----------------------------------------------------------------------------------------------------------
-OBDH INTERNAL
-Main cycle counter		
-
-
-
-EPS
-17 bytes
-
-
-RADIO
-
-
-
-IMU
 
 
 ----------------------------------------------------------------------------------------------------------

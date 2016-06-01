@@ -12,7 +12,7 @@
 #define INTERFACES_OBDH_H_
 
 #include <msp430.h>
-
+#include "../util/debug.h"
 
 // Define some macros that allow us to direct-access the ADC12 calibration
 // constants that we need. See device datasheet for the full TLV table memory
@@ -24,13 +24,15 @@
 // Calibration constant for ADC 1.5-V Reference, Temp. Sensor 85°C
 #define CALADC12_15V_85C        (*((unsigned int *)0x1A1C))
 
-unsigned int temp;
+unsigned int obdhTemperatureBuffer;
 volatile float temperatureDegC;
 volatile float temperatureDegF;
 
+char* obdh_data2string(char* stringBuffer, char* obdhData);
+
 void obdh_read(char* obdhData);
 void obdh_temp_convert(unsigned int temp);
-void obdh_temp_read(int temp);
+void obdh_temp_read(void);
 void obdh_temp_setup(void);
 
 
