@@ -8,6 +8,9 @@
 #ifndef UTIL_CRC_H_
 #define UTIL_CRC_H_
 
-unsigned char CRC8(unsigned char *, unsigned int);
+#include "stdint.h"
+#include <crc.h>
+
+char CRC8(char *data, uint16_t length);
 
 #endif /* UTIL_CRC_H_ */

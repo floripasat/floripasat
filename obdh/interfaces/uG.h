@@ -10,13 +10,16 @@
 
 #include <stdint.h>
 #include "../hal/engmodel1.h"
+#include "../util/crc.h"
 
 void uG_encode_dataframe (char*     ugFrame,
 						  char*    obdhData,
 						  char*   radioData,
 						  char*     epsData,
-						  char*     imuData,
-						  uint8_t frameCRC8 );
+						  char*     imuData );
+
+void uG_encode_crc ( char* ugFrame );
+
 
 void send2uZed(void);
 

@@ -13,5 +13,6 @@
 #include "../hal/engmodel1.h"
 
 void eps_read(char* data);
+char* eps_data2string(char* stringBuffer, char* epsData);
 
 #endif /* INTERFACES_EPS_H_ */

@@ -14,8 +14,7 @@ void uG_encode_dataframe (char*     ugFrame,
 						  char*    obdhData,
 						  char*   radioData,
 						  char*     epsData,
-						  char*     imuData,
-						  uint8_t frameCRC8 ) {
+						  char*     imuData ) {
 
 	// Clear frame memory space (mark with known signature)
 	int i;
@@ -72,7 +71,7 @@ void uG_encode_dataframe (char*     ugFrame,
 	ugFrame[35] = epsData[12];		// Current Accum  L
 	ugFrame[36] = epsData[13];		// Bat Mon. Protection Reg.
 
-	ugFrame[37] = frameCRC8;		//CRC8
+//	ugFrame[37] = CRC FIELD
 
 	// End of Frame
 	ugFrame[38] = '}';				// 0x7D
@@ -80,6 +79,27 @@ void uG_encode_dataframe (char*     ugFrame,
 	ugFrame[40] = '\r';				// 0x0D
 
 }
+
+
+void uG_encode_crc ( char* ugFrame ) {
+
+	uint8_t frameCRC8 = 0;
+	frameCRC8 = CRC8( ugFrame+(3*sizeof(char)), UG_FRAME_LENGTH-(7*sizeof(char)) );  // compute the checksum of ugFrame[3] to ugFrame[36]
+//	debug_uint("CRC8 Sabine:", frameCRC8);
+	ugFrame[37] = frameCRC8;
+
+	uint16_t CRC8Driverlib = 0;
+	CRC_setSeed(CRC_BASE, 0);
+	int i = 0;
+	for (i=3; i<UG_FRAME_LENGTH-4; i++){
+//		debug_uint("CRC8 of:", ugFrame[i]);
+		CRC_set8BitData(CRC_BASE, ugFrame[i]);
+	}
+	CRC8Driverlib = CRC_getResult(CRC_BASE);
+//	debug_uint("CRC8 Driverlib:", CRC8Driverlib);
+
+}
+
 
 void uG_send(char* dataframe, uint16_t length){
 

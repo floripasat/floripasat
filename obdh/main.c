@@ -88,8 +88,9 @@ void main(void) {
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	//wdt init for eps
     	eps_read(epsData);
-    	__delay_cycles(DELAY_99_MS_IN_CYCLES);
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
+    	debug( eps_data2string(tmpStr, epsData) );
+    	__delay_cycles(DELAY_99_MS_IN_CYCLES);
     	debug("  EPS read done");
     	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
 //    								  necessario até a proxima atividade "rastreada" por ele,
@@ -106,14 +107,15 @@ void main(void) {
     	debug("  IMU read done");
     	wdt_reset_counter();
 
-    	debug("-----------------------------------------------");
+
+
     	debug("  RADIO read init \t\t\t\t(Task 2.4)");
     	//wdt init for radio
     	readTransceiver(radioData);
     	debug("  RADIO read done");
-    	debug("-----------------------------------------------");
-
     	wdt_reset_counter();
+
+
 
     	//    	send2uZed();
     	debug("  uG communication: sending data to host \t\t(Task 2.7)");
@@ -122,8 +124,10 @@ void main(void) {
 //    	uG_send(frame_uG, sizeof(frame_uG));
 //    	uart_tx("{{{aabbcc}\n\r");
 
-    	uint8_t frameCRC8 = 6;
-    	uG_encode_dataframe ( ugFrame, obdhData, radioData, epsData, imuData, frameCRC8 );
+    	uG_encode_dataframe( ugFrame, obdhData, radioData, epsData, imuData );
+    	uG_encode_crc(ugFrame);
+
+
     	debug_array("    uG Frame:", ugFrame, UG_FRAME_LENGTH);
     	uG_send(ugFrame, UG_FRAME_LENGTH);
     	debug("  uG communication done");
@@ -131,7 +135,6 @@ void main(void) {
 
 
 //    	wdt init for flash
-
     	write2Flash(ugFrame,UG_FRAME_LENGTH);
     	wdt_reset_counter();
 
@@ -151,7 +154,7 @@ void main(void) {
     	debug("Sleeping...");
     	sysled_off();
     	payloadEnable_toggle();
-    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_5_S_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 
