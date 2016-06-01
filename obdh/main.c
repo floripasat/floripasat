@@ -177,6 +177,8 @@ void main_setup(void){
 	i2c_setup(EPS);
 	debug("  EPS setup done");
 	i2c_setup(MPU);
+	debug("  OBDH temp setup done");
+	obdh_temp_setup();
 	__enable_interrupt();
 	imu_config();
 	SPI_Setup();
