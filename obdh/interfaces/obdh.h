@@ -33,7 +33,7 @@ char* obdh_data2string(char* stringBuffer, char* obdhData);
 void obdh_read(char* obdhData);
 void obdh_temp_convert(unsigned int temp);
 void obdh_temp_read(void);
-void obdh_temp_setup(void);
+void obdh_setup(void);
 
 
 

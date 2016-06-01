@@ -50,7 +50,10 @@ void obdh_temp_read(void){
     ADC12IE = 0x001;                        // ADC_IFG upon conv result-ADCMEMO
 }
 
-void obdh_temp_setup(void){
+void obdh_setup(void){
+
+
+//	Internal temperature reading setup
 	  REFCTL0 &= ~REFMSTR;                      // Reset REFMSTR to hand over control to
 	                                            // ADC12_A ref control registers
 	  ADC12CTL0 = ADC12SHT0_8 | ADC12REFON | ADC12ON;

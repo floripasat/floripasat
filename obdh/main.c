@@ -8,8 +8,6 @@
 
 *************************************************************************************/
 
-
-
 #include <msp430.h>
 #include "driverlib.h"
 
@@ -31,8 +29,6 @@
 #include "interfaces/radio.h"
 #include "interfaces/uG.h"
 
-//#define DEBUG_ENABLE 	0	//TODO: move debug enable flag to main.c, for beter UX/visibility
-
 
 uint16_t cycleCounter = 0;
 char tmpStr[200];
@@ -45,14 +41,7 @@ char radioData[RADIO_DATA_LENGTH];
 char ugFrame[UG_FRAME_LENGTH];
 
 
-//main tasks
 void main_setup(void);
-
-
-
-//frames manipulation
-void concatenate_frame(void);
-void concatenate_info_frame(void);
 
 
 
@@ -118,27 +107,22 @@ void main(void) {
 
 
 
-    	//    	send2uZed();
     	debug("  uG communication: sending data to host \t\t(Task 2.7)");
     	//wdt init for uG tx
-//    	debug_array("    IMU decoding data", imuData, sizeof(imuData) );
-//    	uG_send(frame_uG, sizeof(frame_uG));
-//    	uart_tx("{{{aabbcc}\n\r");
-
     	uG_encode_dataframe( ugFrame, obdhData, radioData, epsData, imuData );
     	uG_encode_crc(ugFrame);
-
-
     	debug_array("    uG Frame:", ugFrame, UG_FRAME_LENGTH);
     	uG_send(ugFrame, UG_FRAME_LENGTH);
     	debug("  uG communication done");
     	wdt_reset_counter();
 
 
+
+    	debug("  Flash write init");
 //    	wdt init for flash
     	write2Flash(ugFrame,UG_FRAME_LENGTH);
     	wdt_reset_counter();
-
+    	debug("  Flash write done");
 
 
     	debug("Main loop done");
@@ -146,19 +130,15 @@ void main(void) {
 
 
 
-    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
-//    	~ 250ms
-
+//    	Main cycle total time must be 500ms (2Hz send rate to uG Host board)
+//    	Round cycle time to 500ms with sleep.
     	debug("Sleeping...");
     	sysled_off();
-    	payloadEnable_toggle();
+    	payloadEnable_toggle(); // Payload enable generates a wafeform for timing compliance test analysis (with scope).
     	__delay_cycles(DELAY_5_S_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
-
+    	payloadEnable_toggle();
 
     }
 }
@@ -179,7 +159,7 @@ void main_setup(void){
 	debug("  EPS setup done");
 	i2c_setup(MPU);
 	debug("  OBDH temp setup done");
-	obdh_temp_setup();
+	obdh_setup();
 	__enable_interrupt();
 	imu_config();
 	SPI_Setup();
@@ -187,36 +167,5 @@ void main_setup(void){
 	debug("  IMU setup done");
 }
 
-
-
-
-
-
-
-
-//// TODO: move to appropriate file module
-//void concatenate_frame(void){
-//	unsigned int i,j = 1;
-//	FSAT_frame[0] = STT_BYTE;
-//	for(i = 0;i < EPS_DATA_LENGTH;i++)
-//		FSAT_frame[j++] = EPS_data_buffer[i];
-//	for(i = 0;i < IMU_DATA_LENGTH;i++)
-//		FSAT_frame[j++] = imuData[i];
-//	for(i = 0;i < BEACON_DATA_LENGTH;i++)
-//		FSAT_frame[j++] = BEACON_data_buffer[i];
-//	debug("CRC...\n\r"); //TODO rm
-//	FSAT_frame[FSAT_FRAME_LENGTH - 2] = CRC8(FSAT_frame, sizeof FSAT_frame);
-//	debug("CRC DONE.\n\r"); //TODO rm
-//	FSAT_frame[FSAT_FRAME_LENGTH - 1] = END_BYTE;
-//}
-
-
-//// TODO: move to appropriate file module
-//void concatenate_info_frame(void){
-//	misc_info_frame[0] = INFO_STT_BYTE;
-//	misc_info_frame[1] = (char)(cycleCounter >> 8);
-//	misc_info_frame[2] = (char)(cycleCounter);
-//	misc_info_frame[MISC_INFO_LENGHT - 1] = INFO_END_BYTE;
-//}
 
 
