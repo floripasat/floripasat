@@ -84,12 +84,12 @@ char* eps_data2string(char* stringBuffer, char* epsData){
     float currAcc = a*0.00000625/0.015;
 
 
-	sprintf(stringBuffer, "\tBat Curr.:  %.8f A"
-						  "\tBat1 Volt.:  %.8f V"
-						  "\tBat2 Volt.:  %.8f V"
-						  "\tTemperature: %.8f C"
-						  "\tCurr. Acc.:  %.8f A"
-						  "\tBat. Prot. Reg: 0x%02X",
+	sprintf(stringBuffer, "    Bat Curr: %.3f A"
+						  "  Bat1 Volt: %.3f V"
+						  "  Bat2 Volt: %.3f V"
+						  "  Tempe: %.3f C"
+						  "  Curr Acc: %.3f A"
+						  "  Bat Reg: 0x%02X",
 						  currBat, voltBat1, voltBat2, temp, currAcc, batReg);
 
 	return stringBuffer;

@@ -91,7 +91,36 @@ IMU
 
 
 ----------------------------------------------------------------------------------------------------------
+ 				MEMORY DUMP PROCEDURE 
 
+  This is the guide for the memory dump of the uG mission of the OBDH 
+memory.
 
+  1 - After the board recovery *****DO NOT START TO DEBUG***** otherwise
+the memory will be erased!
+  2 - Plug the board in the USB port, it should start blinking.
+  3 - In the CCS, the tools bar, find the arrow \/ at the side of the 
+debug button. Click  and select the "Debug Configurations...". A new window 
+will open.
+  4 - At the right side of the Window find the Program TAB.
+  5 - In the loading options, mark the "Load Symbols Only", and click 
+"Apply" and then "Debug". It will start the board and trap.
+  6 - In the "View", Click "Memory Browser".
+  7 - At the memmory browser window, click at the "Save memory" arrow
+  8 - Select the file path (.dat) and hit next.
+  9 - Select the 8 bit HEX TI Style, Start Adress = 0 and 
+words to read = 0xffffff and hit finish.
 
+Method 2:
+Using TI UniFlash software
+http://www.ti.com/tool/UniFlash
+
+- Select Select TI MSP430 USB 1 as programmer
+- Target: MSP430F6659
+- Menu: Program -> Export Memory
+- Format BIN
+- Wordsize 8
+- Start address 0
+- length: 0x0fffff
+- Export file: target file
 

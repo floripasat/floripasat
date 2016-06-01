@@ -154,7 +154,7 @@ void main(void) {
     	debug("Sleeping...");
     	sysled_off();
     	payloadEnable_toggle();
-    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+    	__delay_cycles(DELAY_1_S_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 //    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
 
