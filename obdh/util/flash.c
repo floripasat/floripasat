@@ -10,7 +10,7 @@
 
 void write2Flash(char* data, int bytes){
 	debug("Writing to flash init");
-	if(flash_ptr >= MEM_LAST_w_ADDR){
+	if(flash_ptr >= MEM_LAST_w_ADDR || flash_ptr == MEM_OF_ADDR){
 		flash_ptr = MEM_OF_ADDR;
 		flash_write("{FSAT:memory full}",18);
 	}else {
