@@ -15,22 +15,22 @@
 #define WATCHDOG			0x00
 
 //time to trigger
-#define _64_uSEC			0x07
-#define _512_uSEC			0x06
-#define _2_mSEC				0x27
-#define _8_2_mSEC			0x05
-#define _15_6_mSEC			0x26
-#define _32_8_mSEC			0x04
-#define _250_mSEC			0x25
-#define _524_3_mSEC			0x03
-#define _1_SEC				0x24
-#define _8_4_SEC			0x02
-#define _16_SEC				0x23
-#define _134_SEC			0x01
-#define _4_MIN_16_SEC		0x22
-#define _8_MIN_16_SEC		0x21
-#define _30_MIN_47_5_SEC	0x00
-#define _18_H_12_MIN_16_SEC	0x20
+#define WD_64_uSEC			0x07
+#define WD_512_uSEC			0x06
+#define WD_2_mSEC				0x27
+#define WD_8_2_mSEC			0x05
+#define WD_15_6_mSEC			0x26
+#define WD_32_8_mSEC			0x04
+#define WD_250_mSEC			0x25
+#define WD_524_3_mSEC			0x03
+#define WD_1_SEC				0x24
+#define WD_8_4_SEC			0x02
+#define WD_16_SEC				0x23
+#define WD_134_SEC			0x01
+#define WD_4_MIN_16_SEC		0x22
+#define WD_8_MIN_16_SEC		0x21
+#define WD_30_MIN_47_5_SEC	0x00
+#define WD_18_H_12_MIN_16_SEC	0x20
 
 
 #include <msp430.h>

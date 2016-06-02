@@ -57,39 +57,37 @@ void main(void) {
 
     while(1) {		//Task 2
 
-
     	cycleCounter++;
     	sysled_on();
     	debug("Main loop init \t\t\t\t\t(Task 2)");
-
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
 
 
+
+//    	payloadEnable_toggle();
     	debug("  OBDH internal read init \t\t\t\t(Task 2.1)");
-    	//wdt init for obdh internal
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	obdh_read(obdhData);
     	debug( obdh_data2string(tmpStr, obdhData) );
     	debug_array("    OBDH data:", obdhData, OBDH_DATA_LENGTH);
     	debug("  OBDH read done");
     	wdt_reset_counter();
+//    	payloadEnable_toggle();
 
 
-
+    	payloadEnable_toggle();
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
-    	//wdt init for eps
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	eps_read(epsData);
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
     	debug( eps_data2string(tmpStr, epsData) );
     	debug("  EPS read done");
-    	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
-//    								  necessario até a proxima atividade "rastreada" por ele,
-//									  não apenas reiniciado. Se não irá
-
-
+    	wdt_reset_counter();
+    	payloadEnable_toggle();
 
 
     	debug("  IMU read init \t\t\t\t\t(Task 2.3)");
-    	//wdt init for imu
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	imu_read(imuData);
     	debug_array("    IMU data", imuData, sizeof(imuData) );
     	debug( imu_data2string(tmpStr, imuData, IMU_ACC_RANGE, IMU_GYR_RANGE) );
@@ -99,7 +97,7 @@ void main(void) {
 
 
     	debug("  RADIO read init \t\t\t\t(Task 2.4)");
-    	//wdt init for radio
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	readTransceiver(radioData);
     	debug("  RADIO read done");
     	wdt_reset_counter();
@@ -107,15 +105,16 @@ void main(void) {
 
 
     	debug("  Encode dataframe init \t\t(Task 2.5)");
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	uG_encode_dataframe( ugFrame, obdhData, radioData, epsData, imuData );
     	uG_encode_crc(ugFrame);
     	debug("  Encode dataframe done");
-
+    	wdt_reset_counter();
 
 
 
     	debug("  uG communication: sending data to host \t\t(Task 2.6)");
-    	//wdt init for uG tx
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	debug_array("    uG Frame:", ugFrame, UG_FRAME_LENGTH);
     	uG_send(ugFrame, UG_FRAME_LENGTH);
     	debug("  uG communication done");
@@ -123,30 +122,29 @@ void main(void) {
 
 
 
-    	payloadEnable_toggle();
     	debug("  Flash write init \t\t\t(Task 2.6)");
-//    	wdt init for flash
+    	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	write2Flash(ugFrame,UG_FRAME_LENGTH);
     	wdt_reset_counter();
     	debug("  Flash write done");
-    	payloadEnable_toggle();
+    	wdt_reset_counter();
+
 
 
     	debug("Main loop done");
-//    	Time: ~ 227,663 ms
+    	sysled_off();
+//    	Time: ~ 420 ms
 
 
 
 //    	Main cycle total time must be 500ms (2Hz send rate to uG Host board)
 //    	Round cycle time to 500ms with sleep.
     	debug("Sleeping...");
-    	sysled_off();
+    	watchdog_setup(WATCHDOG,WD_4_MIN_16_SEC);
     	payloadEnable_toggle(); // Payload enable generates a wafeform for timing compliance test analysis (with scope).
     	__delay_cycles(DELAY_5_S_IN_CYCLES);
-//    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
-//    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
-//    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
     	payloadEnable_toggle();
+    	wdt_reset_counter();
 
     }
 }
@@ -154,7 +152,13 @@ void main(void) {
 
 
 void main_setup(void){
-	watchdog_setup(WATCHDOG,_18_H_12_MIN_16_SEC);
+
+	if (DEBUG_LOG_ENABLE){
+		watchdog_setup(WATCHDOG,WD_18_H_12_MIN_16_SEC); // 'ignore' watchog in Debug mode because uart_print extra delay disturbs time slots
+	} else {
+		watchdog_setup(WATCHDOG,WD_4_MIN_16_SEC);
+	}
+
 	sysclock_setup();
 	uart_setup(9600);
 	debug("  UART setup done");

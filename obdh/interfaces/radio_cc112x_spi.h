@@ -45,7 +45,7 @@
  * INCLUDES
  */
 #include "radio.h"
-#include "hal_spi_rf_floripasat.h"
+#include "radio_hal_spi_rf.h"
 
 #ifdef  __cplusplus
 }

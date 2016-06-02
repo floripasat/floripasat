@@ -62,7 +62,7 @@ static void runRX(char* buffer) {
 //	debug("cc112xSpiReadReg() init");
 	cc112xSpiReadReg(CC112X_NUM_RXBYTES, &rxBytes, 1);
 
-	debug_uint("rxBytes:", rxBytes);
+//	debug_uint("rxBytes:", rxBytes);
 
 	// Check that we have bytes in FIFO
 	if (rxBytes != 0) {

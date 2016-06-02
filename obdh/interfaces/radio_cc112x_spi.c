@@ -39,7 +39,8 @@
  * INCLUDES
  */
 //#include "hal_types.h"
-#include "cc112x_spi.h"
+#include "radio_cc112x_spi.h"
+
 #include "radio.h"
 
 //#include "bsp.h"

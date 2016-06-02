@@ -88,15 +88,15 @@ void uG_encode_crc ( char* ugFrame ) {
 //	debug_uint("CRC8 Sabine:", frameCRC8);
 	ugFrame[37] = frameCRC8;
 
-	uint16_t CRC8Driverlib = 0;
-	CRC_setSeed(CRC_BASE, 0);
-	int i = 0;
-	for (i=3; i<UG_FRAME_LENGTH-4; i++){
-//		debug_uint("CRC8 of:", ugFrame[i]);
-		CRC_set8BitData(CRC_BASE, ugFrame[i]);
-	}
-	CRC8Driverlib = CRC_getResult(CRC_BASE);
-//	debug_uint("CRC8 Driverlib:", CRC8Driverlib);
+//	uint16_t CRC8Driverlib = 0;
+//	CRC_setSeed(CRC_BASE, 0);
+//	int i = 0;
+//	for (i=3; i<UG_FRAME_LENGTH-4; i++){
+////		debug_uint("CRC8 of:", ugFrame[i]);
+//		CRC_set8BitData(CRC_BASE, ugFrame[i]);
+//	}
+//	CRC8Driverlib = CRC_getResult(CRC_BASE);
+////	debug_uint("CRC8 Driverlib:", CRC8Driverlib);
 
 }
 

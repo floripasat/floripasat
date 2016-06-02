@@ -45,9 +45,6 @@
 
 
 
-
-
-
-char* dataframe2string 	   (char* frame);
+//char* dataframe2string 	   (char* frame);
 
 #endif /* UTIL_CODECS_H_ */

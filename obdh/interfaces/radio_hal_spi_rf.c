@@ -12,10 +12,11 @@
 /******************************************************************************
  * INCLUDES
  */
+#include "radio_hal_spi_rf.h"
+
 #include <msp430.h>
 #include "radio.h"
 #include <stdint.h>
-#include "hal_spi_rf_floripasat.h"
 
 /******************************************************************************
  * LOCAL FUNCTIONS
@@ -176,7 +177,7 @@ rfStatus_t trxSpiCmdStrobe(uint8_t cmd)
 	while(TRXEM_PORT_IN & TRXEM_SPI_MISO_PIN);
 	TRXEM_SPI_TX(cmd);
 //	TRXEM_SPI_WAIT_DONE();
-	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+	__delay_cycles(DELAY_5_MS_IN_CYCLES);
 	rc = TRXEM_SPI_RX();
 	TRXEM_SPI_END();
 	return(rc);
@@ -246,12 +247,12 @@ rfStatus_t trx16BitRegAccess(uint8_t accessType, uint8_t extAddr, uint8_t regAdd
 	/* send extended address byte with access type bits set */
 	TRXEM_SPI_TX(accessType|extAddr);
 //	TRXEM_SPI_WAIT_DONE();
-	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+	__delay_cycles(DELAY_5_MS_IN_CYCLES);
 	/* Storing chip status */
 	readValue = TRXEM_SPI_RX();
 	TRXEM_SPI_TX(regAddr);
 //	TRXEM_SPI_WAIT_DONE();
-	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+	__delay_cycles(DELAY_5_MS_IN_CYCLES);
 	/* Communicate len number of bytes */
 	trxReadWriteBurstSingle(accessType|extAddr,pData,len);
 	TRXEM_SPI_END();
@@ -297,7 +298,7 @@ static void trxReadWriteBurstSingle(uint8_t addr,uint8_t *pData,uint16_t len)
       {
           TRXEM_SPI_TX(0);            /* Possible to combining read and write as one access type */
 //          TRXEM_SPI_WAIT_DONE();
-          __delay_cycles(DELAY_10_MS_IN_CYCLES);
+          __delay_cycles(DELAY_5_MS_IN_CYCLES);
           *pData = TRXEM_SPI_RX();     /* Store pData from last pData RX */
           pData++;
       }

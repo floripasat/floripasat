@@ -9,9 +9,9 @@
 
 #include <msp430.h>
 #include <stdint.h>
-#include "cc112x_spi.h"
-#include "hal_spi_rf_floripasat.h"
 #include "../util/debug.h"
+#include "radio_cc112x_spi.h"
+#include "radio_hal_spi_rf.h"
 
 //#include "../util/spi.h"
 

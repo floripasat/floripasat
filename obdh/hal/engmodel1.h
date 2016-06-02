@@ -34,28 +34,31 @@
 
 
 // @ 1Mhz internal ref, 1 cycle ~= 1 uS
-//#define DELAY_1_MS_IN_CYCLES	    1049	// @ 1Mhz Internal clock	~1.040 ms
-#define DELAY_1_MS_IN_CYCLES	    1010	// @ 1Mhz Internal clock	~1.001 ms
+// Delays below adjusted empiricaly based on tests/mesurements (to fix internal clock drift)
+#define DELAY_1_MS_IN_CYCLES	     1010
+#define DELAY_5_MS_IN_CYCLES	     5050
+#define DELAY_10_MS_IN_CYCLES	    10220
+#define DELAY_50_MS_IN_CYCLES	    51200
+#define DELAY_100_MS_IN_CYCLES	   102400
+#define DELAY_150_MS_IN_CYCLES	   153600
+#define DELAY_1_S_IN_CYCLES	      1025538
+#define DELAY_5_S_IN_CYCLES	      5130019
+#define DELAY_60_S_IN_CYCLES     62914560
+#define DELAY_120_S_IN_CYCLES   125829120
 
-#define DELAY_9_MS_IN_CYCLES	   9210	    // @ 1Mhz Internal clock	~10 ms
 
-#define DELAY_10_MS_IN_CYCLES	   10220	// @ 1Mhz Internal clock	~10 ms
-//#define DELAY_10_MS_IN_CYCLES	   10486	// @ 1Mhz Internal clock	~10.27 ms
-
-#define DELAY_99_MS_IN_CYCLES	  101390	// @ 1Mhz Internal clock	~100 ms
-
-#define DELAY_50_MS_IN_CYCLES	  51200	    // @ 1Mhz Internal clock	~100 ms
-
-#define DELAY_100_MS_IN_CYCLES	  102400	// @ 1Mhz Internal clock	~100 ms
-//#define DELAY_100_MS_IN_CYCLES	  104858	// @ 1Mhz Internal clock	~102.5 ms
-
-#define DELAY_1_S_IN_CYCLES		 1317472	// @ 1Mhz Internal clock	~1.026  s
-//#define DELAY_1_S_IN_CYCLES	 1048576	// @ 1Mhz Internal clock	~1.026  s
-
-//#define DELAY_5_S_IN_CYCLES		5000000		// @ 1Mhz Internal clock
-#define DELAY_5_S_IN_CYCLES		5130019	    // @ 1Mhz Internal clock	~5.00X s
-
-#define DELAY_60_S_IN_CYCLES	62914560	// @ 1Mhz Internal clock	~61.52	s
+//TODO: watchdog max times are hardcoded in the main loop
+//	  use global defines below, in the hal file.
+//	  must reference the WD definitions, because WD delay
+//	  have its own special unit and are not in cycles
+//#define TIMESLOT_OBDH_MAX			WD_250_mSEC
+//#define TIMESLOT_EPS_MAX			WD_250_mSEC
+//#define TIMESLOT_IMU_MAX			WD_250_mSEC
+//#define TIMESLOT_RADIO_MAX			WD_250_mSEC
+//#define TIMESLOT_ENCODEFRAME_MAX	WD_250_mSEC
+//#define TIMESLOT_UGHOST_MAX			WD_250_mSEC
+//#define TIMESLOT_FLASH_MAX			WD_250_mSEC
+//#define TIMESLOT_SLEEP_MAX			WD_250_mSEC
 
 
 #define OBDH_DATA_LENGTH	 7	//  7 B of payload
