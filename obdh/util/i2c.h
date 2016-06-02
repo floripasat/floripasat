@@ -2,6 +2,8 @@
 #define I2C_H_
 
 #include <msp430.h>
+#include "misc.h"
+#include "../hal/engmodel1.h"
 
 #define MPU 	1
 #define EPS 	0

@@ -43,7 +43,7 @@ void i2c_read_eps(char *Buffer, unsigned int bytes){
 	RXByteCtr = bytes;
 	UCB0CTL1 &= ~UCTR;
 	UCB0CTL1 |= UCTXSTT;
-	__delay_cycles(10 * 2001);
+	__delay_cycles(DELAY_10_MS_IN_CYCLES);
 }
 
 

@@ -36,7 +36,7 @@ void flash_write(char* data, int bytes){
 }
 
 void flash_write_single(char data, long *addr){
-  __disable_interrupt();
+//  __disable_interrupt();
   FCTL3 = FWKEY;                            // Clear Lock bit
   FCTL1 = FWKEY|WRT;                        // Set WRT bit for write operation
   *addr = data;                				// Write value to flash
