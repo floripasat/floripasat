@@ -75,7 +75,7 @@ void main(void) {
 //    	payloadEnable_toggle();
 
 
-    	payloadEnable_toggle();
+//    	payloadEnable_toggle();
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	watchdog_setup(WATCHDOG,WD_250_mSEC);
     	eps_read(epsData);
@@ -83,7 +83,8 @@ void main(void) {
     	debug( eps_data2string(tmpStr, epsData) );
     	debug("  EPS read done");
     	wdt_reset_counter();
-    	payloadEnable_toggle();
+//    	payloadEnable_toggle();
+
 
 
     	debug("  IMU read init \t\t\t\t\t(Task 2.3)");
@@ -133,7 +134,7 @@ void main(void) {
 
     	debug("Main loop done");
     	sysled_off();
-//    	Time: ~ 420 ms
+//    	Time: ~ 465 ms
 
 
 
@@ -142,7 +143,10 @@ void main(void) {
     	debug("Sleeping...");
     	watchdog_setup(WATCHDOG,WD_4_MIN_16_SEC);
     	payloadEnable_toggle(); // Payload enable generates a wafeform for timing compliance test analysis (with scope).
-    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_5_MS_IN_CYCLES);
     	payloadEnable_toggle();
     	wdt_reset_counter();
 
