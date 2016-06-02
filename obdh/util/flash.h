@@ -28,11 +28,14 @@
 #define BSL3_ADDR		0x001000
 #define MASS_ERASE		0XFFFFFF
 //
-#define BOOT_ADDR		0x026000
-#define FLASH_PTR_ADDR  BANK3_ADDR
+#define BOOT_ADDR		BANK1_ADDR
+#define FLASH_PTR_ADDR  SEGC_ADDR
+#define MEM_OF_ADDR		0x026000
+#define MEM_LAST_w_ADDR	0x087000
 
 char *flash_ptr;                         	// Initialize Flash pointer
 long *current_flash_ptr;					//place holder to save flash pointer to boot
+//char MEM_OV_MSG[]  = {"{FSAT:memory full}"};
 
 void flash_write(char*, int);
 void flash_setup(long);
@@ -40,6 +43,7 @@ void flash_erase(long);
 void flash_write_single(char ,long *);
 void flash_write_long(long* ,long *);
 void flash_save_ptr(void);
+void flash_reset_ptr(void);
 
 void write2Flash(char*, int);
 

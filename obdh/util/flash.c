@@ -10,24 +10,29 @@
 
 void write2Flash(char* data, int bytes){
 	debug("Writing to flash init");
-	flash_write(data,bytes);
-	flash_save_ptr();
+	if(flash_ptr >= MEM_LAST_w_ADDR){
+		flash_ptr = MEM_OF_ADDR;
+		flash_write("{FSAT:memory full}",18);
+	}else {
+		flash_write(data,bytes);
+		flash_save_ptr();
+	}
 	debug("Writing to flash done");
 }
 
 
 void flash_write(char* data, int bytes){
-  unsigned int i;
-//  __disable_interrupt();
-  FCTL3 = FWKEY;                            // Clear Lock bit
-  FCTL1 = FWKEY|WRT;                        // Set WRT bit for write operation
-  for (i = 0; i < bytes; i++){
-    *flash_ptr++ = data[i];                	// Write value to flash
-    while((FCTL3 & BUSY) == TRUE);             // Check if Flash being used
-  }
-  FCTL1 = FWKEY;                            // Clear WRT bit
-  FCTL3 = FWKEY|LOCK;                       // Set LOCK bit
-//  __enable_interrupt();
+	  unsigned int i;
+	//  __disable_interrupt();
+	  FCTL3 = FWKEY;                            // Clear Lock bit
+	  FCTL1 = FWKEY|WRT;                        // Set WRT bit for write operation
+	  for (i = 0; i < bytes; i++){
+		*flash_ptr++ = data[i];                	// Write value to flash
+		while((FCTL3 & BUSY) == TRUE);             // Check if Flash being used
+	  }
+	  FCTL1 = FWKEY;                            // Clear WRT bit
+	  FCTL3 = FWKEY|LOCK;                       // Set LOCK bit
+	//  __enable_interrupt();
 }
 
 void flash_write_single(char data, long *addr){
@@ -88,4 +93,8 @@ void flash_save_ptr(void){
 	current_flash_ptr = FLASH_PTR_ADDR;
 	flash_erase(FLASH_PTR_ADDR);
 	flash_write_long(flash_ptr, current_flash_ptr);
+}
+
+void flash_reset_ptr(void){
+	flash_erase(FLASH_PTR_ADDR);
 }
