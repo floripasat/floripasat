@@ -11,7 +11,7 @@
 #include "sysclock.h"
 #include "uart.h"
 
-#define DEBUG_LOG_ENABLE 	1	//TODO: move debug enable flag to main.c, for beter UX/visibility
+#define DEBUG_LOG_ENABLE 	0	//TODO: move debug enable flag to main.c, for beter UX/visibility
 
 void debug        (char* msg);
 void debug_inline (char* msg);

@@ -57,31 +57,29 @@ void main(void) {
 
     while(1) {		//Task 2
 
-    	payloadEnable_toggle();
+
     	cycleCounter++;
     	sysled_on();
     	debug("Main loop init \t\t\t\t\t(Task 2)");
 
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
 
+
     	debug("  OBDH internal read init \t\t\t\t(Task 2.1)");
     	//wdt init for obdh internal
     	obdh_read(obdhData);
     	debug( obdh_data2string(tmpStr, obdhData) );
-    	__delay_cycles(DELAY_9_MS_IN_CYCLES);
     	debug_array("    OBDH data:", obdhData, OBDH_DATA_LENGTH);
     	debug("  OBDH read done");
     	wdt_reset_counter();
 
 
 
-//    	payloadEnable_toggle();
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	//wdt init for eps
     	eps_read(epsData);
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
     	debug( eps_data2string(tmpStr, epsData) );
-    	__delay_cycles(DELAY_99_MS_IN_CYCLES);
     	debug("  EPS read done");
     	wdt_reset_counter(); // TODO: wdt tem que ser reinicializado e redefinido para o tempo
 //    								  necessario até a proxima atividade "rastreada" por ele,
@@ -89,7 +87,7 @@ void main(void) {
 
 
 
-//    	payloadEnable_toggle();
+
     	debug("  IMU read init \t\t\t\t\t(Task 2.3)");
     	//wdt init for imu
     	imu_read(imuData);
@@ -108,10 +106,16 @@ void main(void) {
 
 
 
-    	debug("  uG communication: sending data to host \t\t(Task 2.7)");
-    	//wdt init for uG tx
+    	debug("  Encode dataframe init \t\t(Task 2.5)");
     	uG_encode_dataframe( ugFrame, obdhData, radioData, epsData, imuData );
     	uG_encode_crc(ugFrame);
+    	debug("  Encode dataframe done");
+
+
+
+
+    	debug("  uG communication: sending data to host \t\t(Task 2.6)");
+    	//wdt init for uG tx
     	debug_array("    uG Frame:", ugFrame, UG_FRAME_LENGTH);
     	uG_send(ugFrame, UG_FRAME_LENGTH);
     	debug("  uG communication done");
@@ -119,11 +123,13 @@ void main(void) {
 
 
 
-    	debug("  Flash write init");
+    	payloadEnable_toggle();
+    	debug("  Flash write init \t\t\t(Task 2.6)");
 //    	wdt init for flash
     	write2Flash(ugFrame,UG_FRAME_LENGTH);
     	wdt_reset_counter();
     	debug("  Flash write done");
+    	payloadEnable_toggle();
 
 
     	debug("Main loop done");
@@ -136,9 +142,10 @@ void main(void) {
     	debug("Sleeping...");
     	sysled_off();
     	payloadEnable_toggle(); // Payload enable generates a wafeform for timing compliance test analysis (with scope).
-//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
-//    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
-//    	__delay_cycles(DELAY_100_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
+//    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
+//    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
     	payloadEnable_toggle();
 
     }

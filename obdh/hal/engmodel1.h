@@ -49,14 +49,12 @@
 #define DELAY_100_MS_IN_CYCLES	  102400	// @ 1Mhz Internal clock	~100 ms
 //#define DELAY_100_MS_IN_CYCLES	  104858	// @ 1Mhz Internal clock	~102.5 ms
 
-
 #define DELAY_1_S_IN_CYCLES		 1317472	// @ 1Mhz Internal clock	~1.026  s
 //#define DELAY_1_S_IN_CYCLES	 1048576	// @ 1Mhz Internal clock	~1.026  s
 
-//#define DELAY_5_S_IN_CYCLES	5242880		// @ 1Mhz Internal clock
+//#define DELAY_5_S_IN_CYCLES		5000000		// @ 1Mhz Internal clock
 #define DELAY_5_S_IN_CYCLES		5130019	    // @ 1Mhz Internal clock	~5.00X s
 
-#define DELAY_10_S_IN_CYCLES	10000000	// @ 1Mhz Internal clock	~10.25  s
 #define DELAY_60_S_IN_CYCLES	62914560	// @ 1Mhz Internal clock	~61.52	s
 
 
