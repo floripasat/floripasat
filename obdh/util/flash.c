@@ -10,9 +10,10 @@
 
 void write2Flash(char* data, int bytes){
 	debug("Writing to flash init");
-	if(flash_ptr >= MEM_LAST_w_ADDR || flash_ptr == MEM_OF_ADDR){
-		flash_ptr = MEM_OF_ADDR;
+	if(flash_ptr >= LAST_WRITE_ADDR || flash_ptr == (OVERFLOW_FLAG_ADDR)){
+		flash_ptr = OVERFLOW_FLAG_ADDR;
 		flash_write("{FSAT:memory full}",18);
+		flash_ptr = OVERFLOW_FLAG_ADDR;
 	}else {
 		flash_write(data,bytes);
 		flash_save_ptr();
@@ -58,16 +59,13 @@ void flash_write_long(long* data, long *addr){
 }
 
 
-void flash_setup(long str_addr) {
+void flash_setup(void) {
 	current_flash_ptr = FLASH_PTR_ADDR;
-	if (*current_flash_ptr == 0xFFFFFFFF)
-		flash_ptr = str_addr;
-	else
-		flash_ptr = *current_flash_ptr;
+	flash_ptr = *current_flash_ptr;
 }
 
 void flash_erase(long region){
-	int *erase_ptr = region;
+	long *erase_ptr = region;
 //	__disable_interrupt();
 	FCTL3 = FWKEY;                            // Clear Lock bit
 	switch (region){
@@ -97,4 +95,5 @@ void flash_save_ptr(void){
 
 void flash_reset_ptr(void){
 	flash_erase(FLASH_PTR_ADDR);
+	flash_write_long(BOOT_ADDR,FLASH_PTR_ADDR);
 }

@@ -171,7 +171,7 @@ void main_setup(void){
 	sysled_setup();
 	payloadEnable_setup();
 	debug("  Sysled setup done");
-	flash_setup(BANK1_ADDR);
+	flash_setup();
 	debug("  Flash setup done");
 	i2c_setup(EPS);
 	debug("  EPS setup done");
