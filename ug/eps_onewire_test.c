@@ -18,8 +18,8 @@
 #define temperature_LSB_register 0x0B
 #define average_current_MSB_register 0x08
 #define average_current_LSB_register 0x09
-#define current_gain_MSB_register 0x78
-#define current_gain_LSB_register 0x79
+#define overcurrent_thresholds_register 0x78
+#define current_gain_LSB_register  0x79
 #define current_MSB_register 0x0E
 #define current_LSB_register 0x0F
 #define voltage_MSB1_register 0x0C
@@ -243,19 +243,30 @@ void config_DS2784(void){
 	OWWriteByte(control_register);		// register address
 	OWWriteByte(0x0C);					// value to be written
 
+	reset= OneWireReset();				// Overcurrent Threshold REGISTER and current gain calibration MSB
+	OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
+	OWWriteByte(0x6C);					// write operation
+	OWWriteByte(overcurrent_thresholds_register);		// register address
+	OWWriteByte(0x24);					// value to be written
+
+	reset= OneWireReset();				// Overcurrent Threshold REGISTER and current gain calibration MSB
+	OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
+	OWWriteByte(0x6C);					// write operation
+	OWWriteByte(current_gain_LSB_register);		// register address
+	OWWriteByte(0x00);					// value to be written
 
 	reset= OneWireReset();								// ACCUMULATED CURRENT - MSB REGISTER
 	OWWriteByte(0xCC);									// eeprom address (only one slave on bus, CC is used)
 	OWWriteByte(0x6C);									// write operation
 	OWWriteByte(accumulated_current_MSB_register);		// register address
-	OWWriteByte(0x1C);									// value to be written
+	OWWriteByte(0x37);									// value to be written
 
 
 	reset= OneWireReset();								// ACCUMULATED CURRENT - LSB REGISTER
 	OWWriteByte(0xCC);									// eeprom address (only one slave on bus, CC is used)
 	OWWriteByte(0x6C);									// write operation
 	OWWriteByte(accumulated_current_LSB_register);		// register address
-	OWWriteByte(0x20);									// value to be written
+	OWWriteByte(0x50);									// value to be written
 
 
 }
@@ -333,18 +344,17 @@ void measurement_data_DS2784(void){
 
     //CURRENT GAIN CALIBRATION
 
-	reset= OneWireReset();              		// LSB CURRENT GAIN REGISTER
-    OWWriteByte(0xCC);							// eeprom address (only one slave on bus, CC is used)
-	OWWriteByte(0x6C);							// write operation
-	OWWriteByte(current_gain_LSB_register);		// register address
-	OWWriteByte(0x00);							// value to be written
+    reset= OneWireReset();				// Overcurrent Threshold REGISTER and current gain calibration MSB
+    OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
+    OWWriteByte(0x6C);					// write operation
+    OWWriteByte(overcurrent_thresholds_register);		// register address
+    OWWriteByte(0x24);					// value to be written
 
-
-	reset= OneWireReset();              		// MSB CURRENT GAIN REGISTER
-	OWWriteByte(0xCC);							// eeprom address (only one slave on bus, CC is used)
-    OWWriteByte(0x6C);							// write operation
-    OWWriteByte(current_gain_MSB_register);		// register address
-	OWWriteByte(0x04);							// value to be written
+    reset= OneWireReset();				// Overcurrent Threshold REGISTER and current gain calibration MSB
+    OWWriteByte(0xCC);					// eeprom address (only one slave on bus, CC is used)
+    OWWriteByte(0x6C);					// write operation
+    OWWriteByte(current_gain_LSB_register);		// register address
+    OWWriteByte(0x00);					// value to be written
 
 
 

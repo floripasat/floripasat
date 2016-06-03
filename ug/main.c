@@ -24,6 +24,7 @@ void config_MSP430(void)
 {
 	P1DIR |= BIT6;
 	P1OUT ^= BIT6;
+	P3DIR |= BIT6;
 
 	/*** clock configuration ***/
 	  BCSCTL1 = CALBC1_8MHZ;                    // Set DCO
