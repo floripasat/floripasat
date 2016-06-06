@@ -129,8 +129,9 @@ __interrupt void USCI_B1_ISR(void) {
 		RXByteCtr--;                            // Decrement RX byte counter
 		if (RXByteCtr > 0) {
 			*PRxData++ = UCB1RXBUF;           // Move RX data to address PRxData
-			if (RXByteCtr == 1)                   // Only one byte left?
+			if (RXByteCtr == 1){                   // Only one byte left?
 				UCB1CTL1 |= UCTXSTP;              // Generate I2C stop condition
+			}
 		} else {
 			*PRxData = UCB1RXBUF;               // Move final RX data to PRxData
 			UCB1IFG &= ~UCRXIFG;                  // Clear USCI_B0 TX int flag

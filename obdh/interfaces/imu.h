@@ -10,6 +10,7 @@
 
 #include "../hal/engmodel1.h"
 #include "../util/i2c.h"
+#include "../util/misc.h"
 #include "../util/debug.h"
 //#include "../util/codecs.h"
 

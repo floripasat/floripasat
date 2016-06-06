@@ -35,6 +35,8 @@
 
 // @ 1Mhz internal ref, 1 cycle ~= 1 uS
 // Delays below adjusted empiricaly based on tests/mesurements (to fix internal clock drift)
+#define DELAY_100_uS_IN_CYCLES        101
+#define DELAY_500_uS_IN_CYCLES        505
 #define DELAY_1_MS_IN_CYCLES	     1010
 #define DELAY_5_MS_IN_CYCLES	     5050
 #define DELAY_10_MS_IN_CYCLES	    10220

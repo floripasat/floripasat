@@ -10,29 +10,39 @@
 #include "obdh.h"
 #include "../hal/engmodel1.h"
 
-void obdh_read(char* obdhData){
+void obdh_read(char* obdhData) {
 
-	obdh_temp_read();
+    //     Clear frame memory space
+    int i;
+    for (i = 0; i < OBDH_DATA_LENGTH; i++) {
+        obdhData[i] = 0x00;
+    }
 
-	obdhData[0] = 0;		//sysclock  S high
-	obdhData[1] = 1;		//sysclock  S low
-	obdhData[2] = 2;		//sysclock MS high
-	obdhData[3] = 3;		//sysclock MS low
-	obdhData[4] = obdhTemperatureBuffer >> 8;//temperature high
-	obdhData[5] = obdhTemperatureBuffer;		//temperature low
-	obdhData[6] = 5;		//system status code
+    obdh_temp_read();
+
+    obdhData[0] = 0;		//sysclock  S high
+    obdhData[1] = 1;		//sysclock  S low
+    obdhData[2] = 2;		//sysclock MS high
+    obdhData[3] = 3;		//sysclock MS low
+    obdhData[4] = obdhTemperatureBuffer >> 8;		//temperature high
+    obdhData[5] = obdhTemperatureBuffer;		//temperature low
+    obdhData[6] = 5;		//system status code
 }
 
-char* obdh_data2string(char* stringBuffer, char* obdhData){
+char* obdh_data2string(char* stringBuffer, char* obdhData) {
 
-	temperatureDegC = (float)(((long)obdhTemperatureBuffer - CALADC12_15V_30C) * (85 - 30)) /
-	        (CALADC12_15V_85C - CALADC12_15V_30C) + 30.0f;
-	// Temperature in Fahrenheit Tf = (9/5)*Tc + 32
-//	temperatureDegF = temperatureDegC * 9.0f / 5.0f + 32.0f;
+    if (DEBUG_LOG_ENABLE) {
 
-	sprintf(stringBuffer, "    Internal OBDH Temperature: %.3f C", temperatureDegC);
+        temperatureDegC = (float) (((long) obdhTemperatureBuffer
+                - CALADC12_15V_30C) * (85 - 30))
+                / (CALADC12_15V_85C - CALADC12_15V_30C) + 30.0f;
+        // Temperature in Fahrenheit Tf = (9/5)*Tc + 32
+        //	temperatureDegF = temperatureDegC * 9.0f / 5.0f + 32.0f;
 
-	return stringBuffer;
+        sprintf(stringBuffer, "    Internal OBDH Temperature: %.3f C",
+                temperatureDegC);
+    }
+    return stringBuffer;
 }
 
 
