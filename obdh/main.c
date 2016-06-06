@@ -77,15 +77,16 @@ void main(void) {
 //    	payloadEnable_toggle();
 
 
-
+//        payloadEnable_toggle();
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	watchdog_setup(WATCHDOG,WD_134_SEC);
-    	payloadEnable_toggle();
+//        payloadEnable_toggle();
     	eps_read(epsData);
-    	payloadEnable_toggle();
+//        payloadEnable_toggle();
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
-    	debug( eps_data2string(tmpStr, epsData) );
+//    	debug( eps_data2string(tmpStr, epsData) );
     	debug("  EPS read done");
+//        payloadEnable_toggle();
     	wdt_reset_counter();
 
 
@@ -100,13 +101,18 @@ void main(void) {
     	wdt_reset_counter();
 //    	payloadEnable_toggle();
 
-//    	payloadEnable_toggle();
-    	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
-    	watchdog_setup(WATCHDOG,WD_134_SEC);
-    	readTransceiver(radioData);
-    	debug("  RADIO read done");
-    	wdt_reset_counter();
-//    	payloadEnable_toggle();
+////    	payloadEnable_toggle();
+//    	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
+//    	watchdog_setup(WATCHDOG,WD_134_SEC);
+////    	readTransceiver(radioData);
+//    	debug("  RADIO read done");
+//    	wdt_reset_counter();
+////    	payloadEnable_toggle();
+    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
 
 //    	payloadEnable_toggle();
     	debug("  Encode dataframe init \t\t\t\t(Task 2.5)");
@@ -147,7 +153,7 @@ void main(void) {
     	watchdog_setup(WATCHDOG,WD_4_MIN_16_SEC);
 //    	payloadEnable_toggle(); // Payload enable generates a wafeform for timing compliance test analysis (with scope).
 //    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_5_S_IN_CYCLES);
+//    	__delay_cycles(DELAY_5_S_IN_CYCLES);
     	wdt_reset_counter();
 //    	payloadEnable_toggle();
 
@@ -180,9 +186,11 @@ void main_setup(void){
 	obdh_setup();
 	__enable_interrupt();
 	imu_config();
-	SPI_Setup();
-	radio_Setup();
-	debug("  IMU setup done");
+    debug("  IMU setup done");
+//	SPI_Setup();
+    debug("  SPI setup done");
+//	radio_Setup();
+	debug("  radio setup done");
 }
 
 

@@ -44,6 +44,8 @@ void i2c_read_eps(char *Buffer, unsigned int bytes){
 	UCB0CTL1 &= ~UCTR;
 	UCB0CTL1 |= UCTXSTT;
 	__delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
 }
 
 
@@ -91,8 +93,10 @@ __interrupt void USCI_B0_ISR(void) {
 		RXByteCtr--;                            // Decrement RX byte counter
 		if (RXByteCtr > 0) {
 			*PRxData++ = UCB0RXBUF;           // Move RX data to address PRxData
-			if (RXByteCtr == 1)                   // Only one byte left?
+			if (RXByteCtr == 1) {                  // Only one byte left?
 				UCB0CTL1 |= UCTXSTP;              // Generate I2C stop condition
+			}
+
 		} else {
 			*PRxData = UCB0RXBUF;               // Move final RX data to PRxData
 		}

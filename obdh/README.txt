@@ -32,8 +32,8 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 
 
 2			465				500			  Main Loop (continuous execution)			
-2.1			 21				250			  Read OBDH internal data (? bytes)			
-2.2			 63				250			  Read EPS data (18 bytes)					
+2.1			 21				250			  Read OBDH internal data (4 bytes)			
+2.2			 32				250			  Read EPS data (23 bytes)					
 2.3			136				250			  Read IMU data (14 bytes)					
 2.4			 81				250			  Read Radio data (5 bytes)					
 2.5			  7				250			  Encode dataframe 							
