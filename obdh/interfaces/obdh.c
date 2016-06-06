@@ -86,7 +86,7 @@ void __attribute__ ((interrupt(ADC12_VECTOR))) ADC12ISR (void)
     case ADC12IV_ADC12TOVIFG: break;          // Vector  4:  ADC timing overflow
     case ADC12IV_ADC12IFG0:                   // Vector  6:  ADC12IFG0
         obdhTemperatureBuffer = ADC12MEM0;                     // Move results, IFG is cleared
-        debug_uint("temp = ADC12MEM0:", obdhTemperatureBuffer);
+//        debug_uint("temp = ADC12MEM0:", obdhTemperatureBuffer);
       break;
     case ADC12IV_ADC12IFG1: break;            // Vector  8:  ADC12IFG1
     case ADC12IV_ADC12IFG2: break;            // Vector 10:  ADC12IFG2
