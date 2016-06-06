@@ -1,0 +1,1 @@
+"./bsp.obj" "./cc112x_spi.obj" "./hal_spi_rf_floripasat.obj" "./io_pin_int.obj" "./main.obj" "./watchdog.obj" "../lnk_msp430f6659.cmd" -llibmath.a -llibc.a 
