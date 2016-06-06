@@ -196,10 +196,10 @@ void sleep(void){
     __delay_cycles(DELAY_1_MS_IN_CYCLES);
     __delay_cycles(DELAY_1_MS_IN_CYCLES);
     __delay_cycles(DELAY_1_MS_IN_CYCLES);
-    __delay_cycles(DELAY_1_MS_IN_CYCLES);
+//    __delay_cycles(DELAY_1_MS_IN_CYCLES);
     __delay_cycles(DELAY_500_uS_IN_CYCLES);
-    __delay_cycles(DELAY_100_uS_IN_CYCLES);
-    __delay_cycles(DELAY_100_uS_IN_CYCLES);
+//    __delay_cycles(DELAY_100_uS_IN_CYCLES);
+//    __delay_cycles(DELAY_100_uS_IN_CYCLES);
 
 }
 
