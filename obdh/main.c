@@ -77,15 +77,17 @@ void main(void) {
 //    	payloadEnable_toggle();
 
 
-    	payloadEnable_toggle();
+
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
     	watchdog_setup(WATCHDOG,WD_134_SEC);
+    	payloadEnable_toggle();
     	eps_read(epsData);
+    	payloadEnable_toggle();
     	debug_array("    EPS data:", epsData, EPS_DATA_LENGTH);
     	debug( eps_data2string(tmpStr, epsData) );
     	debug("  EPS read done");
     	wdt_reset_counter();
-    	payloadEnable_toggle();
+
 
 
 //    	payloadEnable_toggle();
