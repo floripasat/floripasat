@@ -7,7 +7,9 @@
 #include "radio.h"
 
 void readTransceiver(char* buffer){
+
 	 runRX(buffer);
+
 }
 
 void radio_Setup(void){
@@ -65,29 +67,29 @@ static void runRX(char* buffer) {
 	// Read number of bytes in RX FIFO
 //	debug("cc112xSpiReadReg() init");
 	cc112xSpiReadReg(CC112X_NUM_RXBYTES, &rxBytes, 1);
-
 //	debug_uint("rxBytes:", rxBytes);
 
 	// Check that we have bytes in FIFO
 	if (rxBytes != 0) {
-//		debug("rxBytes != 0");
+
+//		debug_uint("\n\n\rrxBytes:", rxBytes);
 
 		// Read MARCSTATE to check for RX FIFO error
+		// ~20ms
 		cc112xSpiReadReg(CC112X_MARCSTATE, &marcState, 1);
-//		debug("cc112xSpiReadReg()");
 
 		// Mask out MARCSTATE bits and check if we have a RX FIFO error
 		if ((marcState & 0x1F) == RX_FIFO_ERROR) {
-//			debug("(marcState & 0x1F) == RX_FIFO_ERROR");
-			// Flush RX FIFO
+//			Flush RX FIFO
 //			trxSpiCmdStrobe(CC112X_SFRX);
+
 		} else {
 //			debug("(marcState & 0x1F) == RX_FIFO_ERROR  ELSE");
 //			// Read n bytes from RX FIFO
-//			debug_array("Radio buffer initial state:", rxBuffer, 200);
 
 			cc112xSpiReadRxFifo(rxBuffer, rxBytes);
-//			debug("Printing radio buffer...");
+
+			//			debug("Printing radio buffer...");
 			debug_array("\tRadio data:", rxBuffer, rxBytes );
 //			debug_array_ascii("Radio ASCII:", rxBuffer, rxBytes );
 			buffer[0] = rxBuffer[1];
@@ -96,6 +98,12 @@ static void runRX(char* buffer) {
 			buffer[3] = rxBuffer[7];
 		}
 
+	} else {
+		// even if there's no data to read, wait for a specific time
+		// to make radio reading functions timming static.
+	    __delay_cycles(DELAY_50_MS_IN_CYCLES);
+	    __delay_cycles(DELAY_10_MS_IN_CYCLES);
+	    __delay_cycles(DELAY_1_MS_IN_CYCLES);
 	}
 
 	// Set radio back in RX

@@ -31,11 +31,11 @@ TASK_ITEM	NORMAL_TIME		MAX_TIME	DESCRIPTION
 1.5										  Proceed to Task 2							
 
 
-2			225				500			  Main Loop (continuous execution)			
+2			180				500			  Main Loop (continuous execution)			
 2.1			 21				250			  Read OBDH internal data (4 bytes)			
 2.2			 32				250			  Read EPS data (23 bytes)					
 2.3			  7				250			  Read IMU data (14 bytes)					
-2.4			 81				250			  Read Radio data (5 bytes)					
+2.4			 91				250			  Read Radio data (5 bytes)					
 2.5			  6				250			  Encode dataframe 							
 2.6			 46				250			  Send dataframe to UART (uG host downlink)	
 2.7			 32				250			  Save dataframe to internal flash			

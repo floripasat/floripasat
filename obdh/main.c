@@ -58,7 +58,7 @@ void main(void) {
     while(1) {		//Task 2
 
 
-//    	payloadEnable_toggle();
+    	payloadEnable_toggle();
     	cycleCounter++;
     	sysled_on();
     	debug("Main loop init \t\t\t\t\t(Task 2)");
@@ -96,13 +96,12 @@ void main(void) {
 
 
 
-    	payloadEnable_toggle();
     	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
     	readTransceiver(radioData);
     	debug("  RADIO read done");
-    	payloadEnable_toggle();
     	wdt_reset_counter();
+
 
 
     	debug("  Encode dataframe init \t\t\t\t(Task 2.5)");
@@ -133,21 +132,28 @@ void main(void) {
 
     	debug("Main loop done");
     	sysled_off();
-//    	Time: ~ 200 ms
-//    	payloadEnable_toggle();
+//    	Main loop active time: ~ 180 ms
+    	payloadEnable_toggle();
+
 
 
 //    	Main cycle total time must be 500ms (2Hz send rate to uG Host board)
-//    	Round cycle time to 500ms with sleep.
+//    	Therefore the board should sleep for (500 - main_active_time) ms
     	debug("Sleeping...");
-    	watchdog_setup(WATCHDOG,WD_4_MIN_16_SEC);
-//    	payloadEnable_toggle(); // Payload enable generates a wafeform for timing compliance test analysis (with scope).
-    	sleep();                //sleep of ~300ms
+    	watchdog_setup(WATCHDOG,WD_8_4_SEC);
+    	sleep();
     	wdt_reset_counter();
-//    	payloadEnable_toggle();
-
 
     }
+}
+
+
+void sleep(void){
+    __delay_cycles(DELAY_100_MS_IN_CYCLES);
+    __delay_cycles(DELAY_100_MS_IN_CYCLES);
+    __delay_cycles(DELAY_100_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
 }
 
 
@@ -182,22 +188,5 @@ void main_setup(void){
 	debug("  radio setup done");
 }
 
-void sleep(void){
-    __delay_cycles(DELAY_100_MS_IN_CYCLES);
-    __delay_cycles(DELAY_100_MS_IN_CYCLES);
-    __delay_cycles(DELAY_50_MS_IN_CYCLES);
-    __delay_cycles(DELAY_10_MS_IN_CYCLES);
-    __delay_cycles(DELAY_10_MS_IN_CYCLES);
-    __delay_cycles(DELAY_10_MS_IN_CYCLES);
-    __delay_cycles(DELAY_10_MS_IN_CYCLES);
-    __delay_cycles(DELAY_5_MS_IN_CYCLES);
-    __delay_cycles(DELAY_1_MS_IN_CYCLES);
-    __delay_cycles(DELAY_1_MS_IN_CYCLES);
-    __delay_cycles(DELAY_1_MS_IN_CYCLES);
-//    __delay_cycles(DELAY_1_MS_IN_CYCLES);
-    __delay_cycles(DELAY_500_uS_IN_CYCLES);
-//    __delay_cycles(DELAY_100_uS_IN_CYCLES);
-//    __delay_cycles(DELAY_100_uS_IN_CYCLES);
 
-}
 
