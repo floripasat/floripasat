@@ -74,6 +74,11 @@
  * FLASH MEMORY ADRESSES
  */
 
+#define BANK0  0
+#define BANK1  1
+#define BANK2  2
+#define BANK3  3
+
 //128 KB banks
 #define BANK0_ADDR      0x008000
 #define BANK1_ADDR      0x028000
@@ -98,7 +103,7 @@
 //overflow flag message adress
 #define OVERFLOW_FLAG_ADDR      0x026000
 //last adress that can write a data(beyond this will enter the overflow)
-#define LAST_WRITE_ADDR         0x087000
+#define LAST_WRITE_ADDR         0x087FFF
 
 /********************************************/
 

@@ -50,7 +50,6 @@ void main(void) {
 
 //	Can't debug log the init because UART, Timers, etc are not yet setup
 	main_setup();	//Task 1
-//	flash_reset_ptr();
 	debug("Main setup done \t\t\t\t\t(Task 1)");
 //	All tasks beyond this point MUST keep track/control of the watchdog (ONLY in the high level main loop).
 

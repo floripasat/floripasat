@@ -8,17 +8,38 @@
 
 #include "flash.h"
 
-void write2Flash(char* data, int bytes){
-	debug("Writing to flash init");
-	if(flash_ptr >= LAST_WRITE_ADDR || flash_ptr == (OVERFLOW_FLAG_ADDR)){
-		flash_ptr = OVERFLOW_FLAG_ADDR;
-		flash_write("{FSAT:memory full}",18);
-		flash_ptr = OVERFLOW_FLAG_ADDR;
-	}else {
-		flash_write(data,bytes);
-		flash_save_ptr();
-	}
-	debug("Writing to flash done");
+//void write2Flash(char* data, int bytes){
+//	debug("Writing to flash init");
+//	if(flash_ptr >= LAST_WRITE_ADDR || flash_ptr == (OVERFLOW_FLAG_ADDR)){
+//		flash_ptr = OVERFLOW_FLAG_ADDR;
+//		flash_write("{FSAT:memory full}",18);
+//		flash_ptr = OVERFLOW_FLAG_ADDR;
+//	}else {
+//		flash_write(data,bytes);
+//		flash_save_ptr();
+//	}
+//	debug("Writing to flash done");
+//}
+
+void write2Flash(char* data, int bytes) {
+    debug("Writing to flash init");
+    unsigned int current_bank = get_current_bank();
+    unsigned int current_bank_situation = check_bank_full(current_bank);
+    if (current_bank_situation == FULL) {
+        if (current_bank == BANK1) {
+            flash_erase(BANK2_ADDR);
+            flash_ptr = BANK2_ADDR;
+        } else if (current_bank == BANK2) {
+            flash_erase(BANK3_ADDR);
+            flash_ptr = BANK3_ADDR;
+        } else {
+            flash_erase(BANK1_ADDR);
+            flash_ptr = BANK1_ADDR;
+        }
+    }
+    flash_write(data, bytes);
+    flash_save_ptr();
+    debug("Writing to flash done");
 }
 
 
@@ -93,7 +114,56 @@ void flash_save_ptr(void){
 	flash_write_long(flash_ptr, current_flash_ptr);
 }
 
-void flash_reset_ptr(void){
+void flash_ptr_set_new_addr(long next_bank_adress){
 	flash_erase(FLASH_PTR_ADDR);
-	flash_write_long(BOOT_ADDR,FLASH_PTR_ADDR);
+	flash_write_long(next_bank_adress,FLASH_PTR_ADDR);
+}
+
+void flash_reset_ptr(long reset_address){
+    flash_erase(FLASH_PTR_ADDR);
+    flash_write_long(reset_address,FLASH_PTR_ADDR);
+}
+
+unsigned int check_bank_full(int bank) {
+    *current_flash_ptr = flash_ptr;
+    volatile unsigned long remaining_bytes = 0;
+    unsigned long bank_last_adress = 0;
+    unsigned int bank_situation = 0;
+
+
+    switch (bank) {
+    case BANK0:
+        bank_last_adress = BANK1_ADDR-1;
+        break;
+    case BANK1:
+        bank_last_adress = BANK2_ADDR-1;
+        break;
+    case BANK2:
+        bank_last_adress = BANK3_ADDR-1;
+        break;
+    case BANK3:
+        bank_last_adress = LAST_WRITE_ADDR;
+        break;
+    }
+    remaining_bytes = (bank_last_adress - *current_flash_ptr);
+    if (remaining_bytes < UG_FRAME_LENGTH) {
+        bank_situation = FULL;
+    } else {
+        bank_situation = NOT_FULL;
+    }
+
+    return bank_situation;
+}
+
+unsigned int get_current_bank(void) {
+    *current_flash_ptr = flash_ptr;
+    unsigned int bank;
+    if (*current_flash_ptr >= BANK1_ADDR && *current_flash_ptr < BANK2_ADDR) {
+        bank = BANK1;
+    } else if (*current_flash_ptr >= BANK2_ADDR && *current_flash_ptr < BANK3_ADDR) {
+        bank = BANK2;
+    } else if (*current_flash_ptr >= BANK3_ADDR && *current_flash_ptr <= LAST_WRITE_ADDR) {
+        bank = BANK3;
+    }
+    return bank;
 }
