@@ -11,12 +11,12 @@ void readTransceiver(char* buffer){
 }
 
 void radio_Setup(void){
-    debug("[RADIO]  radio_Setup"); //todo remove
+
 	registerConfig();
 	manualCalibration();
 	// Set radio in RX
 	trxSpiCmdStrobe(CC112X_SRX);
-	debug("[RADIO]  radio_Setup DONE"); //todo remove
+
 }
 
 void SPI_Setup(void){
@@ -24,7 +24,7 @@ void SPI_Setup(void){
 }
 
 static void registerConfig(void) {
-    debug("[RADIO]  registerConfig"); //todo remove
+
 	uint16_t i;
     uint8_t writeByte;
 
@@ -34,7 +34,7 @@ static void registerConfig(void) {
         	writeByte = preferredSettings[i].data;
         	cc112xSpiWriteReg(preferredSettings[i].addr, &writeByte, 1);
         }
-    debug("[RADIO] registerConfig DONE"); //todo remove
+
 
 
 }
@@ -88,7 +88,7 @@ static void runRX(char* buffer) {
 
 			cc112xSpiReadRxFifo(rxBuffer, rxBytes);
 //			debug("Printing radio buffer...");
-			debug_array("Radio data:", rxBuffer, rxBytes );
+			debug_array("\tRadio data:", rxBuffer, rxBytes );
 //			debug_array_ascii("Radio ASCII:", rxBuffer, rxBytes );
 			buffer[0] = rxBuffer[1];
 			buffer[1] = rxBuffer[2];
@@ -177,7 +177,7 @@ void trxRfSpiInterfaceInit(uint8_t prescalerValue){
 #define FS_VCO4_INDEX 1
 #define FS_CHP_INDEX 2
 static void manualCalibration(void) {
-    debug("[RADIO]  manualCalibration "); //todo remove
+
 
 
     uint8_t original_fs_cal2;
@@ -255,6 +255,6 @@ static void manualCalibration(void) {
         writeByte = calResults_for_vcdac_start_mid[FS_CHP_INDEX];
         cc112xSpiWriteReg(CC112X_FS_CHP, &writeByte, 1);
     }
-    debug("[RADIO]  manualCalibration  DONE"); //todo remove
+
 
 }

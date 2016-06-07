@@ -58,7 +58,7 @@ void main(void) {
     while(1) {		//Task 2
 
 
-    	payloadEnable_toggle();
+//    	payloadEnable_toggle();
     	cycleCounter++;
     	sysled_on();
     	debug("Main loop init \t\t\t\t\t(Task 2)");
@@ -95,16 +95,14 @@ void main(void) {
     	wdt_reset_counter();
 
 
-//    	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
-//    	watchdog_setup(WATCHDOG,WD_8_4_SEC);
-//    	readTransceiver(radioData);
-//    	debug("  RADIO read done");
-//    	wdt_reset_counter();
-    	__delay_cycles(DELAY_50_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_10_MS_IN_CYCLES);
-    	__delay_cycles(DELAY_1_MS_IN_CYCLES);
+
+    	payloadEnable_toggle();
+    	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
+    	watchdog_setup(WATCHDOG,WD_8_4_SEC);
+    	readTransceiver(radioData);
+    	debug("  RADIO read done");
+    	payloadEnable_toggle();
+    	wdt_reset_counter();
 
 
     	debug("  Encode dataframe init \t\t\t\t(Task 2.5)");
@@ -136,7 +134,7 @@ void main(void) {
     	debug("Main loop done");
     	sysled_off();
 //    	Time: ~ 200 ms
-    	payloadEnable_toggle();
+//    	payloadEnable_toggle();
 
 
 //    	Main cycle total time must be 500ms (2Hz send rate to uG Host board)
@@ -178,9 +176,9 @@ void main_setup(void){
 	__enable_interrupt();
 	imu_config();
     debug("  IMU setup done");
-//	SPI_Setup();
+	SPI_Setup();
     debug("  SPI setup done");
-//	radio_Setup();
+	radio_Setup();
 	debug("  radio setup done");
 }
 

@@ -172,11 +172,12 @@
  */
 rfStatus_t trxSpiCmdStrobe(uint8_t cmd)
 {
-    debug("  trxSpiCmdStrobe");
+//    debug("  trxSpiCmdStrobe");
 	uint8_t rc;
 	TRXEM_SPI_BEGIN();
-    __delay_cycles(DELAY_5_MS_IN_CYCLES);
-//	while(TRXEM_PORT_IN & TRXEM_SPI_MISO_PIN);
+
+	while(TRXEM_PORT_IN & TRXEM_SPI_MISO_PIN);
+//    __delay_cycles(DELAY_5_MS_IN_CYCLES);
 	TRXEM_SPI_TX(cmd);
 //	TRXEM_SPI_WAIT_DONE();
 	__delay_cycles(DELAY_5_MS_IN_CYCLES);
@@ -206,14 +207,13 @@ rfStatus_t trxSpiCmdStrobe(uint8_t cmd)
  */
 rfStatus_t trx8BitRegAccess(uint8_t accessType, uint8_t addrByte, uint8_t *pData, uint16_t len)
 {
-    debug("[RADIO]  trx8BitRegAccess"); //todo remove
+
 	uint8_t readValue;
 
 	/* Pull CS_N low and wait for SO to go low before communication starts */
 	TRXEM_SPI_BEGIN();
-
 //	while(TRXEM_PORT_IN & TRXEM_SPI_MISO_PIN);
-    __delay_cycles(DELAY_5_S_IN_CYCLES);
+    __delay_cycles(DELAY_1_MS_IN_CYCLES);
 	/* send register address byte */
 	TRXEM_SPI_TX(accessType|addrByte);
 	TRXEM_SPI_WAIT_DONE();
@@ -222,7 +222,6 @@ rfStatus_t trx8BitRegAccess(uint8_t accessType, uint8_t addrByte, uint8_t *pData
 	trxReadWriteBurstSingle(accessType|addrByte,pData,len);
 	TRXEM_SPI_END();
 	/* return the status byte value */
-    debug("[RADIO]  trx8BitRegAccess DONE"); //todo remove
 
 	return(readValue);
 }
