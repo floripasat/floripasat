@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker Unix v15.12.1                  
 ******************************************************************************
->> Linked Mon Jun  6 18:43:01 2016
+>> Linked Tue Jun  7 13:32:33 2016
 
 OUTPUT FILE NAME:   <beacon.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 000080f6
@@ -285,7 +285,7 @@ MODULE SUMMARY
     +--+---------------------------+------+---------+---------+
        Total:                      2478   328       75     
                                                            
-    /home/mario/code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib/rts430x_lc_rd_eabi.lib
+    /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib/rts430x_lc_rd_eabi.lib
        autoinit_wdt.obj            130    0         0      
        copy_decompress_rle.obj     110    0         0      
        cpy_tbl.obj                 102    0         0      

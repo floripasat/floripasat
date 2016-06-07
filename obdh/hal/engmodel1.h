@@ -70,6 +70,38 @@
 #define UG_FRAME_LENGTH		41	// SOF(3) + Payload(35) + EOF(3)
 
 
+/*
+ * FLASH MEMORY ADRESSES
+ */
+
+//128 KB banks
+#define BANK0_ADDR      0x008000
+#define BANK1_ADDR      0x028000
+#define BANK2_ADDR      0x048000
+#define BANK3_ADDR      0x068000
+//128 B info segments
+#define SEGA_ADDR       0x001800
+#define SEGB_ADDR       0x001880
+#define SEGC_ADDR       0x001900
+#define SEGD_ADDR       0x001980
+//512 B bootstrap segments
+#define BSL0_ADDR       0x001600
+#define BSL1_ADDR       0x001400
+#define BSL2_ADDR       0x001200
+#define BSL3_ADDR       0x001000
+#define MASS_ERASE      0XFFFFFF
+
+//first boot start adress
+#define BOOT_ADDR               BANK1_ADDR
+//flash pointer save adress
+#define FLASH_PTR_ADDR          SEGC_ADDR
+//overflow flag message adress
+#define OVERFLOW_FLAG_ADDR      0x026000
+//last adress that can write a data(beyond this will enter the overflow)
+#define LAST_WRITE_ADDR         0x087000
+
+/********************************************/
+
 //TODO: deprecated
 #define BEACON_DATA_LENGTH   3
 #define FSAT_FRAME_LENGTH	38

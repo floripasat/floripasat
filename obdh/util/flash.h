@@ -7,35 +7,13 @@
 
 #include <msp430.h>
 #include "debug.h"
+#include "../hal/engmodel1.h"
 
 #ifndef UTIL_FLASH_H_
 #define UTIL_FLASH_H_
 
-//128 KB banks
-#define BANK0_ADDR		0x008000
-#define BANK1_ADDR		0x028000
-#define BANK2_ADDR		0x048000
-#define BANK3_ADDR		0x068000
-//128 B info segments
-#define SEGA_ADDR		0x001800
-#define SEGB_ADDR		0x001880
-#define SEGC_ADDR		0x001900
-#define SEGD_ADDR		0x001980
-//512 B bootstrap segments
-#define BSL0_ADDR		0x001600
-#define BSL1_ADDR		0x001400
-#define BSL2_ADDR		0x001200
-#define BSL3_ADDR		0x001000
-#define MASS_ERASE		0XFFFFFF
-//
-#define BOOT_ADDR		        BANK1_ADDR
-#define FLASH_PTR_ADDR          SEGC_ADDR
-#define OVERFLOW_FLAG_ADDR		0x026000
-#define LAST_WRITE_ADDR	        0x087000
-
 char *flash_ptr;                         	// Initialize Flash pointer
 long *current_flash_ptr;					//place holder to save flash pointer to boot
-//char MEM_OV_MSG[]  = {"{FSAT:memory full}"};
 
 void flash_write(char*, int);
 void flash_setup(void);
