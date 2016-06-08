@@ -120,7 +120,6 @@ void main(void) {
     	wdt_reset_counter();
 
 
-
     	debug("  Flash write init \t\t\t\t\t(Task 2.7)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
     	write2Flash(ugFrame,UG_FRAME_LENGTH);
@@ -151,8 +150,6 @@ void sleep(void){
     __delay_cycles(DELAY_100_MS_IN_CYCLES);
     __delay_cycles(DELAY_100_MS_IN_CYCLES);
     __delay_cycles(DELAY_100_MS_IN_CYCLES);
-    __delay_cycles(DELAY_10_MS_IN_CYCLES);
-    __delay_cycles(DELAY_10_MS_IN_CYCLES);
 }
 
 
