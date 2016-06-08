@@ -14,16 +14,20 @@ void obdh_read(char* obdhData) {
 
     //     Clear frame memory space
     int i;
+    uint16_t sysclock_s;
+    uint16_t sysclock_ms;
     for (i = 0; i < OBDH_DATA_LENGTH; i++) {
         obdhData[i] = 0x00;
     }
 
+    sysclock_s = sysclock_read_s();
+    sysclock_ms = sysclock_read_ms();
     obdh_temp_read();
 
-    obdhData[0] = 0;		//sysclock  S high
-    obdhData[1] = 1;		//sysclock  S low
-    obdhData[2] = 2;		//sysclock MS high
-    obdhData[3] = 3;		//sysclock MS low
+    obdhData[0] = sysclock_s >> 8;		//sysclock  S high
+    obdhData[1] = sysclock_s;		//sysclock  S low
+    obdhData[2] = sysclock_ms >> 8;		//sysclock MS high
+    obdhData[3] = sysclock_ms;		//sysclock MS low
     obdhData[4] = obdhTemperatureBuffer >> 8;		//temperature high
     obdhData[5] = obdhTemperatureBuffer;		//temperature low
     obdhData[6] = 5;		//system status code

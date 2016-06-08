@@ -13,6 +13,8 @@
 
 #include <msp430.h>
 #include "../util/debug.h"
+#include "../util/sysclock.h"
+#include "stdint.h"
 
 // Define some macros that allow us to direct-access the ADC12 calibration
 // constants that we need. See device datasheet for the full TLV table memory
