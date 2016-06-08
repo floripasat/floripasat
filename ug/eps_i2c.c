@@ -5,9 +5,9 @@
 
 unsigned char *PTxData;                     // Pointer to TX data
 unsigned int TXByteCtr;
-unsigned char EPSData[18] = {0};
+unsigned char EPSData[23] = {0};
 
-unsigned char FormatedEPSData[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};
+unsigned char FormatedEPSData[] = {"0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"};
 unsigned char time_string[5];
 unsigned int time=1;
 
@@ -21,15 +21,22 @@ unsigned int time=1;
 
 #pragma vector = USCIAB0TX_VECTOR
 __interrupt void USCIAB0TX_ISR(void) {
+	P3OUT |= BIT6;
 	wdt_reset_counter();
 
 	if (TXByteCtr == 0)
 		PTxData = (unsigned char *) EPSData;      // Start of TX buffer
 
+	if (TXByteCtr++ < 23) {
 
-	if (TXByteCtr++ < 18) {
 		UCB0TXBUF = *PTxData++;              // Transmit data at address PTxData
 		__delay_cycles(10000);
+
+		if(TXByteCtr == 23)
+			{
+				P3OUT &= ~BIT6;
+			}
+
 
 	} else {
 		TXByteCtr = 0;
