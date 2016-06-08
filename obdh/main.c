@@ -64,7 +64,6 @@ void main(void) {
     	debug_uint( "Main Loop Cycle:",  cycleCounter);
 
 
-
     	debug("  OBDH internal read init \t\t\t\t(Task 2.1)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
     	obdh_read(obdhData);
@@ -72,7 +71,6 @@ void main(void) {
     	debug_array("    OBDH data:", obdhData, OBDH_DATA_LENGTH);
     	debug("  OBDH read done");
     	wdt_reset_counter();
-
 
 
     	debug("  EPS read init \t\t\t\t\t(Task 2.2)");
@@ -84,7 +82,6 @@ void main(void) {
     	wdt_reset_counter();
 
 
-
     	debug("  IMU read init \t\t\t\t\t(Task 2.3)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
     	imu_read(imuData);
@@ -92,7 +89,6 @@ void main(void) {
     	debug( imu_data2string(tmpStr, imuData, IMU_ACC_RANGE, IMU_GYR_RANGE) );
     	debug("  IMU read done");
     	wdt_reset_counter();
-
 
 
     	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
@@ -111,14 +107,12 @@ void main(void) {
     	wdt_reset_counter();
 
 
-
     	debug("  uG communication: sending data to host \t\t(Task 2.6)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
     	debug_array("    uG Frame:", ugFrame, UG_FRAME_LENGTH);
     	uG_send(ugFrame, UG_FRAME_LENGTH);
     	debug("  uG communication done");
     	wdt_reset_counter();
-
 
     	debug("  Flash write init \t\t\t\t\t(Task 2.7)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
@@ -130,7 +124,7 @@ void main(void) {
 
     	debug("Main loop done");
     	sysled_off();
-//    	Main loop active time: ~ 180 ms
+//    	Main loop active time: ~ 215 ms
     	payloadEnable_toggle();
 
 
@@ -147,9 +141,13 @@ void main(void) {
 
 
 void sleep(void){
+    __delay_cycles(DELAY_150_MS_IN_CYCLES);
     __delay_cycles(DELAY_100_MS_IN_CYCLES);
-    __delay_cycles(DELAY_100_MS_IN_CYCLES);
-    __delay_cycles(DELAY_100_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_5_MS_IN_CYCLES);
+
 }
 
 
