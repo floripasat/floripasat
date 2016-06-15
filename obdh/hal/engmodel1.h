@@ -107,6 +107,8 @@
 
 /********************************************/
 
+
+
 //TODO: deprecated
 #define BEACON_DATA_LENGTH   3
 #define FSAT_FRAME_LENGTH	38

@@ -14,14 +14,14 @@ void write2Flash(char* data, int bytes) {
     unsigned int current_bank_situation = check_bank_full(current_bank);
     if (current_bank_situation == FULL) {
         if (current_bank == BANK1) {
-            flash_erase(BANK2_ADDR);
-            flash_ptr = BANK2_ADDR;
+            flash_erase((long*)BANK2_ADDR);
+            flash_ptr = (char*)BANK2_ADDR;
         } else if (current_bank == BANK2) {
-            flash_erase(BANK3_ADDR);
-            flash_ptr = BANK3_ADDR;
+            flash_erase((long*)BANK3_ADDR);
+            flash_ptr = (char*)BANK3_ADDR;
         } else {
-            flash_erase(BANK1_ADDR);
-            flash_ptr = BANK1_ADDR;
+            flash_erase((long*)BANK1_ADDR);
+            flash_ptr = (char*)BANK1_ADDR;
         }
     }
     flash_write(data, bytes);
@@ -59,7 +59,7 @@ void flash_write_long(long* data, long *addr){
 //  __disable_interrupt();
   FCTL3 = FWKEY;                            // Clear Lock bit
   FCTL1 = FWKEY|BLKWRT;                     // Set WRT bit for write operation
-  *addr = data;                				// Write value to flash
+  *addr = (long)data;                				// Write value to flash
   while((FCTL3 & BUSY) == TRUE);            // Check if Flash being used
   FCTL1 = FWKEY;                            // Clear WRT bit
   FCTL3 = FWKEY|LOCK;                       // Set LOCK bit
@@ -68,8 +68,8 @@ void flash_write_long(long* data, long *addr){
 
 
 void flash_setup(void) {
-	current_flash_ptr = FLASH_PTR_ADDR;
-	flash_ptr = *current_flash_ptr;
+	current_flash_ptr = (long*)FLASH_PTR_ADDR;
+	flash_ptr = (char*)(*current_flash_ptr);
 }
 
 void flash_erase(long* region){
@@ -96,19 +96,19 @@ void flash_erase(long* region){
 
 
 void flash_save_ptr(void){
-	current_flash_ptr = FLASH_PTR_ADDR;
-	flash_erase(FLASH_PTR_ADDR);
-	flash_write_long(flash_ptr, current_flash_ptr);
+	current_flash_ptr = (long*)FLASH_PTR_ADDR;
+	flash_erase((long*)FLASH_PTR_ADDR);
+	flash_write_long((long*)flash_ptr, (long*)current_flash_ptr);
 }
 
 void flash_ptr_set_new_addr(long next_bank_adress){
-	flash_erase(FLASH_PTR_ADDR);
-	flash_write_long(next_bank_adress,FLASH_PTR_ADDR);
+	flash_erase((long*)FLASH_PTR_ADDR);
+	flash_write_long((long*)next_bank_adress,(long*)FLASH_PTR_ADDR);
 }
 
 void flash_reset_ptr(long reset_address){
-    flash_erase(FLASH_PTR_ADDR);
-    flash_write_long(reset_address,FLASH_PTR_ADDR);
+    flash_erase((long*)FLASH_PTR_ADDR);
+    flash_write_long((long*)reset_address,(long*)FLASH_PTR_ADDR);
 }
 
 unsigned int check_bank_full(int bank) {

@@ -125,8 +125,40 @@ DATAFRAME FORMAT
 ----------------------------------------------------------------------------------------------------------
  				MEMORY DUMP PROCEDURE 
 
-  This is the guide for the memory dump of the uG mission of the OBDH 
-memory.
+**************************MAIN METHOD****************************
+
+/////////////LINUX//////////////
+
+1 - Download the MSP430Flasher from this link:
+
+https://www.ti.com/licreg/productdownload.tsp?toPerform=productDownload&downloadPage=true&location=http%3A%2F%2Fdownloads.ti.com%2Fdownloads%2Fmsp430%2Fmsp430_public_sw%2Fmcu%2Fmsp430%2FMSP430Flasher%2Flatest%2FMSPFlasher-1_03_09_00-linux-x64-installer.zip%3F__gda__%3D1466373554_73d014e74e37264a1740b49626f42c99
+
+2 - in the install folder, add write permission to the file, by typing the command below in the terminal:
+
+chmod a+x MSPFlasher-1_03_09_00-linux-x64-installer.run
+
+3 - then execute the following command to dump the whole memory(my need to rename the ouput file)
+
+export LD_LIBRARY_PATH=. && ./MSP430Flasher -r [memory_dump_output_file.txt,0x00000-0xFFFFF]
+
+
+////////////WINDOWS//////////////
+
+1 - Download the MSP430Flasher from this link:
+
+https://www.ti.com/licreg/productdownload.tsp?toPerform=productDownload&downloadPage=true&location=http%3A%2F%2Fdownloads.ti.com%2Fdownloads%2Fmsp430%2Fmsp430_public_sw%2Fmcu%2Fmsp430%2FMSP430Flasher%2Flatest%2FMSPFlasher-1_03_09_00-windows-installer.zip%3F__gda__%3D1466544358_3eb8138bc2696972963adf396dc00889
+
+2 - extract, install it. In the install folder edit the msp430example.bat file to:
+
+CLS
+MSP430Flasher.exe -r [memory_dump_output_file.txt,0x00000-0xFFFFF]
+PAUSE
+
+3 - run the edited .bat file
+
+*********************ALTERNATIVE METHODS****************************
+
+Method 1: CCS
 
   1 - After the board recovery *****DO NOT START TO DEBUG***** otherwise
 the memory will be erased!
@@ -141,10 +173,10 @@ will open.
   7 - At the memmory browser window, click at the "Save memory" arrow
   8 - Select the file path (.dat) and hit next.
   9 - Select the 8 bit HEX TI Style, Start Adress = 0 and 
-words to read = 0xffffff and hit finish.
+words to read = 0xfffff and hit finish.
 
-Method 2:
-Using TI UniFlash software
+Method 2: UNIFLASH
+
 http://www.ti.com/tool/UniFlash
 
 - Select Select TI MSP430 USB 1 as programmer
