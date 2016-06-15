@@ -8,19 +8,6 @@
 
 #include "flash.h"
 
-//void write2Flash(char* data, int bytes){
-//	debug("Writing to flash init");
-//	if(flash_ptr >= LAST_WRITE_ADDR || flash_ptr == (OVERFLOW_FLAG_ADDR)){
-//		flash_ptr = OVERFLOW_FLAG_ADDR;
-//		flash_write("{FSAT:memory full}",18);
-//		flash_ptr = OVERFLOW_FLAG_ADDR;
-//	}else {
-//		flash_write(data,bytes);
-//		flash_save_ptr();
-//	}
-//	debug("Writing to flash done");
-//}
-
 void write2Flash(char* data, int bytes) {
     debug("Writing to flash init");
     unsigned int current_bank = get_current_bank();
@@ -85,11 +72,11 @@ void flash_setup(void) {
 	flash_ptr = *current_flash_ptr;
 }
 
-void flash_erase(long region){
+void flash_erase(long* region){
 	long *erase_ptr = region;
 //	__disable_interrupt();
 	FCTL3 = FWKEY;                            // Clear Lock bit
-	switch (region){
+	switch ((long)region){
 	case BANK0_ADDR: FCTL1 = FWKEY | MERAS; break;
 	case BANK1_ADDR: FCTL1 = FWKEY | MERAS; break;
 	case BANK2_ADDR: FCTL1 = FWKEY | MERAS; break;
@@ -125,7 +112,7 @@ void flash_reset_ptr(long reset_address){
 }
 
 unsigned int check_bank_full(int bank) {
-    *current_flash_ptr = flash_ptr;
+    *current_flash_ptr =(long)flash_ptr;
     volatile unsigned long remaining_bytes = 0;
     unsigned long bank_last_adress = 0;
     unsigned int bank_situation = 0;
@@ -156,7 +143,7 @@ unsigned int check_bank_full(int bank) {
 }
 
 unsigned int get_current_bank(void) {
-    *current_flash_ptr = flash_ptr;
+    *current_flash_ptr = (long)flash_ptr;
     unsigned int bank;
     if (*current_flash_ptr >= BANK1_ADDR && *current_flash_ptr < BANK2_ADDR) {
         bank = BANK1;

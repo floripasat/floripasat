@@ -20,7 +20,7 @@ long *current_flash_ptr;					//place holder to save flash pointer to boot
 
 void flash_write(char*, int);
 void flash_setup(void);
-void flash_erase(long);
+void flash_erase(long*);
 void flash_write_single(char ,long *);
 void flash_write_long(long* ,long *);
 void flash_save_ptr(void);
