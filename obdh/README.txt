@@ -139,7 +139,7 @@ chmod a+x MSPFlasher-1_03_09_00-linux-x64-installer.run
 
 3 - then execute the following command to dump the whole memory(my need to rename the ouput file)
 
-export LD_LIBRARY_PATH=. && ./MSP430Flasher -r [memory_dump_output_file.txt,0x00000-0xFFFFF]
+export LD_LIBRARY_PATH=. && ./MSP430Flasher -r [memory_dump_output_file.hex,0x00000-0xFFFFF]
 
 
 ////////////WINDOWS//////////////
@@ -151,7 +151,7 @@ https://www.ti.com/licreg/productdownload.tsp?toPerform=productDownload&download
 2 - extract, install it. In the install folder edit the msp430example.bat file to:
 
 CLS
-MSP430Flasher.exe -r [memory_dump_output_file.txt,0x00000-0xFFFFF]
+MSP430Flasher.exe -r [memory_dump_output_file.hex,0x00000-0xFFFFF]
 PAUSE
 
 3 - run the edited .bat file

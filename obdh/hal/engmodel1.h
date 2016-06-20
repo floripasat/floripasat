@@ -108,20 +108,13 @@
 /********************************************/
 
 
-
-//TODO: deprecated
-#define BEACON_DATA_LENGTH   3
-#define FSAT_FRAME_LENGTH	38
-#define MISC_INFO_LENGHT 	 4
-
-#define  STT_BYTE 		0xAC
-#define  END_BYTE		0xFF
-
-#define INFO_STT_BYTE  	0x55
-#define INFO_END_BYTE	0xFF
+/*
+ * IMU MEASUREMENTS RANGES
+ */
 
 #define IMU_ACC_RANGE	16.0
 #define IMU_GYR_RANGE	2.0
 
+/********************************************/
 
 #endif /* HAL_OBDH_H_ */
