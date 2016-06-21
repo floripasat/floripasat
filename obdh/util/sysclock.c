@@ -7,7 +7,7 @@
 
 #include "sysclock.h"
 
-#define SYSCLOCK_INCREMENT 970   // 1ms, since Timer clk source is internal 1Mhz
+#define SYSCLOCK_INCREMENT 1000   // 1ms, since Timer clk source is internal 1Mhz
 
 uint16_t sysclock_s  = 0;
 uint16_t sysclock_ms = 0;
@@ -52,7 +52,7 @@ float sysclock_toc(void){
 
 //******************************************************************************
 //
-//This is the TIMER1_A0 interrupt vector service routine.
+//This is the TIMEB1_A0 interrupt vector service routine.
 //
 //******************************************************************************
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)

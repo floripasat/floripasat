@@ -14,6 +14,7 @@
 #include "hal/engmodel1.h"
 
 #include "util/codecs.h"
+#include "util/clocks.h"
 #include "util/crc.h"
 #include "util/debug.h"
 #include "util/flash.h"
@@ -160,6 +161,7 @@ void main_setup(void){
 		watchdog_setup(WATCHDOG,WD_4_MIN_16_SEC);
 	}
 
+	MAIN_clocks_setup();
 	sysclock_setup();
 	uart_setup(9600);
 	debug("  UART setup done");
