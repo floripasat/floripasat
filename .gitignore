@@ -35,4 +35,5 @@ obdh/.launches/obdh.launch
 beacon/Debug/*
 beacon/.launches/beacon.launch
 
-
+*.dump.txt
+*.frames.txt
