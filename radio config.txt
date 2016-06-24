@@ -1,0 +1,8 @@
+config do radio
+expert mode
+generic 434Mhz
+1.2... (primeira)
+
+xtal: 32Mhz
+mod: 2-GFSK
+rx filter BW: 12.5 kHz
