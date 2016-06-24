@@ -4,7 +4,7 @@
 
 	Please consult README.txt for detailed information.
 	http://www.floripasat.ufsc.br/
-	VERSION: 0.7 - 2016-05-26
+	VERSION: 1.0 - 2016-05-26
 
 *************************************************************************************/
 
@@ -53,7 +53,6 @@ void main(void) {
 	main_setup();	//Task 1
 	debug("Main setup done \t\t\t\t\t(Task 1)");
 //	All tasks beyond this point MUST keep track/control of the watchdog (ONLY in the high level main loop).
-
 
     while(1) {		//Task 2
 
@@ -138,6 +137,7 @@ void main(void) {
     	wdt_reset_counter();
 
     }
+
 }
 
 
@@ -147,8 +147,11 @@ void sleep(void){
     __delay_cycles(DELAY_10_MS_IN_CYCLES);
     __delay_cycles(DELAY_10_MS_IN_CYCLES);
     __delay_cycles(DELAY_10_MS_IN_CYCLES);
+    __delay_cycles(DELAY_10_MS_IN_CYCLES);
     __delay_cycles(DELAY_5_MS_IN_CYCLES);
-
+    __delay_cycles(DELAY_1_MS_IN_CYCLES);
+    __delay_cycles(DELAY_1_MS_IN_CYCLES);
+    __delay_cycles(DELAY_1_MS_IN_CYCLES);
 }
 
 

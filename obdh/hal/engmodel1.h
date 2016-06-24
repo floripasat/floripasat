@@ -33,20 +33,20 @@
 // 1 Cycle = 1.0 / 1.048576*10^6 seconds  @~1Mhz default clock
 
 
-// @ 1Mhz internal ref, 1 cycle ~= 1 uS
+// @ 4Mhz internal ref, 1 cycle ~= 0.25 uS
 // Delays below adjusted empiricaly based on tests/mesurements (to fix internal clock drift)
-#define DELAY_100_uS_IN_CYCLES        101
-#define DELAY_500_uS_IN_CYCLES        505
-#define DELAY_1_MS_IN_CYCLES	     1010
-#define DELAY_5_MS_IN_CYCLES	     5050
-#define DELAY_10_MS_IN_CYCLES	    10220
-#define DELAY_50_MS_IN_CYCLES	    51200
-#define DELAY_100_MS_IN_CYCLES	   102400
-#define DELAY_150_MS_IN_CYCLES	   153600
-#define DELAY_1_S_IN_CYCLES	      1025538
-#define DELAY_5_S_IN_CYCLES	      5130019
-#define DELAY_60_S_IN_CYCLES     62914560
-#define DELAY_120_S_IN_CYCLES   125829120
+#define DELAY_100_uS_IN_CYCLES        385
+#define DELAY_500_uS_IN_CYCLES       1985
+#define DELAY_1_MS_IN_CYCLES	     3964
+#define DELAY_5_MS_IN_CYCLES	    19883
+#define DELAY_10_MS_IN_CYCLES	    39783
+#define DELAY_50_MS_IN_CYCLES	   198900
+#define DELAY_100_MS_IN_CYCLES	   397900
+#define DELAY_150_MS_IN_CYCLES	   596850
+#define DELAY_1_S_IN_CYCLES	      3979750
+#define DELAY_5_S_IN_CYCLES	     20000000
+#define DELAY_60_S_IN_CYCLES    960000000
+#define DELAY_120_S_IN_CYCLES  1920000000
 
 
 //TODO: watchdog max times are hardcoded in the main loop
