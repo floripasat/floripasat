@@ -1,0 +1,46 @@
+Script to build and debug:
+
+----- Build: -------------------------------------------------------------------------------------------------------
+This will build every project on the workspace directory. I'll include the option to build only one project in the future.
+
+Simplified command line:
+[install dir]/ti/ccsv6/eclipse/eclipse -noSplash -data [workspace directory] -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+
+----- LoadProgram: -------------------------------------------------------------------------------------------------
+To load the program to the board, you need to use DSS (Debug Server Scripting), which is the main CCS tool for debugging. The GUI communicates with the same Debug Server that DSS does.
+I'm using a script that comes with CCS called loadti.sh. You pass the configuration file for the board and the out file and it load the out file into the board.
+I'm also using the option -a to load the file then exit the debug session, this can be changed in the future to run more complex debugging and to print on a log file with option -x.
+Option -c is used to load the configuration file.
+
+Simplified command line:
+[install dir]/ti/ccsv6/ccs_base/scripting/examples/loadti/loadti.sh -a -c [workspace directory]/[project name]/targetConfigs/[.ccxml file] [workspace directory]/[project name]/Debug/[.out file]
+
+
+----- Bibliography: ------------------------------------------------------------------------------------------------
+http://processors.wiki.ti.com/index.php/Projects_-_Command_Line_Build/Create
+http://processors.wiki.ti.com/index.php/Debug_Server_Scripting/Step_By_Step
+https://www.youtube.com/watch?v=9mZr5WcqPz8
+
+
+
+
+********************** Possible Solutions **********************
+Possíveis soluções:
+// compilation proceedure 
+// msp430-gcc -mmcu=msp430f5529 -Os scheduler.c -o scheduler.o -c
+// msp430-gcc -mmcu=msp430f5529 tasks.c -o tasks.o -c
+// msp430-gcc -mmcu=msp430f5529 -o a.out scheduler.o tasks.o
+
+MEMORY DUMP PROCEDURE
+LINUX
+
+1 - Download the MSP430Flasher from this link:
+https://www.ti.com/licreg/productdownload.tsp?toPerform=productDownload&downloadPage=true&location=http%3A%2F%2Fdownloads.ti.com%2Fdownloads%2Fmsp430%2Fmsp430_public_sw%2Fmcu%2Fmsp430%2FMSP430Flasher%2Flatest%2FMSPFlasher-1_03_09_00-linux-x64-installer.zip%3F__gda__%3D1466373554_73d014e74e37264a1740b49626f42c99
+
+2 - in the install folder, add write permission to the file, by typing the command below in the terminal:
+chmod a+x MSPFlasher-1_03_09_00-linux-x64-installer.run
+
+3 - then execute the following command to dump the whole memory(my need to rename the ouput file)
+export LD_LIBRARY_PATH=. && ./MSP430Flasher -r [memory.dump.txt,0x00000-0xFFFFF]
+********************* End of Possible Solutions ****************
