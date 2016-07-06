@@ -2,7 +2,7 @@
 <link_info>
    <banner>MSP430 Linker Unix v15.12.3.LTS</banner>
    <copyright>Copyright (c) 2003-2015 Texas Instruments Incorporated</copyright>
-   <link_time>0x577d59da</link_time>
+   <link_time>0x577d7a5f</link_time>
    <link_errors>0x0</link_errors>
    <output_file>mcu-msp430f6659-blink1.out</output_file>
    <entry_point>

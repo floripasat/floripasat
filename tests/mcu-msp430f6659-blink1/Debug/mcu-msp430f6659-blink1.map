@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker Unix v15.12.3                  
 ******************************************************************************
->> Linked Wed Jul  6 16:19:54 2016
+>> Linked Wed Jul  6 18:38:39 2016
 
 OUTPUT FILE NAME:   <mcu-msp430f6659-blink1.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs_noexit"  address: 00008000
