@@ -6,6 +6,33 @@ This will build every project on the workspace directory. I'll include the optio
 Simplified command line:
 [install dir]/ti/ccsv6/eclipse/eclipse -noSplash -data [workspace directory] -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
 
+eclipsec -noSplash -data "<workspace_dir>"
+                -application com.ti.ccstudio.apps.projectBuild
+                (-ccs.projects <name1>[ <name2>]* | -ccs.workspace) [<options>]
+
+
+- Clean the active build-configuration of project 'newProject' without building it:
+eclipsec -noSplash -data "C:\myWorkspace" -application com.ti.ccstudio.apps.projectBuild -ccs.projects newProject -ccs.clean
+
+
+- Rebuild the 'Debug' build-configuration of project 'newProject':
+eclipsec -noSplash -data "C:\myWorkspace" -application com.ti.ccstudio.apps.projectBuild -ccs.projects newProject -ccs.configuration Debug
+
+- Rebuild the active build-configuration of all projects in the workspace:
+eclipsec -noSplash -data "C:\myWorkspace" -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+
+
+Example:
+
+- Clean all project:
+/code/sdk/ti/ccsv6/eclipse/eclipse -noSplash -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+
+- Build all projects (active configuration):
+/code/sdk/ti/ccsv6/eclipse/eclipse -noSplash -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+
 
 ----- LoadProgram: -------------------------------------------------------------------------------------------------
 To load the program to the board, you need to use DSS (Debug Server Scripting), which is the main CCS tool for debugging. The GUI communicates with the same Debug Server that DSS does.

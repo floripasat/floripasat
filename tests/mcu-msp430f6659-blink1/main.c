@@ -13,7 +13,7 @@ int main(void) {
 
         P5OUT ^= 0x10; //toggle port state
 
-        __delay_cycles(200001);
+        __delay_cycles(100001);
 
     }
     // should never reach this point

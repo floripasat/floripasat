@@ -1,0 +1,130 @@
+!SESSION 2016-07-08 18:14:13.755 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:14:17.018
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:14:17.020
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:19:00.850 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.projects obdh -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.projects obdh -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:19:01.696
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:19:01.697
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:22:24.924 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:22:25.738
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:22:25.738
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:27:44.959 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:27:45.787
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:27:45.788
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:35:15.992 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:35:16.815
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:35:16.816
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:35:36.483 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:35:37.312
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:35:37.313
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:36:11.843 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:36:12.674
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:36:12.675
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:37:18.054 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:37:18.909
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:37:18.910
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:38:59.903 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:39:00.739
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:39:00.740
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 18:39:02.588 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/obdh -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:39:03.403
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 18:39:03.404
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
