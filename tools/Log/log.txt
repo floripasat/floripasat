@@ -1201,3 +1201,318 @@ Fri Jul  8 19:18:42 2016:	* ----------------------------------------------------
 Fri Jul  8 19:18:42 2016:	* Driver      : closed (No error)
 Fri Jul  8 19:18:42 2016:	* ----------------------------------------------------------------------------
 Fri Jul  8 19:18:42 2016:	*/
+Fri Jul  8 19:37:27 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:37:27 2016:	*     / |__                                                                   *
+Fri Jul  8 19:37:27 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:37:27 2016:	*      | /                                                                    *
+Fri Jul  8 19:37:27 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:37:27 2016:	*
+Fri Jul  8 19:37:27 2016:	* Evaluating triggers...done
+Fri Jul  8 19:37:27 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:37:27 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:37:27 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:37:28 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:37:28 2016:	* FET firmware is up to date.
+Fri Jul  8 19:37:28 2016:	* Reading FW version...done
+Fri Jul  8 19:37:28 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:37:34 2016:	* Accessing device...done
+Fri Jul  8 19:37:34 2016:	* Reading device information...done
+Fri Jul  8 19:37:34 2016:	* Loading file into device...done
+Fri Jul  8 19:37:37 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:37:38 2016:	* 
+Fri Jul  8 19:37:38 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:37:38 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:37:38 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:37:38 2016:	* Driver      : loaded
+Fri Jul  8 19:37:38 2016:	* Dll Version : 30800002
+Fri Jul  8 19:37:38 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:37:38 2016:	* Interface   : TIUSB
+Fri Jul  8 19:37:38 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:37:38 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:37:38 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:37:38 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:37:38 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:37:38 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:37:38 2016:	* Verified    : TRUE
+Fri Jul  8 19:37:38 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:37:38 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:37:38 2016:	* VCC OFF
+Fri Jul  8 19:37:38 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:37:38 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:37:39 2016:	* Powering down...done
+Fri Jul  8 19:37:39 2016:	* Disconnecting from device...done
+Fri Jul  8 19:37:39 2016:	* 
+Fri Jul  8 19:37:39 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:37:39 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:37:39 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:37:39 2016:	*/
+Fri Jul  8 19:38:16 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:38:16 2016:	*     / |__                                                                   *
+Fri Jul  8 19:38:16 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:38:16 2016:	*      | /                                                                    *
+Fri Jul  8 19:38:16 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:38:16 2016:	*
+Fri Jul  8 19:38:16 2016:	* Evaluating triggers...done
+Fri Jul  8 19:38:16 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:38:16 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:38:16 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:38:17 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:38:17 2016:	* FET firmware is up to date.
+Fri Jul  8 19:38:17 2016:	* Reading FW version...done
+Fri Jul  8 19:38:17 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:38:22 2016:	* Accessing device...done
+Fri Jul  8 19:38:23 2016:	* Reading device information...done
+Fri Jul  8 19:38:23 2016:	* Loading file into device...done
+Fri Jul  8 19:38:26 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:38:27 2016:	* 
+Fri Jul  8 19:38:27 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:38:27 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:38:27 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:38:27 2016:	* Driver      : loaded
+Fri Jul  8 19:38:27 2016:	* Dll Version : 30800002
+Fri Jul  8 19:38:27 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:38:27 2016:	* Interface   : TIUSB
+Fri Jul  8 19:38:27 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:38:27 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:38:27 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:38:27 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:38:27 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:38:27 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:38:27 2016:	* Verified    : TRUE
+Fri Jul  8 19:38:27 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:38:27 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:38:27 2016:	* VCC OFF
+Fri Jul  8 19:38:27 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:38:27 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:38:28 2016:	* Powering down...done
+Fri Jul  8 19:38:28 2016:	* Disconnecting from device...done
+Fri Jul  8 19:38:28 2016:	* 
+Fri Jul  8 19:38:28 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:38:28 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:38:28 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:38:28 2016:	*/
+Fri Jul  8 19:39:29 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:39:29 2016:	*     / |__                                                                   *
+Fri Jul  8 19:39:29 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:39:29 2016:	*      | /                                                                    *
+Fri Jul  8 19:39:29 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:39:29 2016:	*
+Fri Jul  8 19:39:29 2016:	* Evaluating triggers...done
+Fri Jul  8 19:39:29 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:39:29 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:39:29 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:39:30 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:39:30 2016:	* FET firmware is up to date.
+Fri Jul  8 19:39:30 2016:	* Reading FW version...done
+Fri Jul  8 19:39:30 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:39:35 2016:	* Accessing device...done
+Fri Jul  8 19:39:36 2016:	* Reading device information...done
+Fri Jul  8 19:39:36 2016:	* Loading file into device...done
+Fri Jul  8 19:39:38 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:39:39 2016:	* 
+Fri Jul  8 19:39:39 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:39:39 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:39:39 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:39:39 2016:	* Driver      : loaded
+Fri Jul  8 19:39:39 2016:	* Dll Version : 30800002
+Fri Jul  8 19:39:39 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:39:39 2016:	* Interface   : TIUSB
+Fri Jul  8 19:39:39 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:39:39 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:39:39 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:39:39 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:39:39 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:39:39 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:39:39 2016:	* Verified    : TRUE
+Fri Jul  8 19:39:39 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:39:39 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:39:39 2016:	* VCC OFF
+Fri Jul  8 19:39:39 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:39:39 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:39:40 2016:	* Powering down...done
+Fri Jul  8 19:39:40 2016:	* Disconnecting from device...done
+Fri Jul  8 19:39:40 2016:	* 
+Fri Jul  8 19:39:40 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:39:40 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:39:40 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:39:40 2016:	*/
+Fri Jul  8 19:40:58 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:40:58 2016:	*     / |__                                                                   *
+Fri Jul  8 19:40:58 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:40:58 2016:	*      | /                                                                    *
+Fri Jul  8 19:40:58 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:40:58 2016:	*
+Fri Jul  8 19:40:58 2016:	* Evaluating triggers...done
+Fri Jul  8 19:40:58 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:40:58 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:40:58 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:40:58 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:40:58 2016:	* FET firmware is up to date.
+Fri Jul  8 19:40:58 2016:	* Reading FW version...done
+Fri Jul  8 19:40:58 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:41:04 2016:	* Accessing device...done
+Fri Jul  8 19:41:04 2016:	* Reading device information...done
+Fri Jul  8 19:41:04 2016:	* Loading file into device...done
+Fri Jul  8 19:41:07 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:41:08 2016:	* 
+Fri Jul  8 19:41:08 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:41:08 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:41:08 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:41:08 2016:	* Driver      : loaded
+Fri Jul  8 19:41:08 2016:	* Dll Version : 30800002
+Fri Jul  8 19:41:08 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:41:08 2016:	* Interface   : TIUSB
+Fri Jul  8 19:41:08 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:41:08 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:41:08 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:41:08 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:41:08 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:41:08 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1//Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:41:08 2016:	* Verified    : TRUE
+Fri Jul  8 19:41:08 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:41:08 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:41:08 2016:	* VCC OFF
+Fri Jul  8 19:41:08 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:41:08 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:41:09 2016:	* Powering down...done
+Fri Jul  8 19:41:09 2016:	* Disconnecting from device...done
+Fri Jul  8 19:41:09 2016:	* 
+Fri Jul  8 19:41:09 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:41:09 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:41:09 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:41:09 2016:	*/
+Fri Jul  8 19:42:25 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:42:25 2016:	*     / |__                                                                   *
+Fri Jul  8 19:42:25 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:42:25 2016:	*      | /                                                                    *
+Fri Jul  8 19:42:25 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:42:25 2016:	*
+Fri Jul  8 19:42:25 2016:	* Evaluating triggers...done
+Fri Jul  8 19:42:25 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:42:25 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:42:25 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:42:25 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:42:25 2016:	* FET firmware is up to date.
+Fri Jul  8 19:42:25 2016:	* Reading FW version...done
+Fri Jul  8 19:42:25 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:42:25 2016:	* Accessing device...done
+Fri Jul  8 19:42:26 2016:	* Reading device information...done
+Fri Jul  8 19:42:26 2016:	* Loading file into device...done
+Fri Jul  8 19:42:29 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:42:29 2016:	* 
+Fri Jul  8 19:42:29 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:42:29 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:42:29 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:42:29 2016:	* Driver      : loaded
+Fri Jul  8 19:42:29 2016:	* Dll Version : 30800002
+Fri Jul  8 19:42:29 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:42:29 2016:	* Interface   : TIUSB
+Fri Jul  8 19:42:29 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:42:29 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:42:29 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:42:29 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:42:29 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:42:29 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:42:29 2016:	* Verified    : TRUE
+Fri Jul  8 19:42:29 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:42:29 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:42:29 2016:	* VCC OFF
+Fri Jul  8 19:42:29 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:42:29 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:42:30 2016:	* Powering down...done
+Fri Jul  8 19:42:31 2016:	* Disconnecting from device...done
+Fri Jul  8 19:42:31 2016:	* 
+Fri Jul  8 19:42:31 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:42:31 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:42:31 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:42:31 2016:	*/
+Fri Jul  8 19:43:32 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:43:32 2016:	*     / |__                                                                   *
+Fri Jul  8 19:43:32 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:43:32 2016:	*      | /                                                                    *
+Fri Jul  8 19:43:32 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:43:32 2016:	*
+Fri Jul  8 19:43:32 2016:	* Evaluating triggers...done
+Fri Jul  8 19:43:32 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:43:32 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:43:32 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:43:33 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:43:33 2016:	* FET firmware is up to date.
+Fri Jul  8 19:43:33 2016:	* Reading FW version...done
+Fri Jul  8 19:43:33 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:43:38 2016:	* Accessing device...done
+Fri Jul  8 19:43:39 2016:	* Reading device information...done
+Fri Jul  8 19:43:39 2016:	* Loading file into device...done
+Fri Jul  8 19:43:42 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:43:43 2016:	* 
+Fri Jul  8 19:43:43 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:43:43 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:43:43 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:43:43 2016:	* Driver      : loaded
+Fri Jul  8 19:43:43 2016:	* Dll Version : 30800002
+Fri Jul  8 19:43:43 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:43:43 2016:	* Interface   : TIUSB
+Fri Jul  8 19:43:43 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:43:43 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:43:43 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:43:43 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:43:43 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:43:43 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:43:43 2016:	* Verified    : TRUE
+Fri Jul  8 19:43:43 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:43:43 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:43:43 2016:	* VCC OFF
+Fri Jul  8 19:43:43 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:43:43 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:43:43 2016:	* Powering down...done
+Fri Jul  8 19:43:44 2016:	* Disconnecting from device...done
+Fri Jul  8 19:43:44 2016:	* 
+Fri Jul  8 19:43:44 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:43:44 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:43:44 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:43:44 2016:	*/
+Fri Jul  8 19:44:31 2016:	* -----/|-------------------------------------------------------------------- *
+Fri Jul  8 19:44:31 2016:	*     / |__                                                                   *
+Fri Jul  8 19:44:31 2016:	*    /_   /   MSP Flasher v1.3.9                                              *
+Fri Jul  8 19:44:31 2016:	*      | /                                                                    *
+Fri Jul  8 19:44:31 2016:	* -----|/-------------------------------------------------------------------- *
+Fri Jul  8 19:44:31 2016:	*
+Fri Jul  8 19:44:31 2016:	* Evaluating triggers...done
+Fri Jul  8 19:44:31 2016:	* Checking for available FET debuggers: 
+Fri Jul  8 19:44:32 2016:	* Found USB FET @ ttyACM0 <- Selected
+Fri Jul  8 19:44:32 2016:	* Initializing interface @ ttyACM0...done
+Fri Jul  8 19:44:32 2016:	* Checking firmware compatibility: 
+Fri Jul  8 19:44:32 2016:	* FET firmware is up to date.
+Fri Jul  8 19:44:32 2016:	* Reading FW version...done
+Fri Jul  8 19:44:32 2016:	* Setting VCC to 3000 mV...done
+Fri Jul  8 19:44:38 2016:	* Accessing device...done
+Fri Jul  8 19:44:39 2016:	* Reading device information...done
+Fri Jul  8 19:44:39 2016:	* Loading file into device...done
+Fri Jul  8 19:44:41 2016:	* Verifying memory (/code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt)...done
+Fri Jul  8 19:44:42 2016:	* 
+Fri Jul  8 19:44:42 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:44:42 2016:	* Arguments   : -z [RESET] -v -w /code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt 
+Fri Jul  8 19:44:42 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:44:42 2016:	* Driver      : loaded
+Fri Jul  8 19:44:42 2016:	* Dll Version : 30800002
+Fri Jul  8 19:44:42 2016:	* FwVersion   : 30800002
+Fri Jul  8 19:44:42 2016:	* Interface   : TIUSB
+Fri Jul  8 19:44:42 2016:	* HwVersion   : U 3.0
+Fri Jul  8 19:44:42 2016:	* JTAG Mode   : AUTO
+Fri Jul  8 19:44:42 2016:	* Device      : MSP430F6659
+Fri Jul  8 19:44:42 2016:	* EEM         : Level 7, ClockCntrl 2
+Fri Jul  8 19:44:42 2016:	* Erase Mode  : ERASE_ALL
+Fri Jul  8 19:44:42 2016:	* Prog.File   : /code/floripasat/tests/mcu-msp430f6659-blink1/Debug/mcu-msp430f6659-blink1.txt
+Fri Jul  8 19:44:42 2016:	* Verified    : TRUE
+Fri Jul  8 19:44:42 2016:	* BSL Unlock  : FALSE
+Fri Jul  8 19:44:42 2016:	* InfoA Access: FALSE
+Fri Jul  8 19:44:42 2016:	* VCC OFF
+Fri Jul  8 19:44:42 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:44:42 2016:	* Resetting device (RST/NMI)...done
+Fri Jul  8 19:44:43 2016:	* Powering down...done
+Fri Jul  8 19:44:43 2016:	* Disconnecting from device...done
+Fri Jul  8 19:44:43 2016:	* 
+Fri Jul  8 19:44:43 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:44:43 2016:	* Driver      : closed (No error)
+Fri Jul  8 19:44:43 2016:	* ----------------------------------------------------------------------------
+Fri Jul  8 19:44:43 2016:	*/

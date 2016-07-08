@@ -1,8 +1,10 @@
 #!/bin/bash
 
 echo "-----------------------------------------"
-echo "Automated Build and Program system for embedded devices"
+echo "Automated Build and Program system for Floripasat Project"
 echo "-----------------------------------------"
+echo "Sample usage: ./auto-build.sh mcu-msp430f6659-blink1 /code/floripasat/tests/mcu-msp430f6659-blink1
+"
 echo
 
 # Reference: http://processors.wiki.ti.com/index.php/Projects_-_Command_Line_Build/Create
@@ -18,6 +20,7 @@ PROJECT_NAME=$1
 PROJECT_PATH=$2
 COMPILER_PATH='/code/sdk/ti/ccsv6/eclipse/eclipse'
 PROGRAMMER_PATH='/code/sdk/ti/MSPFlasher_1.3.9'
+HEXTOOL_PATH='/code/sdk/ti/ccsv6/tools/compiler/msp430_15.12.3.LTS/bin/hex430'
 
 # hex file generation must be enabled in CCSV6 GUI
 # http://processors.wiki.ti.com/index.php/Generating_and_Loading_MSP430_Binary_Files
@@ -32,6 +35,10 @@ CMD_BUILD=$COMPILER_PATH' -noSplash -data '$PROJECT_PATH' -application com.ti.cc
 export LD_LIBRARY_PATH=$PROGRAMMER_PATH    #required before programming
 CMD_PROGRAM=$PROGRAMMER_PATH'/MSP430Flasher -z [RESET] -v -w '$OUTPUT_BIN_PATH
 
+CMD_HEXCONVERT=$HEXTOOL_PATH' --memwidth=8 --romwidth=8 --ti_txt -o '$PROJECT_PATH'/Debug/'$PROJECT_NAME'.txt '$PROJECT_PATH'/Debug/'$PROJECT_NAME'.out'
+
+
+
 echo
 echo "CLEANING PROJECT"
 echo $CMD_CLEAN
@@ -45,8 +52,13 @@ $CMD_BUILD
 echo "BUILDING COMPLETED"
 
 echo
-echo "PROGRAMMING PROJECT"
+echo "GENERATING HEX"
+echo $CMD_HEXCONVERT
+$CMD_HEXCONVERT
+echo "GENERATING HEX COMPLETED"
 
+echo
+echo "PROGRAMMING PROJECT"
 echo $CMD_PROGRAM
 $CMD_PROGRAM
 echo "PROGRAMMING COMPLETED"

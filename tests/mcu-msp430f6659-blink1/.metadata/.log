@@ -544,3 +544,185 @@ Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/test
 
 !ENTRY com.ti.common.core 4 0 2016-07-08 19:18:29.404
 !MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:37:22.411 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:37:23.255
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:37:23.255
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:37:25.157 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:37:25.966
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:37:25.967
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:38:11.534 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:38:12.396
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:38:12.397
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:38:14.204 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:38:15.054
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:38:15.055
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:39:24.277 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:39:25.114
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:39:25.115
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:39:27.005 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:39:27.839
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:39:27.840
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:40:52.815 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:40:53.684
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:40:53.685
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:40:55.652 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:40:56.512
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:40:56.513
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:42:19.797 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1 -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:42:20.675
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:42:20.676
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:42:22.568 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1 -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:42:23.420
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:42:23.421
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:43:27.345 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1 -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:43:28.186
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:43:28.187
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:43:30.085 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1 -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:43:30.932
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:43:30.932
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:44:26.655 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1 -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:44:27.525
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:44:27.526
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
+!SESSION 2016-07-08 19:44:29.356 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+Command-line arguments:  -os linux -ws gtk -arch x86 -data /code/floripasat/tests/mcu-msp430f6659-blink1 -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:44:30.201
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2016-07-08 19:44:30.205
+!MESSAGE debugServerDir=/code/sdk/ti/ccsv6/ccs_base/DebugServer
