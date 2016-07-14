@@ -1,15 +1,26 @@
 #!/bin/bash
-
-echo "-----------------------------------------"
-echo "Automated Build and Program system for Floripasat Project"
-echo "-----------------------------------------"
-echo "Sample usage: ./auto-build.sh mcu-msp430f6659-blink1 /code/floripasat/tests/mcu-msp430f6659-blink1
-"
+echo
+echo "=========================================================================================="
+echo
+echo "                    ___ _    ___  ___ ___ ___  _     ___   _ _____  "
+echo "                   | __| |  / _ \| _ \_ _| _ \/_\   / __| /_\_   _| "
+echo "                   | _|| |_| (_) |   /| ||  _/ _ \  \__ \/ _ \| |   "
+echo "                   |_| |____\___/|_|_\___|_|/_/ \_\ |___/_/ \_\_|   "
+echo "                                                                    "
+echo
+echo "                Automated Build and Load system for Floripasat Project"
+echo
+echo "=========================================================================================="
+echo
+echo "How to use: .../auto-build.sh projectName projectWorkspace/"
+echo
+echo "Sample usage: ./auto-build.sh blink_led_msp430f5529 /code/workspace_v6_1_3/"
 echo
 
 # Reference: http://processors.wiki.ti.com/index.php/Projects_-_Command_Line_Build/Create
+#            http://processors.wiki.ti.com/index.php/Debug_Server_Scripting/Step_By_Step
 
-if [ $# -lt "2" ]
+if [ $# -lt "2" ]           # Test to see if there are 2 arguments
 then
   echo "ERROR! Missing path argument!"
   echo "Usage: "$0" project_path"
@@ -17,49 +28,47 @@ then
 fi 
 
 PROJECT_NAME=$1
-PROJECT_PATH=$2
+WORKSPACE_PATH=$2
 COMPILER_PATH='/code/sdk/ti/ccsv6/eclipse/eclipse'
-PROGRAMMER_PATH='/code/sdk/ti/MSPFlasher_1.3.9'
-HEXTOOL_PATH='/code/sdk/ti/ccsv6/tools/compiler/msp430_15.12.3.LTS/bin/hex430'
+LOADTI_PATH='/code/sdk/ti/ccsv6/ccs_base/scripting/examples/loadti/'
 
-# hex file generation must be enabled in CCSV6 GUI
-# http://processors.wiki.ti.com/index.php/Generating_and_Loading_MSP430_Binary_Files
-OUTPUT_BIN_PATH=$PROJECT_PATH'/Debug/'$PROJECT_NAME'.txt'
+# - Clean project:
+CMD_CLEAN=$COMPILER_PATH' -noSplash -data '$WORKSPACE_PATH' -application com.ti.ccstudio.apps.projectBuild -ccs.projects '$PROJECT_NAME' -ccs.clean'
 
-# - Clean all project:
-CMD_CLEAN=$COMPILER_PATH' -noSplash -data '$PROJECT_PATH' -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean'
+# - Build projetct:
+CMD_BUILD=$COMPILER_PATH' -noSplash -data '$WORKSPACE_PATH' -application com.ti.ccstudio.apps.projectBuild -ccs.projects '$PROJECT_NAME' -ccs.configuration Debug'
 
-# - Build all projects (active configuration):
-CMD_BUILD=$COMPILER_PATH' -noSplash -data '$PROJECT_PATH' -application com.ti.ccstudio.apps.projectBuild -ccs.workspace'
-
-export LD_LIBRARY_PATH=$PROGRAMMER_PATH    #required before programming
-CMD_PROGRAM=$PROGRAMMER_PATH'/MSP430Flasher -z [RESET] -v -w '$OUTPUT_BIN_PATH
-
-CMD_HEXCONVERT=$HEXTOOL_PATH' --memwidth=8 --romwidth=8 --ti_txt -o '$PROJECT_PATH'/Debug/'$PROJECT_NAME'.txt '$PROJECT_PATH'/Debug/'$PROJECT_NAME'.out'
-
+# - Load project
+CMD_LOAD=$LOADTI_PATH'loadti.sh -a -c '$WORKSPACE_PATH''$PROJECT_NAME'/targetConfigs/*.ccxml '$WORKSPACE_PATH''$PROJECT_NAME'/Debug/*.out'
 
 
 echo
-echo "CLEANING PROJECT"
+echo "------------------------------------ CLEANING PROJECT ------------------------------------"
+echo
 echo $CMD_CLEAN
+echo
 $CMD_CLEAN
-echo "CLEANING COMPLETED"
+echo
+echo "----------------------------------- CLEANING COMPLETED -----------------------------------"
+echo
 
 echo
-echo "BUILDING PROJECT"
+echo "------------------------------------ BUILDING PROJECT ------------------------------------"
+echo
 echo $CMD_BUILD
+echo
 $CMD_BUILD
-echo "BUILDING COMPLETED"
-
 echo
-echo "GENERATING HEX"
-echo $CMD_HEXCONVERT
-$CMD_HEXCONVERT
-echo "GENERATING HEX COMPLETED"
-
+echo "----------------------------------- BUILDING COMPLETED -----------------------------------"
 echo
-echo "PROGRAMMING PROJECT"
-echo $CMD_PROGRAM
-$CMD_PROGRAM
-echo "PROGRAMMING COMPLETED"
 
+echo "------------------------------------ LOADING PROJECT -------------------------------------"
+echo
+echo $CMD_LOAD
+echo
+$CMD_LOAD
+echo
+echo "----------------------------------- LOADING COMPLETED ------------------------------------"
+echo
+echo "=========================================================================================="
+echo
