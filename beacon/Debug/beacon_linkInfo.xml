@@ -2,7 +2,7 @@
 <link_info>
    <banner>MSP430 Linker Unix v15.12.1.LTS</banner>
    <copyright>Copyright (c) 2003-2015 Texas Instruments Incorporated</copyright>
-   <link_time>0x5756f721</link_time>
+   <link_time>0x5787e8b2</link_time>
    <link_errors>0x0</link_errors>
    <output_file>beacon.out</output_file>
    <entry_point>

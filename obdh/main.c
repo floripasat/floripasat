@@ -93,7 +93,7 @@ void main(void) {
 
     	debug("  RADIO read init \t\t\t\t\t(Task 2.4)");
     	watchdog_setup(WATCHDOG,WD_8_4_SEC);
-    	readTransceiver(radioData);
+//    	readTransceiver(radioData);
     	debug("  RADIO read done");
     	wdt_reset_counter();
 
@@ -183,7 +183,7 @@ void main_setup(void){
     debug("  IMU setup done");
 	SPI_Setup();
     debug("  SPI setup done");
-	radio_Setup();
+//	radio_Setup();
 	debug("  radio setup done");
 }
 

@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker Unix v15.12.1                  
 ******************************************************************************
->> Linked Tue Jun  7 13:32:33 2016
+>> Linked Thu Jul 14 16:32:02 2016
 
 OUTPUT FILE NAME:   <beacon.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 000080f6
