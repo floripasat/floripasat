@@ -1,0 +1,79 @@
+---------------------------------------------------------- SCRIPT TO BUILD AND LOAD PROJECT ----------------------------------------------------------
+
+------------------------------------------------------------------- BUILD PROJECT --------------------------------------------------------------------
+
+Full Command Line:
+    <install dir>/ccsv6/eclipse/eclipse -noSplash -data "<workspace_dir>" -application com.ti.ccstudio.apps.projectBuild (-ccs.projects <name1>[ <name2>]* | -ccs.workspace) [<options>]
+
+    Options:
+        -ccs.configuration <name>
+            The build-configuration name to build (optional).
+            Defaults to active build-configuration.
+        
+        -ccs.projects <name1>[ <name2>]*
+            Space-separated list of projects to build.
+        
+        -ccs.workspace
+            Build entire workspace. This will build all project in the workspace.
+        
+        -ccs.buildType (incremental | full | clean)
+            The type of build to perform (optional).
+            Defaults to 'incremental'.
+        
+        -ccs.autoOpen
+            Automatically open any closed projects (optional).
+
+        -ccs.args <file>
+            File containing any extra arguments (optional). 
+            
+        -ccs.help
+            Print this help message.
+
+    Examples:
+        - Clean the active build-configuration of project 'newProject' without building it:
+        eclipse -noSplash -data <myWorkspace dir> -application com.ti.ccstudio.apps.projectBuild -ccs.projects newProject -ccs.clean
+
+        - Rebuild the 'Debug' build-configuration of project 'newProject':
+        eclipse -noSplash -data <myWorkspace dir> -application com.ti.ccstudio.apps.projectBuild -ccs.projects newProject -ccs.configuration Debug
+
+        - Rebuild the active build-configuration of all projects in the workspace:
+        eclipse -noSplash -data <myWorkspace dir> -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+
+Sample usage:
+    - Clean all projectsin a workspace:
+    /code/sdk/ti/ccsv6/eclipse/eclipse -noSplash -data /code/workspace_v6_1_3/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace -ccs.clean
+
+    - Build all projects (active configuration) in a workspace:
+    /code/sdk/ti/ccsv6/eclipse/eclipse -noSplash -data /code/workspace_v6_1_3/ -application com.ti.ccstudio.apps.projectBuild -ccs.workspace
+
+    - Clean the active build-configuration of project 'newProject' without building it:
+    /code/sdk/ti/ccsv6/eclipse/eclipse -noSplash -data /code/workspace_v6_1_3/ -application com.ti.ccstudio.apps.projectBuild -ccs.projects newProject -ccs.clean
+
+    - Build the project 'newProject':
+    /code/sdk/ti/ccsv6/eclipse/eclipse -noSplash -data /code/workspace_v6_1_3/ -application com.ti.ccstudio.apps.projectBuild -ccs.projects newProject -ccs.configuration Debug
+
+Reference: http://processors.wiki.ti.com/index.php/Projects_-_Command_Line_Build/Create
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------- LOAD PROJECT --------------------------------------------------------------------
+
+Documentation:
+    To load the project into the board, we are using DSS (Debug Server Scripting), which is the main CCS tool for debugging.
+    The GUI communicates with the same debug server that DSS does.
+    We are using a script that comes with CCS called loadti.sh. You pass the configuration file (.ccxml) for the board and the out file (.out) and it loads the out file into the board and start the debugging session.
+    We are also using the option -a to load the file then exit the debugging session, this can be changed in the future to run more complex debugging and to print on a log file with option -x. Currently we already have another way of getting the information from the board, so we are not using this option. We only need to load the project into the board.
+    Option -c is used to load the configuration file.
+
+Full Command Line:
+    <install dir>/ti/ccsv6/ccs_base/scripting/examples/loadti/loadti.sh -a -c <workspace dir>/projectName/targetConfigs/*.ccxml <workspace dir>/projectName/Debug/*.out
+
+Sample usage:
+    - Load project into the board then exit debugging session
+    /code/sdk/ti/ccsv6/ccs_base/scripting/examples/loadti/loadti.sh -a -c /code/workspace_v6_1_3/blink_led_msp430f5529/targetConfigs/*.ccxml /code/workspace_v6_1_3/blink_led_msp430f5529/Debug/*.out
+
+Reference: http://processors.wiki.ti.com/index.php/Debug_Server_Scripting/Step_By_Step
+
+------------------------------------------------------------------------------------------------------------------------------------------------------

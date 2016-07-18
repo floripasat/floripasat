@@ -5,7 +5,7 @@
  */
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
-    
+
     // LED connected to P5.4 (p 32) - OBDH SYSTEM LED
     P5DIR |= 0x10; // set as output
 
@@ -13,8 +13,7 @@ int main(void) {
 
         P5OUT ^= 0x10; //toggle port state
 
-        int i = 0;
-        __delay_cycles(100001);
+        __delay_cycles(10000001);
 
     }
     // should never reach this point

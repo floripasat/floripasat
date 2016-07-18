@@ -22,12 +22,12 @@ void MAIN_clocks_setup(void) {
       UCSCTL4 |= SELA_2;                        // ACLK=REFO,SMCLK=DCO,MCLK=DCO
 
       // Loop until XT1,XT2 & DCO stabilizes - in this case loop until XT2 settles
-      do
-      {
+//      do
+//      {
         UCSCTL7 &= ~(XT2OFFG | XT1LFOFFG | XT1HFOFFG | DCOFFG);
                                                 // Clear XT2,XT1,DCO fault flags
         SFRIFG1 &= ~OFIFG;                      // Clear fault flags
-      }while (SFRIFG1&OFIFG);                   // Test oscillator fault flag
+//      }while (SFRIFG1&OFIFG);                   // Test oscillator fault flag
 
       UCSCTL6 &= ~XT2DRIVE0;                    // Decrease XT2 Drive according to
                                                 // expected frequency
