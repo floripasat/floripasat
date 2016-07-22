@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 /* FreeRTOS includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "timers.h"
-#include "queue.h"
+#include "FreeRTOS/FreeRTOS.h"
+#include "FreeRTOS/task.h"
+#include "FreeRTOS/timers.h"
+#include "FreeRTOS/queue.h"
 
 /* MSP430 includes. */
 #include <msp430.h>
@@ -101,30 +101,20 @@ static void prvSetupHardware( void ){
  */
 
 void vBlink_P5_4(void * pvParameters){
-    const TickType_t xDelay = 20 / portTICK_PERIOD_MS;
+    const TickType_t xDelay = 80 / portTICK_PERIOD_MS;
     for(;;)
     {
-        uart_tx("blink p5.4 1 ************************************** \r\n");
-        uart_tx("blink p5.4 2 ************************************** \r\n");
-        uart_tx("blink p5.4 3 ************************************** \r\n");
-        uart_tx("blink p5.4 4 ************************************** \r\n");
-        uart_tx("blink p5.4 5 ************************************** \r\n");
-        uart_tx("blink p5.4 6 ************************************** \r\n");
+        uart_tx("é golpe \r\n");
         vTaskDelay( xDelay );
     }
     vTaskDelete(blink_p5_4);
 }
 
 void vBlink_P1_7(void * pvParameters){
-    const TickType_t xDelay = 40 / portTICK_PERIOD_MS;
+    const TickType_t xDelay = 80 / portTICK_PERIOD_MS;
     for(;;)
     {
-        uart_tx("blink p1.7 1 ************************************** \r\n");
-        uart_tx("blink p1.7 2 ************************************** \r\n");
-        uart_tx("blink p1.7 3 ************************************** \r\n");
-        uart_tx("blink p1.7 4 ************************************** \r\n");
-        uart_tx("blink p1.7 5 ************************************** \r\n");
-        uart_tx("blink p1.7 6 ************************************** \r\n");
+        uart_tx("fora dilma \r\n");
         vTaskDelay( xDelay );
     }
     vTaskDelete(blink_p1_7);
@@ -135,11 +125,6 @@ void vPrintTask(void * pvParameters){
     for(;;)
     {
        uart_tx("print task 1 ************************************** \r\n");
-       uart_tx("print task 2 ************************************** \r\n");
-       uart_tx("print task 3 ************************************** \r\n");
-       uart_tx("print task 4 ************************************** \r\n");
-       uart_tx("print task 5 ************************************** \r\n");
-       uart_tx("print task 6 ************************************** \r\n");
        vTaskDelay( xDelay );
     }
     vTaskDelete(blink_p1_7);

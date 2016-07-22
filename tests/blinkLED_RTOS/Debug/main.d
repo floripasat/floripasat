@@ -4,24 +4,24 @@ main.obj: ../main.c
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdio.h
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/linkage.h
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdarg.h
-main.obj: ../FreeRTOS.h
+main.obj: ../FreeRTOS/FreeRTOS.h
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stddef.h
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdint.h
-main.obj: ../FreeRTOSConfig.h
-main.obj: ../projdefs.h
-main.obj: ../portable.h
-main.obj: ../deprecated_definitions.h
-main.obj: ../portmacro.h
+main.obj: ../FreeRTOS/FreeRTOSConfig.h
+main.obj: ../FreeRTOS/projdefs.h
+main.obj: ../FreeRTOS/portable.h
+main.obj: ../FreeRTOS/deprecated_definitions.h
+main.obj: ../FreeRTOS/portmacro.h
 main.obj: /code/sdk/ti/ccsv6/ccs_base/msp430/include/msp430.h
 main.obj: /code/sdk/ti/ccsv6/ccs_base/msp430/include/msp430f6659.h
 main.obj: /code/sdk/ti/ccsv6/ccs_base/msp430/include/in430.h
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics.h
 main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics_legacy_undefs.h
-main.obj: ../mpu_wrappers.h
-main.obj: ../task.h
-main.obj: ../list.h
-main.obj: ../timers.h
-main.obj: ../queue.h
+main.obj: ../FreeRTOS/mpu_wrappers.h
+main.obj: ../FreeRTOS/task.h
+main.obj: ../FreeRTOS/list.h
+main.obj: ../FreeRTOS/timers.h
+main.obj: ../FreeRTOS/queue.h
 main.obj: ../driverlib/MSP430F5xx_6xx/driverlib.h
 main.obj: ../driverlib/MSP430F5xx_6xx/inc/hw_memmap.h
 main.obj: /code/sdk/ti/ccsv6/ccs_base/msp430/include/msp430f5xx_6xxgeneric.h
@@ -73,24 +73,24 @@ main.obj: /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/st
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdio.h: 
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/linkage.h: 
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdarg.h: 
-../FreeRTOS.h: 
+../FreeRTOS/FreeRTOS.h: 
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stddef.h: 
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdint.h: 
-../FreeRTOSConfig.h: 
-../projdefs.h: 
-../portable.h: 
-../deprecated_definitions.h: 
-../portmacro.h: 
+../FreeRTOS/FreeRTOSConfig.h: 
+../FreeRTOS/projdefs.h: 
+../FreeRTOS/portable.h: 
+../FreeRTOS/deprecated_definitions.h: 
+../FreeRTOS/portmacro.h: 
 /code/sdk/ti/ccsv6/ccs_base/msp430/include/msp430.h: 
 /code/sdk/ti/ccsv6/ccs_base/msp430/include/msp430f6659.h: 
 /code/sdk/ti/ccsv6/ccs_base/msp430/include/in430.h: 
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics.h: 
 /code/sdk/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics_legacy_undefs.h: 
-../mpu_wrappers.h: 
-../task.h: 
-../list.h: 
-../timers.h: 
-../queue.h: 
+../FreeRTOS/mpu_wrappers.h: 
+../FreeRTOS/task.h: 
+../FreeRTOS/list.h: 
+../FreeRTOS/timers.h: 
+../FreeRTOS/queue.h: 
 ../driverlib/MSP430F5xx_6xx/driverlib.h: 
 ../driverlib/MSP430F5xx_6xx/inc/hw_memmap.h: 
 /code/sdk/ti/ccsv6/ccs_base/msp430/include/msp430f5xx_6xxgeneric.h: 
