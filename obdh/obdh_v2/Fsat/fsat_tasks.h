@@ -22,9 +22,9 @@
 #define BAUD_RATE                               9600
 
 
- void prvSetupHardware( void );
- void prvLed1Task( void *pvParameters );
- void prvLed2Task( void *pvParameters );
+void prvSetupHardware( void );
+void prvLed1Task( void *pvParameters );
+void prvLed2Task( void *pvParameters );
 
 
 

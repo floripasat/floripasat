@@ -1,6 +1,6 @@
 #include "fsat_tasks.h"
 
- void prvLed1Task( void *pvParameters )
+void prvLed1Task( void *pvParameters )
 {
     while(1)
     {
@@ -38,7 +38,7 @@ void prvLed2Task( void *pvParameters )
     }
 }
 
- void prvSetupHardware( void )
+void prvSetupHardware( void )
 {
     taskDISABLE_INTERRUPTS();
 

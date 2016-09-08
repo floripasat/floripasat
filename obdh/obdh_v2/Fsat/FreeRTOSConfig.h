@@ -91,7 +91,7 @@
  * See http://www.freertos.org/a00110.html.
  *----------------------------------------------------------*/
 
-#define configUSE_PREEMPTION			0 //0 - cooperative scheduler / 1 - preemptive scheduler
+#define configUSE_PREEMPTION			1 //0 - cooperative scheduler / 1 - preemptive scheduler
 #define configUSE_IDLE_HOOK				1
 #define configUSE_TICK_HOOK				1
 #define configCPU_CLOCK_HZ				( 25000000UL )
