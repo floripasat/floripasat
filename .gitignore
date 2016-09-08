@@ -40,3 +40,12 @@ beacon/.launches/beacon.launch
 
 *.dump.txt
 *.frames.txt
+
+
+obdh/obdh_v2/Debug/FreeRTOSSource/portable/CCS/MSP430X/subdir_rules.mk
+obdh/obdh_v2/Debug/FreeRTOSSource/portable/MemMang/subdir_rules.mk
+obdh/obdh_v2/Debug/FreeRTOSSource/subdir_rules.mk
+obdh/obdh_v2/Debug/Fsat/subdir_rules.mk
+obdh/obdh_v2/Debug/obdh_v2.map
+obdh/obdh_v2/Debug/obdh_v2_linkInfo.xml
+obdh/obdh_v2/Debug/subdir_rules.mk
