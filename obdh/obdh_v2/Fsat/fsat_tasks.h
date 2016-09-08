@@ -19,8 +19,6 @@
 #define LED_1             BIT4
 #define LED_2             BIT4
 
-#define BAUD_RATE                               9600
-
 
 void prvSetupHardware( void );
 void prvLed1Task( void *pvParameters );

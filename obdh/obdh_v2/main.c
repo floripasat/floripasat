@@ -4,8 +4,6 @@
  * main.c
  */
 int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-
     prvSetupHardware();
     static xTaskHandle led1Blink;
     static xTaskHandle led2Blink;
