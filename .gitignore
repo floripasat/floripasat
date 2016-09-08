@@ -29,9 +29,12 @@
 
 
 #OBDH output files
-obdh/Debug/*
-obdh/.settings/org.eclipse.core.resources.prefs
-obdh/.launches/obdh.launch
+obdh/obdh_v1/Debug/*
+obdh/obdh_v2/Debug/*
+obdh/obdh_v1/.settings/org.eclipse.core.resources.prefs
+obdh/obdh_v2/.settings/org.eclipse.core.resources.prefs
+obdh/obdh_v1/.launches/obdh.launch
+obdh/obdh_v2/.launches/obdh.launch
 beacon/Debug/*
 beacon/.launches/beacon.launch
 
