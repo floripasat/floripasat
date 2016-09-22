@@ -4,13 +4,14 @@
  * main.c
  */
 int main(void) {
+
     prvSetupHardware();
     static xTaskHandle led1Blink;
-    static xTaskHandle led2Blink;
+    static xTaskHandle uartSend;
 
 
-    xTaskCreate( prvLed1Task, "Led1Blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &led1Blink );
-    xTaskCreate( prvLed2Task, "Led2Blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &led2Blink );
+    xTaskCreate( prvLedTask, "Led1Blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &led1Blink );
+    xTaskCreate( prvUartTask, "UartSend", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &uartSend );
 
     vTaskStartScheduler();
 

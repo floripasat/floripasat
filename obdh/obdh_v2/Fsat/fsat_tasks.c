@@ -1,12 +1,12 @@
 #include "fsat_tasks.h"
 
-void prvLed1Task( void *pvParameters )
+void prvLedTask( void *pvParameters )
 {
     while(1)
     {
-        /* Block for 500 milliseconds so this task does not utilise all the CPU
+        /* Block for 1000 milliseconds (1Hz) so this task does not utilise all the CPU
         time and debouncing of the button is not necessary. */
-        vTaskDelay( 500 / portTICK_PERIOD_MS );
+        vTaskDelay( 1000 / portTICK_PERIOD_MS );
 
         if( ( LED_PORT_OUT & LED_1 ) == 0 )
         {
@@ -19,24 +19,34 @@ void prvLed1Task( void *pvParameters )
     }
 }
 
-void prvLed2Task( void *pvParameters )
+void prvUartTask( void *pvParameters )
 {
+    char data = 0;
     while(1)
     {
-        /* Block for 500 milliseconds so this task does not utilise all the CPU
+        /* Block for 500 milliseconds (2Hz) so this task does not utilise all the CPU
         time and debouncing of the button is not necessary. */
         vTaskDelay( 500 / portTICK_PERIOD_MS );
 
-        if( ( LED_PORT_OUT & LED_2 ) == 0 )
-        {
-            //LED_PORT_OUT |= LED_2;
-        }
-        else
-        {
-            //LED_PORT_OUT &= ~LED_2;
-        }
+        while (!(UCA2IFG & UCTXIFG));             // USCI_A0 TX buffer ready?
+        UCA2TXBUF = data + 'a';
+        data = (data + 1) % ('z' - 'a' + 1); //just to print abc...xyzabc...
     }
 }
+
+void prvSetupUart( void )
+{
+    P9SEL |= BIT2 + BIT3;                            // Assign P2.0 to UCA0TXD and...
+
+    UCA2CTL1 |= UCSWRST;                      // **Put state machine in reset**
+    UCA2CTL1 |= UCSSEL_2;                     // SMCLK
+    UCA2BR0 = 6;                              // 1MHz 9600 (see User's Guide)
+    UCA2BR1 = 0;                              // 1MHz 9600
+    UCA2MCTL = UCBRS_0 | UCBRF_13 | UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
+                                                // over sampling
+    UCA2CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+}
+
 
 void prvSetupHardware( void )
 {
@@ -45,20 +55,19 @@ void prvSetupHardware( void )
     /* Disable the watchdog. */
     WDTCTL = WDTPW + WDTHOLD;
 
+    prvSetupUart();
+
     LED_PORT_OUT = 0x00;
-    LED_PORT_DIR |= LED_1 | LED_2;
+    LED_PORT_DIR |= LED_1;
 }
 
 
 void vApplicationTickHook( void )
 {
     static unsigned long ulCounter = 0;
-    static xTaskHandle currentTask = NULL;
 
     /* Is it time to toggle the LED again? */
     ulCounter++;
-
-
 
     if( ( ulCounter & 0xff ) == 0 )
     {

@@ -17,13 +17,12 @@
 #define LED_PORT_DIR      P5DIR
 #define LED_PORT_OUT      P5OUT
 #define LED_1             BIT4
-#define LED_2             BIT4
 
 
 void prvSetupHardware( void );
-void prvLed1Task( void *pvParameters );
-void prvLed2Task( void *pvParameters );
-
+void prvLedTask( void *pvParameters );
+void prvUartTask( void *pvParameters );
+void prvSetupUart( void );
 
 
 #endif /* FSAT_FSAT_TASKS_H_ */
