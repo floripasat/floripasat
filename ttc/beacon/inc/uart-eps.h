@@ -53,6 +53,7 @@
  * \return Initialization status. It can be:
  *      - \b STATUS_SUCCESS
  *      - \b STATUS_FAIL
+ *      .
  */
 uint8_t eps_UART_Init();
 

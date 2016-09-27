@@ -46,38 +46,38 @@
 #endif // F_CPU
 
 /**
- * \fn delay_s()
+ * \fn delay_s
  * 
- * \brief Seconds delay
+ * \brief Seconds delay.
  * 
- * \param s is the delay in seconds
+ * \param s is the delay in seconds.
  * 
  * \return None
  */
 void delay_s(uint8_t s);
 
 /**
- * \fn delay_ms()
+ * \fn delay_ms
  * 
- * \brief Milliseconds delay
+ * \brief Milliseconds delay.
  * 
- * \param ms is the delay in milliseconds
+ * \param ms is the delay in milliseconds.
  * 
  * \return None
  */
 void delay_ms(uint8_t ms);
 
 /**
- * \fn delay_us()
+ * \fn delay_us
  * 
  * \brief Microseconds delay
  * 
- * \param us is the delay in microseconds
+ * \param us is the delay in microseconds.
  * 
  * \return None
  */
 void delay_us(uint8_t us);
 
-//! \} End of Delay group
-
 #endif // DELAY_H_
+
+//! \} End of Delay group

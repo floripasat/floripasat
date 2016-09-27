@@ -72,7 +72,10 @@ uint8_t SPI_Init();
 /**
  * \fn main
  * 
- * \brief The main function
+ * \brief The main function.
+ * 
+ * After the initializations of the periphericals,
+ * the program stays running in infinite loop.
  * 
  * \return None
  */
@@ -163,7 +166,7 @@ void main()
 /**
  * \fn GPIO_Init
  * 
- * \brief
+ * \brief Initialization of the GPIO (Led, antenna deplyment, etc.).
  * 
  * \return None
  */
@@ -199,11 +202,14 @@ void GPIO_Init()
 /**
  * \fn SPI_Init
  * 
- * \brief Initialization of the MCU SPI (USCI_B0)
+ * \brief Initialization of the MCU SPI
+ * 
+ * Used interface: USCI_B0
  * 
  * \return Initialization status. It can be:
  *      - \b STATUS_SUCCESS
  *      - \b STATUS_FAIL
+ *      .
  */
 uint8_t SPI_Init()
 {
@@ -251,7 +257,7 @@ uint8_t SPI_Init()
 }
 
 /**
- * \fn GPIO2_Interrupt()
+ * \fn GPIO2_Interrupt
  * 
  * \brief General purpose IO interrupt function for GPIO port 1.
  * 

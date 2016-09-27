@@ -23,7 +23,7 @@
 /**
  * \file debug.h
  * 
- * \brief Functions for printing messages and bytes over UART
+ * \brief Functions for printing messages and bytes over UART.
  * 
  * \author Gabriel Mariano Marcelino <gabriel.mm8@gmail.com>
  * 
@@ -45,28 +45,37 @@
 #define DEBUG_MODE true
 #endif // DEBUG_MODE
 
-//P8.2 = USCI_A1_TX_BEACON; P8.3 = USCI_A1_RX_BEACON
-#define DEBUG_UART_PORT     GPIO_PORT_P8
-#define DEBUG_UART_TX_PIN   GPIO_PIN2
-#define DEBUG_UART_RX_PIN   GPIO_PIN3
+#define DEBUG_UART_PORT     GPIO_PORT_P8    /**< Debug UART port = P8 */
+#define DEBUG_UART_TX_PIN   GPIO_PIN2       /**< UART TX pin = P8.2 (USCI_A1_TX_BEACON) */
+#define DEBUG_UART_RX_PIN   GPIO_PIN3       /**< UART RX pin = P8.3 (USCI_A1_RX_BEACON) */
 
 /**
  * \fn debug_Init
  * 
- * \brief 
+ * \brief Initialization of the debug mode.
+ * 
+ * After the UART initialization, to show if the debug mode is
+ * working, the follow message is transmitted:
+ * 
+ * *****************************\n
+ *  FloripaSat debug mode:\n
+ * *****************************\n
  * 
  * \return UART initialization status. It can be:
  *      - \b STATUS_SUCCES
  *      - \b STATUS_FAIL
+ *      .
  */
 uint8_t debug_Init();
 
 /**
  * \fn debug_PrintMsg
  * 
- * \brief 
+ * \brief Prints a message over the UART.
  * 
- * \param msg
+ * \note The new line character ('\n') is printed after the message.
+ * 
+ * \param msg is the message to be written.
  * 
  * \return None
  */
@@ -75,10 +84,21 @@ void debug_PrintMsg(const char *msg);
 /**
  * \fn debug_PrintByte
  * 
- * \brief 
+ * \brief Prints a message and a byte over the UART.
  * 
- * \param msg
- * \param byte
+ * Example:
+ *      - Message   = "Example"
+ *      - Byte      = 0x65
+ *      - Output    = "Example: 0x65"
+ * 
+ * \note
+ * The byte is printed in ASCII code.
+ * 
+ * \note
+ * The new line character ('\n') is printed after the end of the byte.
+ * 
+ * \param msg is the message to be written.
+ * \param byte is the byte to be written.
  * 
  * \return None
  */
@@ -87,14 +107,23 @@ void debug_PrintByte(const char *msg, uint8_t byte);
 /**
  * \fn debug_UART_Init
  * 
- * \brief Initialization of the debug UART (USCI_A1)
+ * \brief Initialization of the debug UART.
+ * 
+ * UART settings:
+ *      - MCU interface = USCI_A1
+ *      - Baudrate      = 115200 bps
+ *      - Data bits     = 8
+ *      - Parity bit    = None
+ *      - Stop bits     = 1
+ *      .
  * 
  * \return Initialization status. It can be:
  *      - \b STATUS_SUCCESS
  *      - \b STATUS_FAIL
+ *      .
  */
 uint8_t debug_UART_Init();
 
-//! \} End of Debug group
-
 #endif // DEBUG_H_
+
+//! \} End of Debug group

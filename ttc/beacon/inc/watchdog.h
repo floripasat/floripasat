@@ -42,12 +42,12 @@
 /**
  * \fn watchdog_Init
  * 
- * \brief
+ * \brief Initialization of the Watchdog.
  * 
  * \return None
  */
 void watchdog_Init();
 
-//! \} End of Watchdog group
-
 #endif // WATCHDOG_H_
+
+//! \} End of Watchdog group

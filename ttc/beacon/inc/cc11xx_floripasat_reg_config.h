@@ -77,21 +77,20 @@ static const RegistersSettings reg_values[] =
     {CC11XX_IOCFG1,             0xB0},
     {CC11XX_IOCFG0,             0x40},
     {CC11XX_SYNC_CFG1,          0x0B},
-    {CC11XX_MODCFG_DEV_E,       0x0B},  // For 10 dBm output
+    {CC11XX_MODCFG_DEV_E,       0x0B},
     {CC11XX_DCFILT_CFG,         0x1C},
     {CC11XX_IQIC,               0xC6},
     {CC11XX_CHAN_BW,            0x10},
     {CC11XX_MDMCFG0,            0x05},
-//    {CC11XX_AGC_REF,            0x17},
-    {CC11XX_AGC_REF,            0x20},  // For 10 dBm output
+    {CC11XX_AGC_REF,            0x20},
     {CC11XX_AGC_CS_THR,         0x19},
     {CC11XX_AGC_CFG1,           0xA9},
     {CC11XX_AGC_CFG0,           0xCF},
     {CC11XX_FIFO_CFG,           0x00},
-    {CC11XX_SETTLING_CFG,       0x03},  // For 10 dBm output
+    {CC11XX_SETTLING_CFG,       0x03},
     {CC11XX_FS_CFG,             0x14},
     {CC11XX_PKT_CFG0,           0x20},
-    {CC11XX_PA_CFG2,            0x74},  // For 10 dBm output
+    {CC11XX_PA_CFG2,            0x74},
     {CC11XX_PA_CFG0,            0x7E},
     {CC11XX_PKT_LEN,            0xFF},
     {CC11XX_IF_MIX_CFG,         0x00},

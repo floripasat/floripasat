@@ -66,32 +66,32 @@
 #define RF_SWT_CONTROL_PIN      GPIO_PIN5
 
 /**
- * \fn rf_switch_Init()
+ * \fn rf_switch_Init
  * 
- * \brief Initizalization of RF switch control
+ * \brief Initizalization of RF switch control.
  * 
  * \return None
  */
 void rf_switch_Init();
 
 /**
- * \fn rf_switch_Enable()
+ * \fn rf_switch_Enable
  * 
- * \brief Enable beacon TX
+ * \brief Enable beacon TX.
  * 
  * \return None
  */
 void rf_switch_Enable();
 
 /**
- * \fn rf_switch_Disable()
+ * \fn rf_switch_Disable
  * 
- * \brief Disable beacon TX
+ * \brief Disable beacon TX.
  * 
  * \return None
  */
 void rf_switch_Disable();
 
-//! \} End of RFSwitch group
-
 #endif // RF_SWITCH_H_
+
+//! \} End of RFSwitch group
