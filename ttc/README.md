@@ -24,7 +24,7 @@ Block diagram (in the perspecptive of the software, and not actually the real ha
 
 ## CC1175 configuration
 
-For the CC1175 configuration, the [SmartRF Studio](http://www.ti.com/tool/smartrftm-studio) software was used, with the follow configuration:
+For the CC1175 configuration, the [SmartRF Studio](http://www.ti.com/tool/smartrftm-studio) software was used, with the follow settings:
 * Carrier frquency = 437,5 MHz
 * XTAL frequency = 32 MHz
 * Symbol rate = 1,2 ksps
