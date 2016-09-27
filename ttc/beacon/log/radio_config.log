@@ -1,0 +1,885 @@
+*****************************
+ FloripaSat debug mode:
+*****************************
+GPIO_Init()
+SPI_Init()
+	SUCCESS!
+cc11xx_Init()
+cc11xx_RegConfig()
+cc11xx_WriteReg()
+	addr = 0x00
+	pData = 0xB0
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x00
+	pData = 0xB0
+	len = 0x01
+Transmited header byte: 0x40
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x40
+	pData = 0xB0
+	len = 0x01
+Transmited data (Reg. value): 0xB0
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x01
+	pData = 0x06
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x01
+	pData = 0x06
+	len = 0x01
+Transmited header byte: 0x41
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x41
+	pData = 0x06
+	len = 0x01
+Transmited data (Reg. value): 0x06
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x02
+	pData = 0xB0
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x02
+	pData = 0xB0
+	len = 0x01
+Transmited header byte: 0x42
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x42
+	pData = 0xB0
+	len = 0x01
+Transmited data (Reg. value): 0xB0
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x03
+	pData = 0x40
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x03
+	pData = 0x40
+	len = 0x01
+Transmited header byte: 0x43
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x43
+	pData = 0x40
+	len = 0x01
+Transmited data (Reg. value): 0x40
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x08
+	pData = 0x0B
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x08
+	pData = 0x0B
+	len = 0x01
+Transmited header byte: 0x48
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x48
+	pData = 0x0B
+	len = 0x01
+Transmited data (Reg. value): 0x0B
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x0C
+	pData = 0x1C
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x0C
+	pData = 0x1C
+	len = 0x01
+Transmited header byte: 0x4C
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x4C
+	pData = 0x1C
+	len = 0x01
+Transmited data (Reg. value): 0x1C
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x10
+	pData = 0xC6
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x10
+	pData = 0xC6
+	len = 0x01
+Transmited header byte: 0x50
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x50
+	pData = 0xC6
+	len = 0x01
+Transmited data (Reg. value): 0xC6
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x11
+	pData = 0x10
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x11
+	pData = 0x10
+	len = 0x01
+Transmited header byte: 0x51
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x51
+	pData = 0x10
+	len = 0x01
+Transmited data (Reg. value): 0x10
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x13
+	pData = 0x05
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x13
+	pData = 0x05
+	len = 0x01
+Transmited header byte: 0x53
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x53
+	pData = 0x05
+	len = 0x01
+Transmited data (Reg. value): 0x05
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x17
+	pData = 0x17
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x17
+	pData = 0x17
+	len = 0x01
+Transmited header byte: 0x57
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x57
+	pData = 0x17
+	len = 0x01
+Transmited data (Reg. value): 0x17
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x18
+	pData = 0x19
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x18
+	pData = 0x19
+	len = 0x01
+Transmited header byte: 0x58
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x58
+	pData = 0x19
+	len = 0x01
+Transmited data (Reg. value): 0x19
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x1C
+	pData = 0xA9
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x1C
+	pData = 0xA9
+	len = 0x01
+Transmited header byte: 0x5C
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x5C
+	pData = 0xA9
+	len = 0x01
+Transmited data (Reg. value): 0xA9
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x1D
+	pData = 0xCF
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x1D
+	pData = 0xCF
+	len = 0x01
+Transmited header byte: 0x5D
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x5D
+	pData = 0xCF
+	len = 0x01
+Transmited data (Reg. value): 0xCF
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x1E
+	pData = 0x00
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x1E
+	pData = 0x00
+	len = 0x01
+Transmited header byte: 0x5E
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x5E
+	pData = 0x00
+	len = 0x01
+Transmited data (Reg. value): 0x00
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x21
+	pData = 0x14
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x21
+	pData = 0x14
+	len = 0x01
+Transmited header byte: 0x61
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x61
+	pData = 0x14
+	len = 0x01
+Transmited data (Reg. value): 0x14
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x28
+	pData = 0x20
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x28
+	pData = 0x20
+	len = 0x01
+Transmited header byte: 0x68
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x68
+	pData = 0x20
+	len = 0x01
+Transmited data (Reg. value): 0x20
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x2D
+	pData = 0x7E
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x2D
+	pData = 0x7E
+	len = 0x01
+Transmited header byte: 0x6D
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6D
+	pData = 0x7E
+	len = 0x01
+Transmited data (Reg. value): 0x7E
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x2E
+	pData = 0xFF
+	len = 0x01
+cc11xx_8BitRegAccess()
+	access_type = 0x40
+	addr_byte = 0x2E
+	pData = 0xFF
+	len = 0x01
+Transmited header byte: 0x6E
+Chip status: 0x0F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6E
+	pData = 0xFF
+	len = 0x01
+Transmited data (Reg. value): 0xFF
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_8BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x00
+	pData = 0x00
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x00
+	pData = 0x00
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x00
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x00
+	len = 0x01
+Transmited data (Reg. value): 0x00
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x01
+	pData = 0x22
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x01
+	pData = 0x22
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x01
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x22
+	len = 0x01
+Transmited data (Reg. value): 0x22
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x0C
+	pData = 0x6D
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x0C
+	pData = 0x6D
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x0C
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x6D
+	len = 0x01
+Transmited data (Reg. value): 0x6D
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x0D
+	pData = 0x60
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x0D
+	pData = 0x60
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x0D
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x60
+	len = 0x01
+Transmited data (Reg. value): 0x60
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x12
+	pData = 0x00
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x12
+	pData = 0x00
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x12
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x00
+	len = 0x01
+Transmited data (Reg. value): 0x00
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x13
+	pData = 0x5F
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x13
+	pData = 0x5F
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x13
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x5F
+	len = 0x01
+Transmited data (Reg. value): 0x5F
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x17
+	pData = 0x0E
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x17
+	pData = 0x0E
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x17
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x0E
+	len = 0x01
+Transmited data (Reg. value): 0x0E
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x19
+	pData = 0x03
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x19
+	pData = 0x03
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x19
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x03
+	len = 0x01
+Transmited data (Reg. value): 0x03
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x1B
+	pData = 0x33
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x1B
+	pData = 0x33
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x1B
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x33
+	len = 0x01
+Transmited data (Reg. value): 0x33
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x1D
+	pData = 0x17
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x1D
+	pData = 0x17
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x1D
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x17
+	len = 0x01
+Transmited data (Reg. value): 0x17
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x1F
+	pData = 0x50
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x1F
+	pData = 0x50
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x1F
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x50
+	len = 0x01
+Transmited data (Reg. value): 0x50
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x20
+	pData = 0x6E
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x20
+	pData = 0x6E
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x20
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x6E
+	len = 0x01
+Transmited data (Reg. value): 0x6E
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x21
+	pData = 0x14
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x21
+	pData = 0x14
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x21
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x14
+	len = 0x01
+Transmited data (Reg. value): 0x14
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x22
+	pData = 0xAC
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x22
+	pData = 0xAC
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x22
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0xAC
+	len = 0x01
+Transmited data (Reg. value): 0xAC
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x32
+	pData = 0x0E
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x32
+	pData = 0x0E
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x32
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x0E
+	len = 0x01
+Transmited data (Reg. value): 0x0E
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x34
+	pData = 0xC7
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x34
+	pData = 0xC7
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x34
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0xC7
+	len = 0x01
+Transmited data (Reg. value): 0xC7
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+cc11xx_WriteReg()
+	addr = 0x36
+	pData = 0x07
+	len = 0x01
+cc11xx_16BitRegAccess()
+	access_type = 0x40
+	ext_addr = 0x2F
+	reg_addr = 0x36
+	pData = 0x07
+	len = 0x01
+Transmited data (Header byte): 0x6F
+Chip status: 0x0F
+Reg. address: 0x36
+cc11xx_ReadWriteBurstSingle()
+	header = 0x6F
+	pData = 0x07
+	len = 0x01
+Transmited data (Reg. value): 0x07
+End of cc11xx_ReadWriteBurstSingle()
+
+Chip status: 0x0F
+End of cc11xx_16BitRegAccess()
+
+Chip status: 0x0F
+End of cc11xx_WriteReg()
+
+End of cc11xx_RegConfig()
+
+End of cc11xx_Init()
