@@ -1,0 +1,1 @@
+"./ADS1248.obj" "./eps_serial.obj" "./main.obj" "./pid.obj" "../lnk_msp430f249.cmd" -l"libc.a" 
