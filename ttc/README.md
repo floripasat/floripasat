@@ -43,10 +43,6 @@ The step-by-step operation of the beacon is described bellow:
 6. RF power amplifier (PA) activation by setting the gain
 8. Test message transmition ("FloripaSat")
 
-## Dataframe diagram
-
-![dataframe-diagram](doc/dataframe-diagram.png)
-
 ### Debug mode
 
 There is also a debug mode (turned on/off with the DEBUG\_MODE macro in the main file), where all software execution is described through the UART port. Example of output: [Log file](https://github.com/mgm8/floripasat-ttc/blob/master/beacon/log/beacon_tx.log).
@@ -60,6 +56,10 @@ The debug mode can be used with a UART-USB converter (FTDI chip for example) wit
 As a serial port monitor, the following softwares can be used:
 * Linux: [CuteCom](http://cutecom.sourceforge.net/)
 * Windows: [PuTTY](http://www.putty.org/)
+
+## Dataframe diagram
+
+![dataframe-diagram](doc/dataframe-diagram.png)
 
 ## References
 
