@@ -45,7 +45,7 @@ The step-by-step operation of the beacon is described bellow:
 
 ## Dataframe diagram
 
-[dataframe-diagram](doc/dataframe-diagram.png)
+![dataframe-diagram](doc/dataframe-diagram.png)
 
 ### Debug mode
 
