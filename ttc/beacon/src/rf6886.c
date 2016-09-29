@@ -47,6 +47,11 @@ uint8_t rf6886_Init()
 #if DEBUG_MODE == true
     debug_PrintMsg("rf6886_Init()");
 #endif // DEBUG_MODE
+    
+    // Enable PA
+    GPIO_setAsOutputPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
+	GPIO_setOutputLowOnPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
+
     DAC12_A_initParam dac_params = {0};
     
     dac_params.submoduleSelect          = DAC12_A_SUBMODULE_0;
@@ -83,6 +88,8 @@ void rf6886_Enable()
     debug_PrintMsg("rf6886_Enable()");
 #endif // DEBUG_MODE
 
+    GPIO_setOutputHighOnPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
+
     DAC12_A_enableConversions(DAC12_A_BASE, DAC12_A_SUBMODULE_0);
 
 #if DEBUG_MODE == true
@@ -95,6 +102,8 @@ void rf6886_Disable()
 #if DEBUG_MODE == true
     debug_PrintMsg("rf6886_Disable()");
 #endif // DEBUG_MODE
+
+    GPIO_setOutputLowOnPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
 
     DAC12_A_disable(DAC12_A_BASE, DAC12_A_SUBMODULE_0);
     
@@ -119,6 +128,26 @@ void rf6886_SetVreg(uint8_t v_reg)
 
 #if DEBUG_MODE == true
     debug_PrintMsg("End of rf6886_SetVreg()\n");
+#endif // DEBUG_MODE
+}
+
+void rf6886_SetGain(uint8_t gain)
+{
+#if DEBUG_MODE == true
+    debug_PrintMsg("rf6886_SetGain()");
+    debug_PrintByte("\tgain = ", gain);
+#endif // DEBUG_MODE
+
+    uint8_t output_power = 0x30;
+
+#if DEBUG_MODE == true
+    debug_PrintByte("\t Output power [dBm]: ", output_power);
+#endif // DEBUG_MODE
+
+    rf6886_SetVreg(30);
+    
+#ifdef DEBUG_MODE == true
+    debug_PrintMsg("End of rf6886_SetGain()\n");
 #endif // DEBUG_MODE
 }
 

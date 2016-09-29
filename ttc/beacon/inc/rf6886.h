@@ -41,6 +41,10 @@
 
 #include <stdint.h>
 
+// Enable PA pin
+#define ENABLE_PA_PORT      GPIO_PORT_P1
+#define ENABLE_PA_PIN       GPIO_PIN1
+
 #define V_REF 3.3
 
 /**
@@ -107,6 +111,19 @@ void rf6886_Disable();
  * \return None
  */
 void rf6886_SetVreg(uint8_t v_reg);
+
+/**
+ * \fn rf6886_SetGain
+ * 
+ * \brief Sets PA gain.
+ * 
+ * Output power control of the PA (Closed loop).
+ * 
+ * \note Under development!
+ * 
+ * \param gain is the gain of the RF6886 (PA output power in dBm)
+ */
+void rf6886_SetGain(uint8_t gain);
 
 #endif // RF6886_H_
 
