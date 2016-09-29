@@ -1,0 +1,7 @@
+/FreeRTOS/
+/Library/
+/makefile
+/objects.mk
+/sources.mk
+/startup/
+/subdir_vars.mk

@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//Debug/FreeRTOS/portable/CCS/ARM_Cortex-R4/subdir_rules.mk=UTF-8
+encoding//Debug/FreeRTOS/portable/CCS/ARM_Cortex-R4/subdir_vars.mk=UTF-8
+encoding//Debug/FreeRTOS/portable/MemMang/subdir_rules.mk=UTF-8
+encoding//Debug/FreeRTOS/portable/MemMang/subdir_vars.mk=UTF-8
+encoding//Debug/FreeRTOS/subdir_rules.mk=UTF-8
+encoding//Debug/FreeRTOS/subdir_vars.mk=UTF-8
+encoding//Debug/Library/subdir_rules.mk=UTF-8
+encoding//Debug/Library/subdir_vars.mk=UTF-8
+encoding//Debug/makefile=UTF-8
+encoding//Debug/objects.mk=UTF-8
+encoding//Debug/sources.mk=UTF-8
+encoding//Debug/startup/subdir_rules.mk=UTF-8
+encoding//Debug/startup/subdir_vars.mk=UTF-8
+encoding//Debug/subdir_rules.mk=UTF-8
+encoding//Debug/subdir_vars.mk=UTF-8
