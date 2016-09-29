@@ -92,7 +92,7 @@ void main()
         delay_ms(500);
     }
 #else
-    WatchdogInit();
+    //watchdog_Init();      // Todo: Fix watchdog
 #endif // DEBUG_MODE
     
     GPIO_Init();
