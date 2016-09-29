@@ -1,36 +1,158 @@
 #include "fsat_tasks.h"
 
-void prvLedTask( void *pvParameters )
+void prvIMUTask( void *pvParameters )
 {
+    char data[31] = "123456789 imu__data 987654321-";
+    int lenght = 0;
+
+    //just for example
+    static int cont = 0;
+    int i;
+
     while(1)
     {
-        /* Block for 1000 milliseconds (1Hz) so this task does not utilise all the CPU
-        time and debouncing of the button is not necessary. */
-        vTaskDelay( 1000 / portTICK_PERIOD_MS );
+        lenght = 0;
+        for(i = 0;i < IMU_DATA_LENGHT; i++)
+        {
+            imu_data[i] = data[cont];
+            cont = (cont+1)%(sizeof(data)-1);
+            lenght++;
+        }
 
-        if( ( LED_PORT_OUT & LED_1 ) == 0 )
-        {
-            LED_PORT_OUT |= LED_1;
-        }
-        else
-        {
-            LED_PORT_OUT &= ~LED_1;
-        }
+        /* before send, assert that the package has the correct lenght */
+        configASSERT(lenght == IMU_DATA_LENGHT);
+
+        #if VERIFY_BEFORE_SEND == 1
+        data_flags |= IMU_FLAG;
+        #endif
+
+        //F = 1Hz
+        vTaskDelay( 1000 / portTICK_PERIOD_MS );
     }
 }
 
-void prvUartTask( void *pvParameters )
+void prvEPSTask( void *pvParameters )
 {
-    char data = 0;
+    char data[33] = "EPS_MESSAGE:    DONT USE ENERGY!";
+    int lenght = 0;
+    //just for example
+    static int cont = 0;
+    int i;
+
     while(1)
     {
-        /* Block for 500 milliseconds (2Hz) so this task does not utilise all the CPU
-        time and debouncing of the button is not necessary. */
-        vTaskDelay( 500 / portTICK_PERIOD_MS );
+        lenght = 0;
+        for(i = 0;i < EPS_DATA_LENGHT; i++)
+        {
+            eps_data[i] = data[cont];
+            cont = (cont+1)%(sizeof(data)-1);
+            lenght++;
+        }
 
-        while (!(UCA2IFG & UCTXIFG));             // USCI_A0 TX buffer ready?
-        UCA2TXBUF = data + 'a';
-        data = (data + 1) % ('z' - 'a' + 1); //just to print abc...xyzabc...
+        /* before send, assert that the package has the correct lenght */
+        configASSERT(lenght == EPS_DATA_LENGHT);
+
+        #if VERIFY_BEFORE_SEND == 1
+        data_flags |= EPS_FLAG;
+        #endif
+        //F = 1Hz
+        vTaskDelay( 1000 / portTICK_PERIOD_MS );
+    }
+}
+
+void prvTTCTask( void *pvParameters )
+{
+    char data[31] = "ttc_data:  OK, I'm here yet...";
+    int lenght = 0;
+    //just for example
+    static int cont = 0;
+    int i;
+
+    while(1)
+    {
+        lenght = 0;
+        for(i = 0;i < TTC_DATA_LENGHT; i++)
+        {
+            ttc_data[i] = data[cont];
+            cont = (cont+1)%(sizeof(data)-1);
+            lenght++;
+        }
+
+        /* before send, assert that the package has the correct lenght */
+        configASSERT(lenght == TTC_DATA_LENGHT);
+
+        #if VERIFY_BEFORE_SEND == 1
+        data_flags |= TTC_FLAG;
+        #endif
+
+        //F = 1Hz
+        vTaskDelay( 1000 / portTICK_PERIOD_MS );
+    }
+}
+
+void prvSendUartTask( void *pvParameters )
+{
+    static char uart_package[UART_PACKAGE_LENGHT];
+    int i, cont;
+
+    while(1)
+    {
+        cont = 0;
+        /* assemble the package */
+        #if VERIFY_BEFORE_SEND == 1
+        if(data_flags & EPS_FLAG)
+        #endif
+        for(i = 0;i < EPS_DATA_LENGHT; i++)
+        {
+            uart_package[i+cont] = eps_data[i];
+        }
+        cont += EPS_DATA_LENGHT; //proceed in the next positions on the package
+        #if VERIFY_BEFORE_SEND == 1
+        if(data_flags & IMU_FLAG)
+        #endif
+        for(i = 0;i < IMU_DATA_LENGHT; i++)
+        {
+            uart_package[i+cont] = imu_data[i];
+        }
+        cont += IMU_DATA_LENGHT; //proceed in the next positions on the package
+        #if VERIFY_BEFORE_SEND == 1
+        if(data_flags & TTC_FLAG)
+        #endif
+        for(i = 0;i < TTC_DATA_LENGHT; i++)
+        {
+            uart_package[i+cont] = ttc_data[i];
+        }
+        cont += TTC_DATA_LENGHT;
+
+        /* assert that the package has the correct lenght (no module was forgotten */
+        configASSERT(cont == UART_PACKAGE_LENGHT);
+
+
+        #if VERIFY_BEFORE_SEND == 1
+        if(data_flags) //if has any new message
+        {
+        #endif
+        /* send package */
+        for(i = 0;i < UART_PACKAGE_LENGHT; i++)
+        {
+            while (!(UCA2IFG & UCTXIFG));             // USCI_A0 TX buffer ready?
+            UCA2TXBUF = uart_package[i];
+        }
+
+        while (!(UCA2IFG & UCTXIFG));
+        UCA2TXBUF = 13; //put a new line
+        while (!(UCA2IFG & UCTXIFG));
+        UCA2TXBUF = 10; //put a new line
+
+        #if VERIFY_BEFORE_SEND == 1
+        }
+        #endif
+
+        #if VERIFY_BEFORE_SEND == 1
+        data_flags = 0;
+        #endif
+        //F = 0.5Hz
+        vTaskDelay( 500 / portTICK_PERIOD_MS );
     }
 }
 
@@ -45,6 +167,10 @@ void prvSetupUart( void )
     UCA2MCTL = UCBRS_0 | UCBRF_13 | UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
                                                 // over sampling
     UCA2CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+
+    #if VERIFY_BEFORE_SEND == 1
+    data_flags = 0;
+    #endif
 }
 
 
