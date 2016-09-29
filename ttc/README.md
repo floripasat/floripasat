@@ -16,10 +16,6 @@ Main characteristics of the beacon submodule:
 * All MCU peripherals are controlled with the ["MSP Driver Library"](http://www.ti.com/tool/mspdriverlib) library, also know as ["DriverLib"](http://www.ti.com/tool/mspdriverlib).
 * All software was developed in the [Code Composer Studio IDE](http://www.ti.com/tool/ccstudio) (version 6.1.3).
 
-[//]: # (## Block diagram Software
-Block diagram in the perspecptive of the software, and not actually the real hardware
-[beacon-bd](doc/block-diagram.png)> )
-
 ## CC1175 configuration
 
 For the CC1175 configuration, the [SmartRF Studio](http://www.ti.com/tool/smartrftm-studio) software was used, with the follow settings:
@@ -29,7 +25,7 @@ For the CC1175 configuration, the [SmartRF Studio](http://www.ti.com/tool/smartr
 * Deviation = 3,997803 (~= 4)
 * Modulation = 2-GFSK
 * RX filter bandwidth = 12,5 kHz
-* TX power = 15 dBm
+* TX power = 10 dBm
 
 ## Beacon operation
 
@@ -59,7 +55,7 @@ As a serial port monitor, the following softwares can be used:
 
 ## Dataframe diagram
 
-![dataframe-diagram](doc/dataframe-diagram.png)
+![dataframe-diagram](https://raw.githubusercontent.com/mariobaldini/floripasat/master/ttc/doc/dataframe-diagram.png)
 
 ## References
 
