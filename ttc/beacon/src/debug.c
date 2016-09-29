@@ -46,7 +46,14 @@ uint8_t debug_Init()
     }
     else
     {
-        char debug_msg[] = "*****************************\n FloripaSat debug mode:\n*****************************\n";
+        char debug_msg[] = "FloripaSat-TTC Copyright (C) 2016, Universidade Federal de Santa Catarina;\n"
+                           "This program comes with ABSOLUTELY NO WARRANTY.\n"
+                           "This is free software, and you are welcome to redistribute it\n"
+                           "under certain conditions.\n\n"
+                           "Source code: https://github.com/mariobaldini/floripasat/tree/master/ttc\n"
+                           "Documentation: http://fsat-server.duckdns.org:8000/ttc\n\n"
+                           "FloripaSat debug mode:\n"
+                           "*************************************\n";
         uint8_t i = 0;
         for(i=0;i<sizeof(debug_msg)-1;i++)
         {

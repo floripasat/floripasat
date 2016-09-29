@@ -57,9 +57,16 @@
  * After the UART initialization, to show if the debug mode is
  * working, the follow message is transmitted:
  * 
- * *****************************\n
- *  FloripaSat debug mode:\n
- * *****************************\n
+ * FloripaSat-TTC Copyright (C) 2016, Universidade Federal de Santa Catarina;
+ * This program comes with ABSOLUTELY NO WARRANTY.
+ * This is free software, and you are welcome to redistribute it
+ * under certain conditions.
+ * 
+ * Source code: https://github.com/mariobaldini/floripasat/tree/master/ttc
+ * Documentation: http://fsat-server.duckdns.org:8000/ttc
+ * 
+ * FloripaSat debug mode:
+ * *************************************
  * 
  * \return UART initialization status. It can be:
  *      - \b STATUS_SUCCES
