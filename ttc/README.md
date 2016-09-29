@@ -16,10 +16,8 @@ Main characteristics of the beacon submodule:
 * All MCU peripherals are controlled with the ["MSP Driver Library"](http://www.ti.com/tool/mspdriverlib) library, also know as ["DriverLib"](http://www.ti.com/tool/mspdriverlib).
 * All software was developed in the [Code Composer Studio IDE](http://www.ti.com/tool/ccstudio) (version 6.1.3).
 
-[//]: # (## Block diagram (Software)
-
-Block diagram (in the perspecptive of the software, and not actually the real hardware )
-
+[//]: # (## Block diagram Software
+Block diagram in the perspecptive of the software, and not actually the real hardware
 [beacon-bd](doc/block-diagram.png)> )
 
 ## CC1175 configuration
@@ -44,6 +42,10 @@ The step-by-step operation of the beacon is described bellow:
 5. RF switch selection (beacon transmition)
 6. RF power amplifier (PA) activation by setting the gain
 8. Test message transmition ("FloripaSat")
+
+## Dataframe diagram
+
+[dataframe-diagram](doc/dataframe-diagram.png)
 
 ### Debug mode
 
