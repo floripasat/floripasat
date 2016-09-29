@@ -6,12 +6,14 @@
 int main(void) {
 
     prvSetupHardware();
-    static xTaskHandle led1Blink;
+    static xTaskHandle epsTask, imuTask, ttcTask;
     static xTaskHandle uartSend;
 
 
-    xTaskCreate( prvLedTask, "Led1Blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &led1Blink );
-    xTaskCreate( prvUartTask, "UartSend", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &uartSend );
+    xTaskCreate( prvEPSTask, "EPS", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &epsTask );
+    xTaskCreate( prvIMUTask, "IMU", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &imuTask );
+    xTaskCreate( prvTTCTask, "TTC", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &ttcTask );
+    xTaskCreate( prvSendUartTask, "UartSend", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &uartSend );
 
     vTaskStartScheduler();
 
