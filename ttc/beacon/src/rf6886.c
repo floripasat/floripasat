@@ -47,10 +47,6 @@ uint8_t rf6886_Init()
 #if DEBUG_MODE == true
     debug_PrintMsg("rf6886_Init()");
 #endif // DEBUG_MODE
-    
-    // Enable PA
-    GPIO_setAsOutputPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
-	GPIO_setOutputLowOnPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
 
     DAC12_A_initParam dac_params = {0};
     
@@ -58,7 +54,7 @@ uint8_t rf6886_Init()
     dac_params.outputSelect             = DAC12_A_OUTPUT_1;
     dac_params.positiveReferenceVoltage = DAC12_A_VREF_AVCC;
     dac_params.outputVoltageMultiplier  = DAC12_A_VREFx1;
-    dac_params.amplifierSetting         = DAC12_A_AMP_OFF_PINOUTHIGHZ;
+    dac_params.amplifierSetting         = DAC12_A_AMP_MEDIN_MEDOUT;
     dac_params.conversionTriggerSelect  = DAC12_A_TRIGGER_ENC;
     
     if (DAC12_A_init(DAC12_A_BASE, &dac_params) == STATUS_FAIL)
@@ -88,8 +84,6 @@ void rf6886_Enable()
     debug_PrintMsg("rf6886_Enable()");
 #endif // DEBUG_MODE
 
-    GPIO_setOutputHighOnPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
-
     DAC12_A_enableConversions(DAC12_A_BASE, DAC12_A_SUBMODULE_0);
 
 #if DEBUG_MODE == true
@@ -103,8 +97,6 @@ void rf6886_Disable()
     debug_PrintMsg("rf6886_Disable()");
 #endif // DEBUG_MODE
 
-    GPIO_setOutputLowOnPin(ENABLE_PA_PORT, ENABLE_PA_PIN);
-
     DAC12_A_disable(DAC12_A_BASE, DAC12_A_SUBMODULE_0);
     
 #if DEBUG_MODE == true
@@ -112,14 +104,13 @@ void rf6886_Disable()
 #endif // DEBUG_MODE
 }
 
-void rf6886_SetVreg(uint8_t v_reg)
+void rf6886_SetVreg(float v_reg)
 {
 #if DEBUG_MODE == true
     debug_PrintMsg("rf6886_Init()");
-    debug_PrintByte("\t v_reg = ", v_reg);
+//    debug_PrintByte("\t v_reg = ", v_reg);    // debug_PrintByte() only prints integers
 #endif // DEBUG_MODE
 
-    v_reg /= 10;
     // 12 bits = 0xFFF
     // V_REF = 0xFFF
     // v_reg = data
@@ -144,7 +135,7 @@ void rf6886_SetGain(uint8_t gain)
     debug_PrintByte("\t Output power [dBm]: ", output_power);
 #endif // DEBUG_MODE
 
-    rf6886_SetVreg(30);
+    rf6886_SetVreg(3.1);
     
 #ifdef DEBUG_MODE == true
     debug_PrintMsg("End of rf6886_SetGain()\n");

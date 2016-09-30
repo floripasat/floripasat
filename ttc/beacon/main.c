@@ -124,7 +124,7 @@ void main()
     // Beacon PA initialization
     rf6886_Init();
 
-    rf6886_SetVreg(3*10);   // DAC output = 3V (30/10=3)
+    rf6886_SetVreg(3);   // DAC output = 3V
 
     rf6886_Enable();
 
@@ -166,7 +166,7 @@ void main()
 /**
  * \fn GPIO_Init
  * 
- * \brief Initialization of the GPIO (Led, antenna deplyment, etc.).
+ * \brief Initialization of the GPIO (Led, antenna deployment, etc.).
  * 
  * \return None
  */

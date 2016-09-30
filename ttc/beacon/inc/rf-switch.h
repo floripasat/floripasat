@@ -70,6 +70,8 @@
  * 
  * \brief Initizalization of RF switch control.
  * 
+ * The RF Switch initializes low.
+ * 
  * \return None
  */
 void rf_switch_Init();

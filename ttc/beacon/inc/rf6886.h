@@ -41,11 +41,7 @@
 
 #include <stdint.h>
 
-// Enable PA pin
-#define ENABLE_PA_PORT      GPIO_PORT_P1
-#define ENABLE_PA_PIN       GPIO_PIN1
-
-#define V_REF 3.3
+#define V_REF 3.3       /**< Reference volatge (Vcc) */
 
 /**
  * \fn rf6886_Init()
@@ -104,13 +100,26 @@ void rf6886_Disable();
 /**
  * \fn rf6886_SetVreg()
  * 
- * \brief 
+ * \brief RF6886 Vreg1/2 voltage.
  * 
- * \param v_reg (V_reg1/2 *10)
+ * This function sets the DAC output voltage.
+ * It converts an input voltage (input of the function)
+ * to a 12 bit integer, using a reference voltage (Vcc in this case).
+ * V_ref = 0xFFF
+ * -----   -----    --->  x = 0xFFF*V_reg/V_ref
+ * V_reg     x
+ * 
+ * \note
+ * Example:
+ * V_ref = 3,3V
+ * V_reg = 1,5V
+ * x = 0x745
+ * 
+ * \param v_reg is the DAC output voltage,
  * 
  * \return None
  */
-void rf6886_SetVreg(uint8_t v_reg);
+void rf6886_SetVreg(float v_reg);
 
 /**
  * \fn rf6886_SetGain
@@ -119,7 +128,8 @@ void rf6886_SetVreg(uint8_t v_reg);
  * 
  * Output power control of the PA (Closed loop).
  * 
- * \note Under development!
+ * \note
+ * Under development!
  * 
  * \param gain is the gain of the RF6886 (PA output power in dBm)
  */
