@@ -44,17 +44,14 @@
 // Turn on/off debug mode
 #define DEBUG_MODE true
 
-// Turn on/off PA
-#define PA_TEST false
-
 #if DEBUG_MODE == true
 #include "inc/debug.h"
 #endif // DEBUG_MODE
 
 #include "inc/watchdog.h"
 #include "inc/cc11xx.h"
-//#include "inc/rf-switch.h"
-//#include "inc/rf6886.h"
+#include "inc/rf-switch.h"
+#include "inc/rf6886.h"
 //#include "inc/uart-eps.h"
 #include "inc/delay.h"
 
@@ -119,18 +116,23 @@ void main()
 
     // Calibrate radio (See "CC112X, CC1175 Silicon Errata")
     cc11xx_ManualCalibration();
-/*    
-#if PA_TEST == true
+ 
     // Beacon PA initialization
-    rf6886_Init();
-
-    rf6886_SetVreg(3);   // DAC output = 3V
+    while(rf6886_Init() != STATUS_SUCCESS)
+    {
+        // Blinking system LED if something is wrong
+        GPIO_toggleOutputOnPin(BEACON_STATUS_LED_PORT, BEACON_STATUS_LED_PIN);
+        delay_ms(1500);
+    }
 
     rf6886_Enable();
 
+    rf6886_SetVreg(3.1);   // DAC output = 3,1V
+
     rf_switch_Init();
-#endif // PA_TEST
-*/
+    
+    rf_switch_Enable();
+
     // Infinite loop
     while(1)
     {
