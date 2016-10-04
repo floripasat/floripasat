@@ -41,6 +41,10 @@
 
 #include <stdint.h>
 
+#ifndef DEBUG_MODE
+#define DEBUG_MODE true
+#endif // DEBUG_MODE
+
 #define V_REF 3.3       /**< Reference volatge (Vcc) */
 
 /**
