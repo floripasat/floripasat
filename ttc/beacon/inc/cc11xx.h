@@ -41,6 +41,10 @@
 
 #include <stdint.h>
 
+#ifndef DEBUG_MODE
+#define DEBUG_MODE true
+#endif // DEBUG_MODE
+
 /**
  * \defgroup pins CC1175 pins
  * \ingroup cc1175
