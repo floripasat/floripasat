@@ -99,7 +99,7 @@
 #define configTICK_RATE_HZ				( ( TickType_t ) 1000 ) //the bigger, more overload
 #define configMAX_PRIORITIES			( 5 )
 #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 10 * 1024 ) )
-#define configMAX_TASK_NAME_LEN			( 10 )
+#define configMAX_TASK_NAME_LEN			( 20 )
 #define configUSE_TRACE_FACILITY		0
 #define configUSE_16_BIT_TICKS			0 //1 - 65.536 (16 bit)counter  /  0 - 4.294.967.296 (32 bit)counter
 #define configIDLE_SHOULD_YIELD			0 //overload
@@ -113,7 +113,7 @@
 #define configUSE_COUNTING_SEMAPHORES	1
 
 #ifdef __LARGE_DATA_MODEL__
-	#define configMINIMAL_STACK_SIZE		( ( unsigned short ) 80 )
+	#define configMINIMAL_STACK_SIZE		( ( unsigned short ) 200 )
 #else
 	#define configMINIMAL_STACK_SIZE		( ( unsigned short ) 120 )
 #endif
@@ -138,6 +138,8 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
 
+#define INCLUDE_uxTaskGetStackHighWaterMark 1
+
 /* The MSP430X port uses a callback function to configure its tick interrupt.
 This allows the application to choose the tick interrupt source.
 configTICK_VECTOR must also be set in FreeRTOSConfig.h to the correct interrupt
@@ -147,6 +149,7 @@ case configTICK_VECTOR is set to TIMER0_A0_VECTOR. */
 #define configTICK_VECTOR				TIMER0_A0_VECTOR
 
 #define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+
 
 #endif /* FREERTOS_CONFIG_H */
 

@@ -9,16 +9,24 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./main.obj" \
-"./FreeRTOSSource/croutine.obj" \
-"./FreeRTOSSource/event_groups.obj" \
-"./FreeRTOSSource/list.obj" \
-"./FreeRTOSSource/queue.obj" \
-"./FreeRTOSSource/tasks.obj" \
-"./FreeRTOSSource/timers.obj" \
-"./FreeRTOSSource/portable/CCS/MSP430X/port.obj" \
-"./FreeRTOSSource/portable/CCS/MSP430X/portext.obj" \
-"./FreeRTOSSource/portable/MemMang/heap_1.obj" \
+"./FreeRTOS/croutine.obj" \
+"./FreeRTOS/event_groups.obj" \
+"./FreeRTOS/list.obj" \
+"./FreeRTOS/queue.obj" \
+"./FreeRTOS/tasks.obj" \
+"./FreeRTOS/timers.obj" \
+"./FreeRTOS/portable/CCS/MSP430X/port.obj" \
+"./FreeRTOS/portable/CCS/MSP430X/portext.obj" \
+"./FreeRTOS/portable/MemMang/heap_4.obj" \
 "./Fsat/fsat_tasks.obj" \
+"./hal/adc.obj" \
+"./hal/uart.obj" \
+"./interface/adc_temp_task.obj" \
+"./interface/eps_task.obj" \
+"./interface/imu_task.obj" \
+"./interface/ttc_task.obj" \
+"./interface/uart_task.obj" \
+"./util/misc.obj" \
 "../lnk_msp430f6659.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibmath.a \
@@ -32,15 +40,21 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
--include FreeRTOSSource/subdir_vars.mk
--include FreeRTOSSource/portable/CCS/MSP430X/subdir_vars.mk
--include FreeRTOSSource/portable/MemMang/subdir_vars.mk
+-include FreeRTOS/subdir_vars.mk
+-include FreeRTOS/portable/CCS/MSP430X/subdir_vars.mk
+-include FreeRTOS/portable/MemMang/subdir_vars.mk
 -include Fsat/subdir_vars.mk
+-include hal/subdir_vars.mk
+-include interface/subdir_vars.mk
+-include util/subdir_vars.mk
 -include subdir_rules.mk
--include FreeRTOSSource/subdir_rules.mk
--include FreeRTOSSource/portable/CCS/MSP430X/subdir_rules.mk
--include FreeRTOSSource/portable/MemMang/subdir_rules.mk
+-include FreeRTOS/subdir_rules.mk
+-include FreeRTOS/portable/CCS/MSP430X/subdir_rules.mk
+-include FreeRTOS/portable/MemMang/subdir_rules.mk
 -include Fsat/subdir_rules.mk
+-include hal/subdir_rules.mk
+-include interface/subdir_rules.mk
+-include util/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -156,7 +170,7 @@ all: obdh_v2.out
 obdh_v2.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MSP430 Linker'
-	"/home/elder/ti/ccsv6/tools/compiler/ti-cgt-msp430_16.6.0.STS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --define=__MSP430F6659__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 -z -m"obdh_v2.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"/home/elder/ti/ccsv6/ccs_base/msp430/include" -i"/home/elder/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"/home/elder/ti/ccsv6/tools/compiler/ti-cgt-msp430_16.6.0.STS/lib" -i"/home/elder/ti/ccsv6/tools/compiler/ti-cgt-msp430_16.6.0.STS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="obdh_v2_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "obdh_v2.out" $(ORDERED_OBJS)
+	"/home/elder/ti/ccsv6/tools/compiler/ti-cgt-msp430_16.6.0.STS/bin/cl430" -vmspx --data_model=large --use_hw_mpy=F5 --advice:power="all" --define=__MSP430F6659__ -g --c99 --printf_support=full --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 -z -m"obdh_v2.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"/home/elder/ti/ccsv6/ccs_base/msp430/include" -i"/home/elder/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"/home/elder/ti/ccsv6/tools/compiler/ti-cgt-msp430_16.6.0.STS/lib" -i"/home/elder/ti/ccsv6/tools/compiler/ti-cgt-msp430_16.6.0.STS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="obdh_v2_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "obdh_v2.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -169,9 +183,9 @@ obdh_v2.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "main.d" "FreeRTOSSource/croutine.d" "FreeRTOSSource/event_groups.d" "FreeRTOSSource/list.d" "FreeRTOSSource/queue.d" "FreeRTOSSource/tasks.d" "FreeRTOSSource/timers.d" "FreeRTOSSource/portable/CCS/MSP430X/port.d" "FreeRTOSSource/portable/MemMang/heap_1.d" "Fsat/fsat_tasks.d" 
-	-$(RM) "main.obj" "FreeRTOSSource/croutine.obj" "FreeRTOSSource/event_groups.obj" "FreeRTOSSource/list.obj" "FreeRTOSSource/queue.obj" "FreeRTOSSource/tasks.obj" "FreeRTOSSource/timers.obj" "FreeRTOSSource/portable/CCS/MSP430X/port.obj" "FreeRTOSSource/portable/CCS/MSP430X/portext.obj" "FreeRTOSSource/portable/MemMang/heap_1.obj" "Fsat/fsat_tasks.obj" 
-	-$(RM) "FreeRTOSSource/portable/CCS/MSP430X/portext.d" 
+	-$(RM) "main.d" "FreeRTOS/croutine.d" "FreeRTOS/event_groups.d" "FreeRTOS/list.d" "FreeRTOS/queue.d" "FreeRTOS/tasks.d" "FreeRTOS/timers.d" "FreeRTOS/portable/CCS/MSP430X/port.d" "FreeRTOS/portable/MemMang/heap_4.d" "Fsat/fsat_tasks.d" "hal/adc.d" "hal/uart.d" "interface/adc_temp_task.d" "interface/eps_task.d" "interface/imu_task.d" "interface/ttc_task.d" "interface/uart_task.d" "util/misc.d" 
+	-$(RM) "main.obj" "FreeRTOS/croutine.obj" "FreeRTOS/event_groups.obj" "FreeRTOS/list.obj" "FreeRTOS/queue.obj" "FreeRTOS/tasks.obj" "FreeRTOS/timers.obj" "FreeRTOS/portable/CCS/MSP430X/port.obj" "FreeRTOS/portable/CCS/MSP430X/portext.obj" "FreeRTOS/portable/MemMang/heap_4.obj" "Fsat/fsat_tasks.obj" "hal/adc.obj" "hal/uart.obj" "interface/adc_temp_task.obj" "interface/eps_task.obj" "interface/imu_task.obj" "interface/ttc_task.obj" "interface/uart_task.obj" "util/misc.obj" 
+	-$(RM) "FreeRTOS/portable/CCS/MSP430X/portext.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -5,7 +5,7 @@
  */
 int main(void) {
 
-    prvSetupHardware();
+    vSetupHardware();
     static xTaskHandle epsTask, imuTask, ttcTask;
     static xTaskHandle uartSend;
 
@@ -13,7 +13,8 @@ int main(void) {
     xTaskCreate( prvEPSTask, "EPS", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &epsTask );
     xTaskCreate( prvIMUTask, "IMU", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &imuTask );
     xTaskCreate( prvTTCTask, "TTC", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &ttcTask );
-    xTaskCreate( prvSendUartTask, "UartSend", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &uartSend );
+    xTaskCreate( prvReadTempTask, "TEMP_SENS", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, NULL );
+    xTaskCreate( prvSendUartTask, "UartSend", 4*configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &uartSend );
 
     vTaskStartScheduler();
 

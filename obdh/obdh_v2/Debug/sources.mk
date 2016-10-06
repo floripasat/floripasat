@@ -112,8 +112,11 @@ S64_DEPS__QUOTED :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 . \
-FreeRTOSSource \
-FreeRTOSSource/portable/CCS/MSP430X \
-FreeRTOSSource/portable/MemMang \
+FreeRTOS \
+FreeRTOS/portable/CCS/MSP430X \
+FreeRTOS/portable/MemMang \
 Fsat \
+hal \
+interface \
+util \
 
