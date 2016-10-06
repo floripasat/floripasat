@@ -31,11 +31,14 @@ void UART_TX(char * tx_data) ;
 void float_send(float c);
 void Text(void);
 void clear_V(void);
+unsigned char* aligned_right(unsigned char* data);
 
 //task scheduler functions
 void task_scheduler(void);
 
 //define
+
+#define intStringSize 7
 
 #define P_1WireOUT P1OUT
 #define P_1WireIN P1IN
@@ -72,7 +75,6 @@ volatile int acr_lsb=0x00;
 
 volatile unsigned int RG_Protection;
 
-
 volatile int cont = 0;
 
 volatile float current[28] = {0};
@@ -91,6 +93,7 @@ volatile unsigned int count = 0;
 volatile unsigned int LCA = 0;	// variable used to determine the load current action
 volatile float accumulated_current= 0; //variable used to save the battery accumulated current value
 
+volatile unsigned char string[intStringSize];
 
 /*************************************************************************/
 //                        main
@@ -134,7 +137,7 @@ void __attribute__ ((interrupt(TIMERA0_VECTOR))) Timer_A (void)
 
 
 
- if(cont==27){
+ if(cont==40){
 
 		measurement_data_DS2784();
 		int i;
@@ -735,11 +738,13 @@ void Text(void){
 
 */
     //Average Current
+    /*
     volatile int sinal=0;
     sinal= cr_msb & 0x80;
     if (sinal == 0x00){
     	  a=  avc_lsb;
     	  b=  avc_msb;
+    	  UART_TX("+");
     }
     else{
     	  if (sinal == 0x80){
@@ -749,7 +754,7 @@ void Text(void){
     	         UART_TX("-");
     	    }
     }
-
+	*/
     b=b<<8;
     a=a+b;
     c=a*0.0000015625/0.050;    //resolution
@@ -781,11 +786,13 @@ void Text(void){
 
 
     //Current
+    /*
     sinal=0;
     sinal= cr_msb & 0x80;
     if (sinal == 0x00){
     	b= cr_msb;
     	a= cr_lsb;
+    	UART_TX("+");
     }
     if (sinal == 0x80){
       b= ~cr_msb;
@@ -793,6 +800,7 @@ void Text(void){
       a &= 255;
       UART_TX("-");
     }
+    */
     b=b<<8;
     a=a+b;
     c=a*0.0000015625/0.050;    //resolution
@@ -844,9 +852,21 @@ void Text(void){
 void float_send(float c){
 
     volatile long int d;
-	volatile  unsigned int hundreds, tens, units, tenths, hundredths, thousandths, tenthousandths,thousandth, ten_thousandths;
+	volatile long hundreds, tens, units, tenths, hundredths, thousandths, tenthousandths,thousandth, ten_thousandths;
 	volatile long int remainder;
-    unsigned char string[30];
+    volatile unsigned char string2[7];
+    volatile unsigned char *string3;
+
+
+    if(c < 0)
+    {
+    	UART_TX("-");
+    	c = -c;
+    }
+    else
+    {
+    	UART_TX("+");
+    }
 
     c *= 10000;
     d = (long int)c;
@@ -861,15 +881,15 @@ void float_send(float c){
     thousandth = remainder/10;
 	remainder = remainder -thousandth*10;
 	ten_thousandths=remainder;
-    sprintf(string, "%d%d.%d%d%d%d", tens, units, tenths, hundredths,thousandth,ten_thousandths);
-    aligned_right(string);
-	UART_TX(string);
+    sprintf(string2, "%ld%ld.%ld%ld%ld%ld", tens, units, tenths, hundredths,thousandth,ten_thousandths);
+    string3 = aligned_right(string2);
+	UART_TX(string3);
 
 }
 
 /************************************************************************/
 /*  - name: UART_TX
- *  - Description:
+ *  - Descript ion:
  *  - input data:
  *  - output data:
  ***********************************************************************/
@@ -1000,19 +1020,19 @@ void task_scheduler(void){
 }
 
 unsigned char* aligned_right(unsigned char* data){
-	int i,j;
-	int n = 1;
-	unsigned char string[intStringSize];
+	volatile int i,j;
+	volatile int n = 1;
+
+
 
 	//copping data to string
-	for(i=0; i < intStringSize;i++)
+ 	for(i=0; i < intStringSize;i++)
 		string[i]= data[i];
 
 	//discovering the index
-	for(i=0; i < intStringSize;i++){
+	for(i=0; i <= intStringSize;i++){
 		if (string[i]==NULL){
 			j=i;
-			break;
 		}
 	}
 	//shifting to right
@@ -1024,5 +1044,6 @@ unsigned char* aligned_right(unsigned char* data){
 	for(i=intStringSize - j - 1;i>=0;i--)
 		string[i]=' ';
 
-	return string;
+	return(string);
+
 }
