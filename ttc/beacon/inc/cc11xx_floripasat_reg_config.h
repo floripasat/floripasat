@@ -64,7 +64,7 @@ typedef struct
  *      - Deviation            = 3,997803 (~= 4)
  *      - Modulation           = 2-GFSK
  *      - RX filter bandwidth  = 12,5 kHz
- *      - TX power             = 15 dBm
+ *      - TX power             = 10 dBm
  *      .
  * 
  * All values obtained from SmartRF Studio.
@@ -87,10 +87,8 @@ static const RegistersSettings reg_values[] =
     {CC11XX_AGC_CFG1,           0xA9},
     {CC11XX_AGC_CFG0,           0xCF},
     {CC11XX_FIFO_CFG,           0x00},
-    {CC11XX_SETTLING_CFG,       0x03},
     {CC11XX_FS_CFG,             0x14},
     {CC11XX_PKT_CFG0,           0x20},
-    {CC11XX_PA_CFG2,            0x74},
     {CC11XX_PA_CFG0,            0x7E},
     {CC11XX_PKT_LEN,            0xFF},
     {CC11XX_IF_MIX_CFG,         0x00},
