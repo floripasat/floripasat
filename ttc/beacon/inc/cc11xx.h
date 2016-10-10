@@ -374,6 +374,101 @@
 //! \} End of cal_macros
 
 /**
+ * \defgroup gpio_signals GPIO signals
+ * \ingroup cc1175
+ * 
+ * \brief GPIO signals.
+ * 
+ * Reference: CC112x/CC1175 User's Guide Table 10
+ * 
+ * \{
+ */
+#define CC11XX_GPIOX_ATRAN_STD_DIG_PAD  0x00    /**< Analog transfer enable: Standard digital pad. */
+#define CC11XX_GPIOX_ATRAN_PAD_ANL_MODE 0x80    /**< Analog transfer enable: Pad in analog mode (digital GPIO input and output disabled). */
+#define CC11XX_GPIOX_INV_DISABLE        0x00    /**< Invert output enable: Invert output disabled. */
+#define CC11XX_GPIOX_INV_ENABLE         0x80    /**< Invert output enable: Invert output enable. */
+
+//-- GPIOX_CFG -----------------------------
+#define CC11XX_RXFIFO_THR               0x00    /**< Associated to the RX FIFO. Asserted when the RX FIFO is filled above FIFO_CFG.FIFO_THR. De-asserted when the RX FIFO is drained below (or is equal) to the same threshold. This signal is also available in the MODEM_STATUS1 register. */
+#define CC11XX_RXFIFO_THR_PKT           0x01    /**< Associated to the RX FIFO. Asserted when the RX FIFO is filled above FIFO_CFG.FIFO_THR or the end of packet is reached. De-asserted when the RX FIFO is empty. */
+#define CC11XX_TXFIFO_THR               0x02    /**< Associated to the TX FIFO. Asserted when the TX FIFO is filled above (or is equal to) (127 −FIFO_CFG.FIFO_THR). De-asserted when the TXFIFO is drained below the same threshold. This signal is also available in the MODEM_STATUS0 register. */
+#define CC11XX_TXFIFO_THR_PKT           0x03    /**< Associated to the TX FIFO. Asserted when the TX FIFO is full. Deasserted when the TX FIFO is drained below (127 − FIFO_CFG.FIFO_THR). */
+#define CC11XX_RXFIFO_OVERFLOW          0x04    /**< Asserted when the RX FIFO has overflowed. De-asserted when the RXFIFO is flushed (see Section 3.2.4). This signal is also available in the MODEM_STATUS1 register. */
+#define CC11XX_TXFIFO_UNDERFLOW         0x05    /**< Asserted when the TX FIFO has underflowed. De-asserted when the TXFIFO is flushed (see Section 3.2.4). This signal is also available in the MODEM_STATUS0 register. */
+#define CC11XX_PKT_SYNC_RXTX            0x06    /**< RX: Asserted when sync word has been received and de-asserted at the end of the packet. Will de-assert when the optional address and/or length check fails or the RX FIFO overflows/underflows. TX: Asserted when sync word has been sent, and de-asserted at the end of the packet. Will de-assert if the TX FIFO underflows/overflows. */
+#define CC11XX_CRC_OK                   0x07    /**< Asserted simultaneously as PKT_CRC_OK. De-asserted when the first byte is read from the RX FIFO. */
+#define CC11XX_SERIAL_CLK               0x08    /**< Serial clock (RX and TX mode). Synchronous to the data in synchronous serial mode. Data is set up on the falling edge in RX and is captured on the rising edge of the serial clock in TX. */
+#define CC11XX_SERIAL_RX                0x09    /**< Serial data (RX mode). Used for both synchronous and transparent mode. Synchronous serial mode: Data is set up on the falling edge. Transparent mode: No timing recovery (outputs just the hard limited baseband signal). */
+// 0x0A = Reserved (used for test)
+#define CC11XX_PQT_REACHED              0x0B    /**< Preamble Quality Reached. Asserted when the quality of the preamble is above the programmed PQT value (see Section 6.8). This signal is also available in the MODEM_STATUS1 register. */
+#define CC11XX_PQT_VALID                0x0C    /**< Preamble quality valid. Asserted when the PQT logic has received a sufficient number of symbols (see Section 6.8). This signal is also available in the MODEM_STATUS1 register. */
+#define CC11XX_RSSI_VALID               0x0D    /**< RSSI calculation is valid. */
+#define CC11XX_RSSI_UPDATE              0x0E    /**< Pins 3 and 2 = A pulse occurring each time the RSSI value is updated (see Figure 16). */
+#define CC11XX_AGC_HOLD                 0x0E    /**< Pin 1 = AGC waits for gain settling (see Figure 16). */
+#define CC11XX_AGC_UPDATE               0x0E    /**< Pin 0 = A pulse occurring each time the front end gain has been adjusted (see Figure 16). */
+#define CC11XX_CCA_STATUS               0x0F    /**< Pins 3 and 1 = Current CCA status. */
+#define CC11XX_TXONCCA_DONE             0x0F    /**< Pin 2 = A pulse occurring when a decision has been made as to whether the channel is busy or not. This signal must be used as an interrupt to the MCU. When this signal is asserted/de-asserted, TXONCCA_FAILED can be checked. */
+#define CC11XX_TXONCCA_FAILED           0x0F    /**< Pin 0 = TX on CCA failed. This signal is also available in the MARC_STATUS0 register. */
+#define CC11XX_CARRIER_SENSE_VALID      0x10    /**< CARRIER_SENSE is valid (see Figure 16). */
+#define CC11XX_CARRIER_SENSE            0x11    /**< Carrier sense. High if RSSI level is above threshold (see section 6.9.1) (see Figure 16). */
+#define CC11XX_DSSS_CLK                 0x12    /**< Pins 3 and 1 = DSSS clock (see Section 5.2.6 for more details). */
+#define CC11XX_DSSS_DATA0               0x12    /**< Pin 2 = DSSS data0 (see Section 5.2.6 for more details). */
+#define CC11XX_DSSS_DATA1               0x12    /**< Pin 0 = DSSS data1 (see Section 5.2.6 for more details). */
+#define CC11XX_PKT_CRC_OK               0x13    /**< Asserted in RX when PKT_CFG1.CRC_CFG = 1 or 10 b and a good packet is received. This signal is always on if the radio is in TX or if the radio is in RX and PKT_CFG1.CRC_CFG = 0. The signal is de-asserted when RX mode is entered and PKT_CFG1.CRC_CFG ≠ 0. This signal is also available in the LQI_VAL register. */
+#define CC11XX_MCU_WAKEUP               0x14    /**< MCU wake up signal. Read MARC_STATUS1.MARC_STATUS_OUT to find the cause of the wake up event (see Section 3.4.1.2 for more details). This signal is also available in the MARC_STATUS0 register. The signal is a pulse. */
+#define CC11XX_SYNC_LOW0_HIGH1          0x15    /**< DualSync detect. Only valid when SYNC_CFG0.SYNC_MODE = 111b. When SYNC_EVENT is asserted this bit can be checked to see which sync word is found. This signal is also available in the DEM_STATUS register. */
+// 0x16 = Reserved (used for test)
+#define CC11XX_LNA_PA_REG_PD            0x17    /**< Common regulator control for PA and LNA. Indicates RF operation. */
+#define CC11XX_LNA_PD                   0x18    /**< Control external LNA. */
+#define CC11XX_PA_PD                    0x19    /**< Control external PA. */
+#define CC11XX_RX0TX1_CFG               0x1A    /**< Indicates whether RF operation is in RX or TX (this signal is 0 in IDLE state). */
+// 0x1B = Reserved (used for test)
+#define CC11XX_IMAGE_FOUND              0x1C    /**< Image detected by image rejection calibration algorithm. */
+#define CC11XX_CLKEN_CFM                0x1D    /**< Data clock for demodulator soft data (see Section 5.2.4 for more details). */
+#define CC11XX_CFM_TX_DATA_CLK          0x1E    /**< Data clock for modulator soft data (see Section 5.2.4 for more details). */
+// 0x1F - 0x20 = Reserved (used for test)
+#define CC11XX_RSSI_STEP_FOUND          0x21    /**< RSSI step found during packet reception (after the assertion of SYNC_EVENT. The RSSI step is either 3 or 6 dB (configured through AGC_CFG3.RSSI_STEP_THR). This signal is also available in the DEM_STATUS register. */
+#define CC11XX_RSSI_STEP_EVENT          0x22    /**< RSSI step detected. This signal is asserted if there is an RSSI step of 3 or 6 dB during sync search or during packet reception. The RSSI step is configured through AGC_CFG3.RSSI_STEP_THR). The signal is a pulse. */
+#define CC11XX_LOCK                     0x23    /**< Pins 1 and 0 = Out of lock status signal. Indicates out of lock when the signal goes low. This signal is also available in the FSCAL_CTR register. */
+#define CC11XX_ANTENNA_SELECT           0x24    /**< Antenna diversity control. Can be used to control external antenna switch. If differential signal is needed, two GPIOs can be used with one of them having IOCFGx.GPIOx_INV set to 1. */
+#define CC11XX_MARC_2PIN_STATUS_1       0x25    /**< Partial MARC state status. These signals are also available in the MARCSTATE register. */
+#define CC11XX_MARC_2PIN_STATUS_0       0x26    /**< See MARC_2PIN_STATUS_1. */
+#define CC11XX_TXFIFO_OVERFLOW          0x27    /**< Pin 2 = Asserted when the TX FIFO has overflowed. De-asserted when the TXFIFO is flushed (see Section 3.2.4). This signal is also available in the MODEM_STATUS0 register. */
+#define CC11XX_RXFIFO_UNDERFLOW         0x27    /**< Pin 0 = Asserted when the RX FIFO has underflowed. De-asserted when the RXFIFO is flushed (see Section 3.2.4). This signal is also available in the MODEM_STATUS1 register. */
+#define CC11XX_MAGN_VALID               0x28    /**< Pin 3 = New CORDIC magnitude sample. */
+#define CC11XX_CHFILT_VALID             0x28    /**< Pin 2 = New channel filter sample. */
+#define CC11XX_RCC_CALL_VALID           0x28    /**< Pin 1 = RCOSC calibration has been performed at least once. */
+#define CC11XX_CHFILT_STARTUP_VALID     0x28    /**< Pin 0 = Channel filter has settled. */
+#define CC11XX_COLLISION_FOUND          0x29    /**< Pins 3 and 1 = Asserted if a sync word is found during packet reception (i.e. after SYNC_EVENT has been asserted) if MDMCFG1.COLLISION_DETECT_EN = 1. This signal is also available in the DEM_STATUS register. */
+#define CC11XX_SYNC_EVENT               0x29    /**< Pin 2 = Sync word found (pulse). */
+#define CC11XX_COLLISION_EVENT          0x29    /**< Pin 0 = Sync found during receive (pulse). */
+#define CC11XX_PA_RAMP_UP               0x2A    /**< Asserted when ramping is started (for compliance testing). */
+#define CC11XX_CRC_FAILED               0x2B    /**< Pin 3 = Packet CRC error. */
+#define CC11XX_LENGTH_FAILED            0x2B    /**< Pin 2 = Packet length error. */
+#define CC11XX_ADDR_FAILED              0x2B    /**< Pin 1 = Packet address error. */
+#define CC11XX_UART_FRAMING_ERROR       0x2B    /**< Pin 0 = Packet UART framing error. */
+#define CC11XX_AGC_STABLE_GAIN          0x2C    /**< AGC has settled to a gain. The AGC gain is reported stable whenever the current gain setting is equal to the previous gain setting. This condition is evaluated each time a new internal RSSI estimate is computed (see Figure 16). */
+#define CC11XX_AGC_UPDATE               0x2D    /**< A pulse occurring each time the front end gain has been adjusted (see Figure 16). */
+#define CC11XX_ADC_CLOCK                0x2E    /**< Pins 3 and 1 = ADC clock. */
+#define CC11XX_ADC_Q_DATA_SAMPLE        0x2E    /**< Pin 2 = ADC sample (Q data). */
+#define CC11XX_ADC_I_DATA_SAMPLE        0x2E    /**< Pin 0 = ADC sample (I data). */
+// 0x2F = Reserved (used for test)
+#define CC11XX_HIGHZ                    0x30    /**< High impedance (tri-state). */
+#define CC11XX_EXT_CLOCK                0x31    /**< External clock (divided crystal clock). The division factor is controlled through the ECG_CFG.EXT_CLOCK_FREQ register field. */
+#define CC11XX_CHIP_RDYn                0x32    /**< Chip ready (XOSC is stable). */
+#define CC11XX_HW0                      0x33    /**< HW to 0 (HW to 1 achieved with IOCFGx.GPIOx_INV = 1). */
+// 0x34 - 0x35 = Reserved (used for test)
+#define CC11XX_CLOCK_32K                0x36    /**< 32/40 kHz clock output from internal RC oscillator. */
+#define CC11XX_WOR_EVENT0               0x37    /**< WOR EVENT0. */
+#define CC11XX_WOR_EVENT1               0x38    /**< WOR EVENT1. */
+#define CC11XX_WOR_EVENT2               0x39    /**< WOR EVENT2. */
+// 0x3A = Reserved (used for test)
+#define CC11XX_XOSC_STABLE              0x3B    /**< XOSC is stable (has finished settling). */
+#define CC11XX_EXT_OSC_EN               0x3C    /**< External oscillator enable (used to control e.g. a TCXO). Note that this signal is only asserted is a TCXO is present. */
+// 0x3D - 0x3F = Reserved (used for test)
+//! \} End of gpio_signals
+
+/**
  * \fn cc11xx_Init
  * 
  * \brief cc11xx initialization
