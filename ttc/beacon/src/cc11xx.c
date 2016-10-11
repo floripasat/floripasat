@@ -37,7 +37,7 @@
 
 #include "../inc/cc11xx.h"
 #include "../inc/cc11xx_floripasat_reg_config.h"
-#include "../driverlib/driverlib.h"
+#include "../inc/led.h"
 
 #if DEBUG_MODE == true
 #include "../inc/debug.h"
@@ -48,6 +48,13 @@ void cc11xx_Init()
 #if DEBUG_MODE == true
     debug_PrintMsg("cc11xx_Init()");
 #endif // DEBUG_MODE
+
+    // SPI initialization
+    while(cc11xx_SPI_Init() != STATUS_SUCCESS)
+    {
+        // Blinking system LED if something is wrong
+        led_Blink(2000);
+    }
 
     // Reset pin init.
 	GPIO_setAsOutputPin(CC11XX_RESET_PORT, CC11XX_RESET_PIN);
@@ -511,7 +518,7 @@ void cc11xx_ManualCalibration()
     //   (radio back in IDLE state)
     cc11xx_CmdStrobe(CC11XX_SCAL);
 
-    do					// <--------- fica nesse loop
+    do
     {
         cc11xx_ReadReg(CC11XX_MARCSTATE, &marcstate, 1);
     }
@@ -584,6 +591,51 @@ uint8_t cc11xx_WriteTXFIFO(uint8_t *pData, uint8_t len)
 #endif // DEBUG_MODE
 
     return chip_status;
+}
+
+uint8_t cc11xx_SPI_Init()
+{
+#if DEBUG_MODE == true
+    debug_PrintMsg("SPI_Init()");
+#endif // DEBUG_MODE
+
+    // MISO, MOSI and SCLK init.
+    GPIO_setAsPeripheralModuleFunctionInputPin(CC11XX_SPI_PORT,
+                                               CC11XX_MISO_PIN + CC11XX_MOSI_PIN + CC11XX_SCLK_PIN);
+    
+    // CSn init.
+    GPIO_setAsOutputPin(CC11XX_CSN_PORT, CC11XX_CSN_PIN);
+	GPIO_setOutputHighOnPin(CC11XX_CSN_PORT, CC11XX_CSN_PIN);   // CSn must be kept low during SPI transfers
+    
+    // Config. SPI as Master
+    USCI_B_SPI_initMasterParam spi_params = {0};
+    spi_params.selectClockSource     = USCI_B_SPI_CLOCKSOURCE_SMCLK;
+    spi_params.clockSourceFrequency  = UCS_getSMCLK();
+    spi_params.desiredSpiClock       = SPICLK;
+    spi_params.msbFirst              = USCI_B_SPI_MSB_FIRST;
+    spi_params.clockPhase            = USCI_B_SPI_PHASE_DATA_CHANGED_ONFIRST_CAPTURED_ON_NEXT;
+    spi_params.clockPolarity         = USCI_B_SPI_CLOCKPOLARITY_INACTIVITY_HIGH;
+
+    // SPI initialization
+    if (USCI_B_SPI_initMaster(USCI_B0_BASE, &spi_params) == STATUS_FAIL)
+    {
+#if DEBUG_MODE == true
+        debug_PrintMsg("\tFAIL!");
+#endif // DEBUG_MODE
+
+        return STATUS_FAIL;
+    }
+    else
+    {
+        // Enable SPI module
+        USCI_B_SPI_enable(USCI_B0_BASE);
+        
+#if DEBUG_MODE == true
+        debug_PrintMsg("\tSUCCESS!");
+#endif // DEBUG_MODE
+
+        return STATUS_SUCCESS;
+    }
 }
 
 //! \} End of CC1175 implementation group

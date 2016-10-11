@@ -39,6 +39,7 @@
 #ifndef CC11XX_H_
 #define CC11XX_H_
 
+#include "../driverlib/driverlib.h"
 #include <stdint.h>
 
 #ifndef DEBUG_MODE
@@ -66,6 +67,8 @@
 #define CC11XX_SCLK_PORT        GPIO_PORT_P2    /**< SCLK port = P2 */
 #define CC11XX_SCLK_PIN         GPIO_PIN3       /**< SCLK pin = P2.3*/
 //! \} End of pins
+
+#define SPICLK 400000                           /**< SPI clock frequency. */
 
 /**
  * \defgroup adr_space CC1175 SPI Address Space
@@ -622,6 +625,20 @@ void cc11xx_ManualCalibration();
  * \return Chip status
  */
 uint8_t cc11xx_WriteTXFIFO(uint8_t *pData, uint8_t len);
+
+/**
+ * \fn cc11xx_SPI_Init
+ * 
+ * \brief Initialization of the MCU SPI.
+ * 
+ * Used interface: USCI_B0
+ * 
+ * \return Initialization status. It can be:
+ *      - \b STATUS_SUCCESS
+ *      - \b STATUS_FAIL
+ *      .
+ */
+uint8_t cc11xx_SPI_Init();
 
 #endif // CC11XX_H_
 
