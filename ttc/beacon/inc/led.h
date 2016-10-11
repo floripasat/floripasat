@@ -32,6 +32,7 @@
  * \date 11/10/2016
  * 
  * \defgroup led STATUS LED
+ * \ingroup beacon
  * \{
  */
 
