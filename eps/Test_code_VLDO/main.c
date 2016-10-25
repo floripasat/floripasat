@@ -242,13 +242,13 @@ void config_DS2784(void){
 	OWWriteByte(0xCC);
 	OWWriteByte(0x6C);
 	OWWriteByte(0x10);
-	OWWriteByte(0x22);
+	OWWriteByte(0x2E);
 
 	reset= OneWireReset();				// ACCUMULATED CURRENT - LSB REGISTER
 	OWWriteByte(0xCC);
 	OWWriteByte(0x6C);
 	OWWriteByte(0x11);
-	OWWriteByte(0x60);
+	OWWriteByte(0x18);
 
 }
 
