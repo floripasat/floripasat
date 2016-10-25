@@ -93,7 +93,7 @@ volatile float power[40] = {0};
 volatile float mean_power = 0;
 volatile float mean_voltage = 0;
 volatile float mean_current = 0;
-volatile char protection_register[2];
+volatile int protection_register;
 
 volatile unsigned int count = 0;
 
@@ -631,7 +631,7 @@ void Text(void){
 	b=  acr_msb;
 	b=b<<8;
 	a=a|b;
-	c=a*0.00000625/0.050;    //resolution
+	c=a*0.00000625/0.025;    //resolution
 	accumulated_current = c;
 	float_send(c);
 	UART_TX(",");
@@ -640,7 +640,7 @@ void Text(void){
 	//Protection Register
 	a =  RG_Protection;
 	sprintf(protection_register, "%d", a);
-	UART_TX(protection_register);
+	float_send(protection_register);
 	UART_TX(",");
 
 
